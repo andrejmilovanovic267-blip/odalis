@@ -8,6 +8,7 @@ import { Card } from "@/ui/card";
 import { Button } from "@/ui/button";
 import { FeatureList } from "@/components/feature-list";
 import { Footer } from "@/components/footer";
+import { ContactForm } from "@/components/contact-form";
 
 export default function LandingPage() {
   return (
@@ -16,8 +17,8 @@ export default function LandingPage() {
       <Hero
         eyebrow="Centar za podmlađivanje lica i tela"
         title="Prirodno podmlađivanje lica i tela u centru Odalis"
-        ctaText="Zakažite besplatne konsultacije"
-        ctaHref="/site"
+        ctaText="Zakaži besplatne konsultacije"
+        ctaHref="#kontakt"
         supportingText="Savetovanje bez obaveza. Razgovarajmo o vašim željama i očekivanjima."
         imageSrc=""
         imageAlt="Žena koja koristi neinvazivne tretmane za podmlađivanje lica"
@@ -165,8 +166,8 @@ export default function LandingPage() {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="flex justify-center pt-4"
             >
-              <Button href="/site" variant="ghost" className="w-full md:w-auto">
-                Započnite besplatnim konsultacijama
+              <Button href="#kontakt" variant="ghost" className="w-full md:w-auto">
+                Zakaži besplatne konsultacije
               </Button>
             </motion.div>
           </motion.div>
@@ -444,11 +445,47 @@ export default function LandingPage() {
               Zakažite besplatnu konsultaciju i razgovarajmo o vašim željama i očekivanjima. 
               Bez obaveza, samo iskren razgovor.
             </p>
-            <Button href="/site" variant="primary" className="mx-auto">
-              Upoznajte Odalis pristup
+            <Button href="#kontakt" variant="primary" className="mx-auto">
+              Zakaži besplatne konsultacije
             </Button>
           </motion.div>
         </div>
+      </Section>
+
+      {/* Contact Form Section */}
+      <Section id="kontakt" className="relative scroll-mt-24 md:scroll-mt-28">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-950/20 to-transparent pointer-events-none" />
+        <section className="container mx-auto px-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-[520px] mx-auto space-y-8 overflow-hidden"
+          >
+            <div className="space-y-6 text-center">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-text-muted text-sm md:text-base font-medium uppercase tracking-[0.15em]"
+              >
+                KONTAKT
+              </motion.p>
+              
+              <SectionHeading as="h2" className="mb-6">
+                Započnite sa besplatnim konsultacijama
+              </SectionHeading>
+              
+              <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                Ostavite svoje podatke i javićemo Vam se kako bismo zajedno pronašli najbolje rešenje za Vas - bez obaveza i bez pritiska.
+              </p>
+            </div>
+
+            <ContactForm />
+          </motion.div>
+        </section>
       </Section>
 
       <Footer />

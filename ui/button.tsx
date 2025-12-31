@@ -6,7 +6,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { clsx } from "clsx";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/20 disabled:opacity-50 disabled:pointer-events-none",
+  "inline-flex items-center justify-center rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none",
   {
     variants: {
       variant: {
@@ -49,6 +49,32 @@ const Button = forwardRef<
   const classes = clsx(buttonVariants({ variant }), className);
 
   if (href) {
+    const isAnchor = href.startsWith('#');
+    if (isAnchor) {
+      return (
+        <a
+          href={href}
+          className={classes}
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          onClick={(e) => {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+              const headerHeight = window.innerWidth >= 768 ? 96 : 80;
+              const targetPosition = (target as HTMLElement).offsetTop - headerHeight;
+              window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+              });
+            }
+          }}
+          aria-label={props['aria-label'] || `Scroll to ${href.slice(1)}`}
+          {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)}
+        >
+          {props.children}
+        </a>
+      );
+    }
     return (
       <Link
         href={href}
