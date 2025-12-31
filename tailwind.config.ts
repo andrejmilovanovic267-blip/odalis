@@ -36,6 +36,9 @@ const config = {
         "subtle": "0 1px 3px 0 rgba(0, 0, 0, 0.15)",
         "glow": "0 0 30px rgba(255, 255, 255, 0.03)",
       },
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+      },
       container: {
         center: true,
         padding: {

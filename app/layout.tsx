@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
+import { BackToTop } from "@/components/back-to-top";
 
 const headingFont = Poppins({
   subsets: ["latin"],
@@ -32,10 +33,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${headingFont.variable} ${bodyFont.variable}`}>
-      <body className={`${headingFont.variable} ${bodyFont.variable} relative`}>
+      <body className={`${headingFont.variable} ${bodyFont.variable} relative overflow-x-hidden w-full`}>
         <div className="fixed inset-0 bg-[var(--bg-base)] -z-10" />
         <Header />
         {children}
+        <BackToTop />
       </body>
     </html>
   );

@@ -11,14 +11,14 @@ interface FeatureListProps {
 
 export function FeatureList({ items, className }: FeatureListProps) {
   return (
-    <ul className={clsx("space-y-4", className)}>
+    <ul className={clsx("space-y-6", className)}>
       {items.map((item, index) => (
         <li
           key={index}
-          className="flex items-start gap-4 text-text-secondary text-lg md:text-xl leading-relaxed"
+          className="flex items-start gap-4 sm:gap-5 text-text-secondary text-xl md:text-2xl leading-[1.85] font-light break-words"
         >
-          <span className="text-text-primary text-xl flex-shrink-0 mt-1">✓</span>
-          <span>{item.text}</span>
+          <span className="text-text-primary text-2xl flex-shrink-0 mt-1.5 font-medium">✓</span>
+          <span className="min-w-0">{item.text}</span>
         </li>
       ))}
     </ul>

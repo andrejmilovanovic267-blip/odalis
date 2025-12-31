@@ -11,7 +11,11 @@ export function Section({ children, className, id }: SectionProps) {
   return (
     <section
       id={id}
-      className={clsx("py-20 md:py-32 relative z-10", className)}
+      className={clsx(
+        "py-24 md:py-40 relative z-10",
+        "before:absolute before:inset-0 before:bg-gradient-to-b before:from-transparent before:via-navy-950/10 before:to-transparent before:pointer-events-none",
+        className
+      )}
     >
       {children}
     </section>

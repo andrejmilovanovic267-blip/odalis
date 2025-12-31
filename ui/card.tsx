@@ -10,7 +10,10 @@ export function Card({ children, className }: CardProps) {
   return (
     <div
       className={clsx(
-        "rounded-2xl bg-white/3 backdrop-blur-md border border-white/6 p-8 shadow-soft",
+        "rounded-3xl glass-premium p-6 sm:p-8 md:p-10 shadow-refined",
+        "hover:shadow-soft transition-all duration-500",
+        "hover:border-white/[0.08] hover:bg-navy-800/20",
+        "overflow-hidden",
         className
       )}
     >
