@@ -23,43 +23,154 @@ export default function LandingPage() {
         imageAlt="Žena koja koristi neinvazivne tretmane za podmlađivanje lica"
       />
 
-      {/* Problem Section - Natural aging process */}
+      {/* Problem Section */}
       <Section className="relative">
         <div className="absolute inset-0 bg-gradient-to-b from-navy-800/25 via-transparent to-transparent pointer-events-none" />
-        <article className="container mx-auto px-4 sm:px-6">
+        <section className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-4xl mx-auto space-y-8 overflow-hidden"
           >
-            <SectionHeading as="h2" className="text-center mb-8">
-              Prirodan proces starenja i vaše emocije
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-text-muted text-sm md:text-base font-medium uppercase tracking-[0.15em] text-center"
+            >
+              ODALIS · CENTAR ZA PODMLAĐIVANJE
+            </motion.p>
+            
+            <SectionHeading as="h2" className="text-center mb-8 max-w-[700px] mx-auto">
+              Kada osećaj u ogledalu više ne prati kako se osećate iznutra
             </SectionHeading>
             
-            <div className="space-y-8 text-text-secondary text-xl md:text-2xl leading-[1.85] font-light">
+            <div className="space-y-6 text-text-secondary text-xl md:text-2xl leading-[1.85] font-light break-words max-w-[600px] mx-auto">
               <p>
-                Kako godine prolaze, sasvim je prirodno da lice i telo prolaze kroz promene. 
-                Ove promene su deo života, ali to ne znači da morate da se pomirite sa njima 
-                ako želite da osetite razliku.
+                Vremenom, lice i telo se menjaju na suptilan način.
+                Koža gubi svežinu, tonus i sjaj, a tragovi umora postaju vidljiviji nego ranije.
               </p>
               
               <p>
-                Mnoge žene u jednom trenutku žele da svom izgledu posvete više pažnje — 
-                ne da bi se promenile, već da bi se ponovo osetile kao one koje su nekad bile. 
-                Ova želja je potpuno prirodna i opravdana. Nije reč o tome da želite da izgubite 
-                svoj identitet, već da želite da se osetite kao najbolja verzija sebe.
-              </p>
-              
-              <p>
-                Ako razmišljate o tretmanima za podmlađivanje lica ili podmlađivanje tela, 
-                važno je znati da postoje bezbedni, neinvazivni tretmani koji mogu da vam pomognu 
-                da postignete prirodne rezultate bez agresivnih intervencija.
+                To ne znači da ste izgubili lepotu.
+                To samo znači da Vašoj koži i telu sada treba pažnja koja je nežna, stručna i prilagođena baš Vama.
               </p>
             </div>
           </motion.div>
-        </article>
+        </section>
+      </Section>
+
+      {/* Solution Section - Odalis Approach */}
+      <Section className="relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-950/20 to-transparent pointer-events-none" />
+        <section className="container mx-auto px-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-5xl mx-auto space-y-12 overflow-hidden"
+          >
+            <div className="space-y-6">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-text-muted text-sm md:text-base font-medium uppercase tracking-[0.15em] text-center"
+              >
+                NAŠ PRISTUP
+              </motion.p>
+              
+              <SectionHeading as="h2" className="text-center mb-6 max-w-[700px] mx-auto">
+                Podmlađivanje koje poštuje Vašu prirodnu lepotu
+              </SectionHeading>
+              
+              <p className="text-text-secondary text-xl md:text-2xl leading-[1.85] font-light break-words max-w-[650px] mx-auto text-center">
+                U Odalis centru ne verujemo u brza i agresivna rešenja.
+                Naš pristup je nežan, neinvazivan i u potpunosti prilagođen svakoj ženi - jer podmlađivanje treba da izgleda prirodno i da se oseća dobro.
+              </p>
+            </div>
+
+            {/* Benefits Grid */}
+            <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <Card className="h-full overflow-hidden">
+                  <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-5 leading-tight break-words">
+                    Neinvazivni i bezbedni tretmani
+                  </h3>
+                  <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                    Bez igala, bez oporavka i bez rizika — samo pažljivo odabrane metode koje poštuju Vašu kožu i telo.
+                  </p>
+                </Card>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <Card className="h-full overflow-hidden">
+                  <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-5 leading-tight break-words">
+                    Individualan pristup svakoj klijentici
+                  </h3>
+                  <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                    Svaka žena ima drugačije potrebe. Zato svaki tretman započinjemo razgovorom i planom prilagođenim baš Vama.
+                  </p>
+                </Card>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                <Card className="h-full overflow-hidden">
+                  <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-5 leading-tight break-words">
+                    Prirodni i postepeni rezultati
+                  </h3>
+                  <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                    Cilj nam nije da Vas promenimo, već da istaknemo ono najbolje što već imate — diskretno i skladno.
+                  </p>
+                </Card>
+              </motion.div>
+            </div>
+
+            {/* Trust Line */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="text-text-secondary text-xl md:text-2xl leading-[1.85] font-light break-words text-center max-w-3xl mx-auto mt-8"
+            >
+              Kod nas nema žurbe, pritiska niti osuđivanja - samo posvećenost, pažnja i vreme rezervisano za Vas.
+            </motion.p>
+
+            {/* Soft CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="flex justify-center pt-4"
+            >
+              <Button href="/site" variant="ghost" className="w-full md:w-auto">
+                Započnite besplatnim konsultacijama
+              </Button>
+            </motion.div>
+          </motion.div>
+        </section>
       </Section>
 
       {/* Common Desires Section */}
