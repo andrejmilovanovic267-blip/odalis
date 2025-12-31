@@ -25,7 +25,7 @@ export function Hero({
   imageAlt = "Woman",
 }: HeroProps) {
   return (
-    <section className="min-h-screen flex items-center py-24 md:py-40 relative z-10">
+    <section id="hero" className="min-h-screen flex items-center py-24 md:py-40 relative z-10 scroll-mt-20 md:scroll-mt-24">
       {/* Unified dark canvas with layered gradients */}
       <div className="absolute inset-0 bg-gradient-to-br from-navy-950/50 via-transparent to-navy-800/30 pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-to-r from-navy-800/15 via-transparent to-transparent pointer-events-none" />

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { Hero } from "@/components/hero";
 import { Section } from "@/components/section";
 import { SectionHeading } from "@/components/section-heading";
@@ -11,6 +12,7 @@ import { Footer } from "@/components/footer";
 import { ContactForm } from "@/components/contact-form";
 
 export default function LandingPage() {
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   return (
     <main className="relative z-10 overflow-x-hidden w-full pt-20 md:pt-24">
       {/* Hero Section - H1 with primary keyword */}
@@ -65,7 +67,7 @@ export default function LandingPage() {
       </Section>
 
       {/* Solution Section - Odalis Approach */}
-      <Section className="relative">
+      <Section id="pristup" className="relative scroll-mt-24 md:scroll-mt-28">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-950/20 to-transparent pointer-events-none" />
         <section className="container mx-auto px-4 sm:px-6">
           <motion.div
@@ -175,7 +177,7 @@ export default function LandingPage() {
       </Section>
 
       {/* Common Desires Section */}
-      <Section className="relative">
+      <Section id="tretmani" className="relative scroll-mt-24 md:scroll-mt-28">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-950/20 to-transparent pointer-events-none" />
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
@@ -323,7 +325,7 @@ export default function LandingPage() {
       </Section>
 
       {/* FAQ Section - SEO Optimized */}
-      <Section className="relative" aria-labelledby="faq">
+      <Section id="faq" className="relative scroll-mt-24 md:scroll-mt-28" aria-labelledby="faq">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-800/20 to-transparent pointer-events-none" />
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
@@ -339,88 +341,291 @@ export default function LandingPage() {
             
             <div className="space-y-10">
               <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-500 overflow-hidden">
-                <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-6 leading-tight break-words">
-                  Koliko traje jedan tretman za podmlađivanje lica?
-                </h3>
-                <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                  Trajanje tretmana zavisi od vrste tretmana i vaših individualnih potreba. 
-                  Većina neinvazivnih tretmana traje između 40 i 60 minuta. Prilikom besplatne 
-                  konsultacije u Odalis centru, detaljno ćemo razgovarati o trajanju i očekivanim 
-                  rezultatima svakog tretmana, tako da možete da planirate svoj poset.
-                </p>
+                <button
+                  onClick={() => setOpenFAQ(openFAQ === 0 ? null : 0)}
+                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none border-none ring-0 rounded-lg p-2 -m-2"
+                >
+                  <h3 
+                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-300 group-hover:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)] group-focus:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)]"
+                    style={{ 
+                      background: 'linear-gradient(to bottom, #D6B45F, #C9A24D)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      color: openFAQ === 0 ? '#C9A24D' : undefined,
+                      textShadow: openFAQ === 0 ? '0 0 8px rgba(201, 162, 77, 0.18)' : undefined
+                    }}
+                  >
+                    Koliko traje jedan tretman za podmlađivanje lica?
+                  </h3>
+                  <span 
+                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-300"
+                    style={{ color: '#C9A24D' }}
+                  >
+                    {openFAQ === 0 ? '−' : '+'}
+                  </span>
+                </button>
+                {openFAQ === 0 && (
+                  <motion.p
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
+                  >
+                    Trajanje tretmana zavisi od vrste tretmana i vaših individualnih potreba. 
+                    Većina neinvazivnih tretmana traje između 40 i 60 minuta. Prilikom besplatne 
+                    konsultacije u Odalis centru, detaljno ćemo razgovarati o trajanju i očekivanim 
+                    rezultatima svakog tretmana, tako da možete da planirate svoj poset.
+                  </motion.p>
+                )}
               </article>
               
               <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-500 overflow-hidden">
-                <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-6 leading-tight break-words">
-                  Da li tretmani za podmlađivanje kože zahtevaju oporavak?
-                </h3>
-                <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                  Ne. Naši neinvazivni tretmani za podmlađivanje lica i tela ne zahtevaju period 
-                  oporavka. Možete se odmah vratiti svom normalnom životu. Ako postoji bilo kakav 
-                  blagi crvenilo ili osetljivost, to je privremeno i nestaje u roku od nekoliko sati. 
-                  Fokus je na prirodnom podmlađivanju uz maksimalnu sigurnost i komfor.
-                </p>
+                <button
+                  onClick={() => setOpenFAQ(openFAQ === 1 ? null : 1)}
+                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none border-none ring-0 rounded-lg p-2 -m-2"
+                >
+                  <h3 
+                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-300 group-hover:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)] group-focus:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)]"
+                    style={{ 
+                      background: 'linear-gradient(to bottom, #D6B45F, #C9A24D)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      color: openFAQ === 1 ? '#C9A24D' : undefined,
+                      textShadow: openFAQ === 1 ? '0 0 8px rgba(201, 162, 77, 0.18)' : undefined
+                    }}
+                  >
+                    Da li tretmani za podmlađivanje kože zahtevaju oporavak?
+                  </h3>
+                  <span 
+                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-300"
+                    style={{ color: '#C9A24D' }}
+                  >
+                    {openFAQ === 1 ? '−' : '+'}
+                  </span>
+                </button>
+                {openFAQ === 1 && (
+                  <motion.p
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
+                  >
+                    Ne. Naši neinvazivni tretmani za podmlađivanje lica i tela ne zahtevaju period 
+                    oporavka. Možete se odmah vratiti svom normalnom životu. Ako postoji bilo kakav 
+                    blagi crvenilo ili osetljivost, to je privremeno i nestaje u roku od nekoliko sati. 
+                    Fokus je na prirodnom podmlađivanju uz maksimalnu sigurnost i komfor.
+                  </motion.p>
+                )}
               </article>
               
               <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-500 overflow-hidden">
-                <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-6 leading-tight break-words">
-                  Da li su tretmani u Odalis centru neinvazivni i bezbedni?
-                </h3>
-                <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                  Da. Odalis centar koristi isključivo neinvazivne i bezbedne tretmane. Ne koristimo 
-                  agresivne metode, hirurške intervencije ili bilo šta što bi moglo da ošteti vašu 
-                  prirodnu strukturu kože. Fokus je na prirodnom podmlađivanju uz maksimalnu sigurnost. 
-                  Svaki tretman je pažljivo osmišljen da poštuje vašu prirodnu lepotu.
-                </p>
+                <button
+                  onClick={() => setOpenFAQ(openFAQ === 2 ? null : 2)}
+                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none border-none ring-0 rounded-lg p-2 -m-2"
+                >
+                  <h3 
+                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-300 group-hover:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)] group-focus:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)]"
+                    style={{ 
+                      background: 'linear-gradient(to bottom, #D6B45F, #C9A24D)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      color: openFAQ === 2 ? '#C9A24D' : undefined,
+                      textShadow: openFAQ === 2 ? '0 0 8px rgba(201, 162, 77, 0.18)' : undefined
+                    }}
+                  >
+                    Da li su tretmani u Odalis centru neinvazivni i bezbedni?
+                  </h3>
+                  <span 
+                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-300"
+                    style={{ color: '#C9A24D' }}
+                  >
+                    {openFAQ === 2 ? '−' : '+'}
+                  </span>
+                </button>
+                {openFAQ === 2 && (
+                  <motion.p
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
+                  >
+                    Da. Odalis centar koristi isključivo neinvazivne i bezbedne tretmane. Ne koristimo 
+                    agresivne metode, hirurške intervencije ili bilo šta što bi moglo da ošteti vašu 
+                    prirodnu strukturu kože. Fokus je na prirodnom podmlađivanju uz maksimalnu sigurnost. 
+                    Svaki tretman je pažljivo osmišljen da poštuje vašu prirodnu lepotu.
+                  </motion.p>
+                )}
               </article>
               
               <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-500 overflow-hidden">
-                <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-6 leading-tight break-words">
-                  Koliko tretmana je potrebno za vidljive rezultate podmlađivanja?
-                </h3>
-                <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                  Broj tretmana zavisi od stanja kože, vaših želja i ciljeva. Tokom besplatne 
-                  konsultacije, zajedno ćemo razgovarati o vašim očekivanjima i kreirati individualni 
-                  plan koji odgovara vašim potrebama. Neki klijenti vide rezultate već posle prvog 
-                  tretmana, dok drugi preferiraju seriju tretmana za optimalne rezultate.
-                </p>
+                <button
+                  onClick={() => setOpenFAQ(openFAQ === 3 ? null : 3)}
+                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none border-none ring-0 rounded-lg p-2 -m-2"
+                >
+                  <h3 
+                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-300 group-hover:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)] group-focus:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)]"
+                    style={{ 
+                      background: 'linear-gradient(to bottom, #D6B45F, #C9A24D)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      color: openFAQ === 3 ? '#C9A24D' : undefined,
+                      textShadow: openFAQ === 3 ? '0 0 8px rgba(201, 162, 77, 0.18)' : undefined
+                    }}
+                  >
+                    Koliko tretmana je potrebno za vidljive rezultate podmlađivanja?
+                  </h3>
+                  <span 
+                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-300"
+                    style={{ color: '#C9A24D' }}
+                  >
+                    {openFAQ === 3 ? '−' : '+'}
+                  </span>
+                </button>
+                {openFAQ === 3 && (
+                  <motion.p
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
+                  >
+                    Broj tretmana zavisi od stanja kože, vaših želja i ciljeva. Tokom besplatne 
+                    konsultacije, zajedno ćemo razgovarati o vašim očekivanjima i kreirati individualni 
+                    plan koji odgovara vašim potrebama. Neki klijenti vide rezultate već posle prvog 
+                    tretmana, dok drugi preferiraju seriju tretmana za optimalne rezultate.
+                  </motion.p>
+                )}
               </article>
               
               <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-500 overflow-hidden">
-                <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-6 leading-tight break-words">
-                  Da li će tretmani promeniti moj prirodni izgled?
-                </h3>
-                <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                  Ne. Cilj naših tretmana za podmlađivanje nije da promenimo vaš izgled, već da 
-                  istaknemo vašu prirodnu lepotu. Koristimo metode koje podstiču prirodno podmlađivanje 
-                  kože, poboljšavaju tonus i elastičnost, ali ne menjaju vaše prirodne karakteristike. 
-                  Rezultati su prirodni i diskretni.
-                </p>
+                <button
+                  onClick={() => setOpenFAQ(openFAQ === 4 ? null : 4)}
+                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none border-none ring-0 rounded-lg p-2 -m-2"
+                >
+                  <h3 
+                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-300 group-hover:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)] group-focus:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)]"
+                    style={{ 
+                      background: 'linear-gradient(to bottom, #D6B45F, #C9A24D)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      color: openFAQ === 4 ? '#C9A24D' : undefined,
+                      textShadow: openFAQ === 4 ? '0 0 8px rgba(201, 162, 77, 0.18)' : undefined
+                    }}
+                  >
+                    Da li će tretmani promeniti moj prirodni izgled?
+                  </h3>
+                  <span 
+                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-300"
+                    style={{ color: '#C9A24D' }}
+                  >
+                    {openFAQ === 4 ? '−' : '+'}
+                  </span>
+                </button>
+                {openFAQ === 4 && (
+                  <motion.p
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
+                  >
+                    Ne. Cilj naših tretmana za podmlađivanje nije da promenimo vaš izgled, već da 
+                    istaknemo vašu prirodnu lepotu. Koristimo metode koje podstiču prirodno podmlađivanje 
+                    kože, poboljšavaju tonus i elastičnost, ali ne menjaju vaše prirodne karakteristike. 
+                    Rezultati su prirodni i diskretni.
+                  </motion.p>
+                )}
               </article>
               
               <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-500 overflow-hidden">
-                <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-6 leading-tight break-words">
-                  Kolika je cena tretmana za podmlađivanje?
-                </h3>
-                <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                  Cena tretmana zavisi od individualnog plana koji kreiramo za vas. Pošto svaki 
-                  pristup podmlađivanju je personalizovan, cene se razlikuju. Najbolji način da 
-                  saznate tačnu cenu je da zakažete besplatnu konsultaciju. Tokom konsultacije, 
-                  detaljno ćemo razgovarati o vašim ciljevima i definisati plan koji odgovara vašim 
-                  potrebama i budžetu.
-                </p>
+                <button
+                  onClick={() => setOpenFAQ(openFAQ === 5 ? null : 5)}
+                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none border-none ring-0 rounded-lg p-2 -m-2"
+                >
+                  <h3 
+                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-300 group-hover:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)] group-focus:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)]"
+                    style={{ 
+                      background: 'linear-gradient(to bottom, #D6B45F, #C9A24D)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      color: openFAQ === 5 ? '#C9A24D' : undefined,
+                      textShadow: openFAQ === 5 ? '0 0 8px rgba(201, 162, 77, 0.18)' : undefined
+                    }}
+                  >
+                    Kolika je cena tretmana za podmlađivanje?
+                  </h3>
+                  <span 
+                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-300"
+                    style={{ color: '#C9A24D' }}
+                  >
+                    {openFAQ === 5 ? '−' : '+'}
+                  </span>
+                </button>
+                {openFAQ === 5 && (
+                  <motion.p
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
+                  >
+                    Cena tretmana zavisi od individualnog plana koji kreiramo za vas. Pošto svaki 
+                    pristup podmlađivanju je personalizovan, cene se razlikuju. Najbolji način da 
+                    saznate tačnu cenu je da zakažete besplatnu konsultaciju. Tokom konsultacije, 
+                    detaljno ćemo razgovarati o vašim ciljevima i definisati plan koji odgovara vašim 
+                    potrebama i budžetu.
+                  </motion.p>
+                )}
               </article>
               
               <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-500 overflow-hidden">
-                <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-6 leading-tight break-words">
-                  Mogu li kombinovati različite tretmane za podmlađivanje?
-                </h3>
-                <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                  Da. Mnogi naši klijenti kombinuju različite tretmane za optimalne rezultate. 
-                  Tokom besplatne konsultacije, lično ćemo razgovarati sa vama o vašim željama i 
-                  kreirati kombinovani plan koji odgovara vašim ciljevima. Možemo da planiramo 
-                  tretmane za podmlađivanje lica i tela u skladu sa vašim potrebama i rasporedom.
-                </p>
+                <button
+                  onClick={() => setOpenFAQ(openFAQ === 6 ? null : 6)}
+                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none border-none ring-0 rounded-lg p-2 -m-2"
+                >
+                  <h3 
+                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-300 group-hover:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)] group-focus:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)]"
+                    style={{ 
+                      background: 'linear-gradient(to bottom, #D6B45F, #C9A24D)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      color: openFAQ === 6 ? '#C9A24D' : undefined,
+                      textShadow: openFAQ === 6 ? '0 0 8px rgba(201, 162, 77, 0.18)' : undefined
+                    }}
+                  >
+                    Mogu li kombinovati različite tretmane za podmlađivanje?
+                  </h3>
+                  <span 
+                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-300"
+                    style={{ color: '#C9A24D' }}
+                  >
+                    {openFAQ === 6 ? '−' : '+'}
+                  </span>
+                </button>
+                {openFAQ === 6 && (
+                  <motion.p
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
+                  >
+                    Da. Mnogi naši klijenti kombinuju različite tretmane za optimalne rezultate. 
+                    Tokom besplatne konsultacije, lično ćemo razgovarati sa vama o vašim željama i 
+                    kreirati kombinovani plan koji odgovara vašim ciljevima. Možemo da planiramo 
+                    tretmane za podmlađivanje lica i tela u skladu sa vašim potrebama i rasporedom.
+                  </motion.p>
+                )}
               </article>
             </div>
           </motion.div>
