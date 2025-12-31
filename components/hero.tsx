@@ -30,8 +30,8 @@ export function Hero({
       <div className="absolute inset-0 bg-gradient-to-br from-navy-950/50 via-transparent to-navy-800/30 pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-to-r from-navy-800/15 via-transparent to-transparent pointer-events-none" />
       
-      {/* Soft radial gradient behind text for depth */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] rounded-full blur-3xl pointer-events-none opacity-50 overflow-hidden" style={{ backgroundImage: 'radial-gradient(circle, rgba(26, 47, 71, 0.2) 0%, transparent 70%)' }} />
+      {/* Soft radial gradient behind text for depth (reduced) */}
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] rounded-full blur-3xl pointer-events-none opacity-40 overflow-hidden" style={{ backgroundImage: 'radial-gradient(circle, rgba(26, 47, 71, 0.16) 0%, transparent 70%)' }} />
       
       <div className="container mx-auto px-4 sm:px-6 relative z-10 max-w-full overflow-hidden">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 lg:gap-20 items-center">
@@ -41,6 +41,7 @@ export function Hero({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="space-y-6 md:space-y-8 min-w-0"
+            style={{ willChange: 'opacity, transform' }}
           >
             {eyebrow && (
               <motion.p
@@ -64,8 +65,8 @@ export function Hero({
               className="space-y-6 pt-2 min-w-0"
             >
               <div className="relative inline-block w-full md:w-auto">
-                {/* Subtle glow behind CTA */}
-                <div className="absolute inset-0 bg-white/5 blur-xl rounded-xl -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Subtle glow behind CTA (reduced) */}
+                <div className="absolute inset-0 bg-white/4 blur-xl rounded-xl -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-250 ease-out" />
                 <Button href={ctaHref} variant="primary" className="w-full md:w-auto group">
                   {ctaText}
                 </Button>
@@ -86,17 +87,18 @@ export function Hero({
             transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="relative h-[400px] sm:h-[450px] md:h-[550px] lg:h-[650px] rounded-3xl overflow-hidden glass-premium w-full"
           >
-            {/* Gradient overlay for image desaturation effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-navy-900/40 via-transparent to-navy-950/30 z-10 pointer-events-none" />
+            {/* Gradient overlay for image desaturation effect (reduced) */}
+            <div className="absolute inset-0 bg-gradient-to-br from-navy-900/32 via-transparent to-navy-950/24 z-10 pointer-events-none" />
             
-            {/* Vignette edges */}
-            <div className="absolute inset-0 z-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at center, transparent 0%, rgba(5, 15, 26, 0.4) 100%)' }} />
+            {/* Vignette edges (reduced) */}
+            <div className="absolute inset-0 z-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at center, transparent 0%, rgba(5, 15, 26, 0.32) 100%)' }} />
             
             {imageSrc ? (
               <Image
                 src={imageSrc}
                 alt={imageAlt}
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover brightness-[0.85] saturate-[0.75] contrast-[1.05]"
                 priority
               />

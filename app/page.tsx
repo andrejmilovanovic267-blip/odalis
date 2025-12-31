@@ -104,7 +104,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
               >
                 <Card className="h-full overflow-hidden">
                   <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-5 leading-tight break-words">
@@ -120,7 +120,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+                transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
               >
                 <Card className="h-full overflow-hidden">
                   <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-5 leading-tight break-words">
@@ -136,7 +136,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
               >
                 <Card className="h-full overflow-hidden">
                   <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-5 leading-tight break-words">
@@ -154,7 +154,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.5 }}
+              transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
               className="text-text-secondary text-xl md:text-2xl leading-[1.85] font-light break-words text-center max-w-3xl mx-auto mt-8"
             >
               Kod nas nema žurbe, pritiska niti osuđivanja - samo posvećenost, pažnja i vreme rezervisano za Vas.
@@ -165,7 +165,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.6 }}
+              transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
               className="flex justify-center pt-4"
             >
               <Button href="#kontakt" variant="ghost" className="w-full md:w-auto">
@@ -340,26 +340,29 @@ export default function LandingPage() {
             </SectionHeading>
             
             <div className="space-y-10">
-              <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-500 overflow-hidden">
+              <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-250 ease-out overflow-hidden">
                 <button
                   onClick={() => setOpenFAQ(openFAQ === 0 ? null : 0)}
-                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none border-none ring-0 rounded-lg p-2 -m-2"
+                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none focus:ring-0 border-none ring-0 rounded-lg p-2 -m-2"
+                  aria-expanded={openFAQ === 0}
+                  aria-controls="faq-answer-0"
+                  aria-label="Koliko traje jedan tretman za podmlađivanje lica?"
                 >
                   <h3 
-                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-300 group-hover:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)] group-focus:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)]"
+                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                     style={{ 
                       background: 'linear-gradient(to bottom, #D6B45F, #C9A24D)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
                       color: openFAQ === 0 ? '#C9A24D' : undefined,
-                      textShadow: openFAQ === 0 ? '0 0 8px rgba(201, 162, 77, 0.18)' : undefined
+                      textShadow: openFAQ === 0 ? '0 0 6px rgba(201, 162, 77, 0.14)' : undefined
                     }}
                   >
                     Koliko traje jedan tretman za podmlađivanje lica?
                   </h3>
                   <span 
-                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-300"
+                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-250 ease-out"
                     style={{ color: '#C9A24D' }}
                   >
                     {openFAQ === 0 ? '−' : '+'}
@@ -367,10 +370,11 @@ export default function LandingPage() {
                 </button>
                 {openFAQ === 0 && (
                   <motion.p
+                    id="faq-answer-0"
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
                     className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
                   >
                     Trajanje tretmana zavisi od vrste tretmana i vaših individualnih potreba. 
@@ -381,26 +385,30 @@ export default function LandingPage() {
                 )}
               </article>
               
-              <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-500 overflow-hidden">
+              <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-250 ease-out overflow-hidden">
                 <button
                   onClick={() => setOpenFAQ(openFAQ === 1 ? null : 1)}
-                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none border-none ring-0 rounded-lg p-2 -m-2"
+                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none focus:ring-0 border-none ring-0 rounded-lg p-2 -m-2"
+                  aria-expanded={openFAQ === 1}
+                  aria-controls="faq-answer-1"
+                  aria-label="Da li tretmani za podmlađivanje kože zahtevaju oporavak?"
+                  type="button"
                 >
                   <h3 
-                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-300 group-hover:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)] group-focus:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)]"
+                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                     style={{ 
                       background: 'linear-gradient(to bottom, #D6B45F, #C9A24D)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
                       color: openFAQ === 1 ? '#C9A24D' : undefined,
-                      textShadow: openFAQ === 1 ? '0 0 8px rgba(201, 162, 77, 0.18)' : undefined
+                      textShadow: openFAQ === 1 ? '0 0 6px rgba(201, 162, 77, 0.14)' : undefined
                     }}
                   >
                     Da li tretmani za podmlađivanje kože zahtevaju oporavak?
                   </h3>
                   <span 
-                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-300"
+                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-250 ease-out"
                     style={{ color: '#C9A24D' }}
                   >
                     {openFAQ === 1 ? '−' : '+'}
@@ -408,10 +416,11 @@ export default function LandingPage() {
                 </button>
                 {openFAQ === 1 && (
                   <motion.p
+                    id="faq-answer-1"
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
                     className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
                   >
                     Ne. Naši neinvazivni tretmani za podmlađivanje lica i tela ne zahtevaju period 
@@ -422,26 +431,30 @@ export default function LandingPage() {
                 )}
               </article>
               
-              <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-500 overflow-hidden">
+              <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-250 ease-out overflow-hidden">
                 <button
                   onClick={() => setOpenFAQ(openFAQ === 2 ? null : 2)}
-                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none border-none ring-0 rounded-lg p-2 -m-2"
+                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none focus:ring-0 border-none ring-0 rounded-lg p-2 -m-2"
+                  aria-expanded={openFAQ === 2}
+                  aria-controls="faq-answer-2"
+                  aria-label="Da li su tretmani u Odalis centru neinvazivni i bezbedni?"
+                  type="button"
                 >
                   <h3 
-                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-300 group-hover:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)] group-focus:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)]"
+                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                     style={{ 
                       background: 'linear-gradient(to bottom, #D6B45F, #C9A24D)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
                       color: openFAQ === 2 ? '#C9A24D' : undefined,
-                      textShadow: openFAQ === 2 ? '0 0 8px rgba(201, 162, 77, 0.18)' : undefined
+                      textShadow: openFAQ === 2 ? '0 0 6px rgba(201, 162, 77, 0.14)' : undefined
                     }}
                   >
                     Da li su tretmani u Odalis centru neinvazivni i bezbedni?
                   </h3>
                   <span 
-                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-300"
+                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-250 ease-out"
                     style={{ color: '#C9A24D' }}
                   >
                     {openFAQ === 2 ? '−' : '+'}
@@ -449,10 +462,11 @@ export default function LandingPage() {
                 </button>
                 {openFAQ === 2 && (
                   <motion.p
+                    id="faq-answer-2"
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
                     className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
                   >
                     Da. Odalis centar koristi isključivo neinvazivne i bezbedne tretmane. Ne koristimo 
@@ -463,26 +477,30 @@ export default function LandingPage() {
                 )}
               </article>
               
-              <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-500 overflow-hidden">
+              <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-250 ease-out overflow-hidden">
                 <button
                   onClick={() => setOpenFAQ(openFAQ === 3 ? null : 3)}
-                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none border-none ring-0 rounded-lg p-2 -m-2"
+                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none focus:ring-0 border-none ring-0 rounded-lg p-2 -m-2"
+                  aria-expanded={openFAQ === 3}
+                  aria-controls="faq-answer-3"
+                  aria-label="Koliko tretmana je potrebno za vidljive rezultate podmlađivanja?"
+                  type="button"
                 >
                   <h3 
-                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-300 group-hover:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)] group-focus:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)]"
+                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                     style={{ 
                       background: 'linear-gradient(to bottom, #D6B45F, #C9A24D)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
                       color: openFAQ === 3 ? '#C9A24D' : undefined,
-                      textShadow: openFAQ === 3 ? '0 0 8px rgba(201, 162, 77, 0.18)' : undefined
+                      textShadow: openFAQ === 3 ? '0 0 6px rgba(201, 162, 77, 0.14)' : undefined
                     }}
                   >
                     Koliko tretmana je potrebno za vidljive rezultate podmlađivanja?
                   </h3>
                   <span 
-                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-300"
+                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-250 ease-out"
                     style={{ color: '#C9A24D' }}
                   >
                     {openFAQ === 3 ? '−' : '+'}
@@ -490,10 +508,11 @@ export default function LandingPage() {
                 </button>
                 {openFAQ === 3 && (
                   <motion.p
+                    id="faq-answer-3"
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
                     className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
                   >
                     Broj tretmana zavisi od stanja kože, vaših želja i ciljeva. Tokom besplatne 
@@ -504,26 +523,30 @@ export default function LandingPage() {
                 )}
               </article>
               
-              <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-500 overflow-hidden">
+              <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-250 ease-out overflow-hidden">
                 <button
                   onClick={() => setOpenFAQ(openFAQ === 4 ? null : 4)}
-                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none border-none ring-0 rounded-lg p-2 -m-2"
+                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none focus:ring-0 border-none ring-0 rounded-lg p-2 -m-2"
+                  aria-expanded={openFAQ === 4}
+                  aria-controls="faq-answer-4"
+                  aria-label="Da li će tretmani promeniti moj prirodni izgled?"
+                  type="button"
                 >
                   <h3 
-                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-300 group-hover:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)] group-focus:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)]"
+                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                     style={{ 
                       background: 'linear-gradient(to bottom, #D6B45F, #C9A24D)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
                       color: openFAQ === 4 ? '#C9A24D' : undefined,
-                      textShadow: openFAQ === 4 ? '0 0 8px rgba(201, 162, 77, 0.18)' : undefined
+                      textShadow: openFAQ === 4 ? '0 0 6px rgba(201, 162, 77, 0.14)' : undefined
                     }}
                   >
                     Da li će tretmani promeniti moj prirodni izgled?
                   </h3>
                   <span 
-                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-300"
+                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-250 ease-out"
                     style={{ color: '#C9A24D' }}
                   >
                     {openFAQ === 4 ? '−' : '+'}
@@ -531,10 +554,11 @@ export default function LandingPage() {
                 </button>
                 {openFAQ === 4 && (
                   <motion.p
+                    id="faq-answer-4"
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
                     className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
                   >
                     Ne. Cilj naših tretmana za podmlađivanje nije da promenimo vaš izgled, već da 
@@ -545,26 +569,30 @@ export default function LandingPage() {
                 )}
               </article>
               
-              <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-500 overflow-hidden">
+              <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-250 ease-out overflow-hidden">
                 <button
                   onClick={() => setOpenFAQ(openFAQ === 5 ? null : 5)}
-                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none border-none ring-0 rounded-lg p-2 -m-2"
+                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none focus:ring-0 border-none ring-0 rounded-lg p-2 -m-2"
+                  aria-expanded={openFAQ === 5}
+                  aria-controls="faq-answer-5"
+                  aria-label="Kolika je cena tretmana za podmlađivanje?"
+                  type="button"
                 >
                   <h3 
-                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-300 group-hover:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)] group-focus:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)]"
+                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                     style={{ 
                       background: 'linear-gradient(to bottom, #D6B45F, #C9A24D)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
                       color: openFAQ === 5 ? '#C9A24D' : undefined,
-                      textShadow: openFAQ === 5 ? '0 0 8px rgba(201, 162, 77, 0.18)' : undefined
+                      textShadow: openFAQ === 5 ? '0 0 6px rgba(201, 162, 77, 0.14)' : undefined
                     }}
                   >
                     Kolika je cena tretmana za podmlađivanje?
                   </h3>
                   <span 
-                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-300"
+                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-250 ease-out"
                     style={{ color: '#C9A24D' }}
                   >
                     {openFAQ === 5 ? '−' : '+'}
@@ -572,10 +600,11 @@ export default function LandingPage() {
                 </button>
                 {openFAQ === 5 && (
                   <motion.p
+                    id="faq-answer-5"
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
                     className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
                   >
                     Cena tretmana zavisi od individualnog plana koji kreiramo za vas. Pošto svaki 
@@ -587,26 +616,30 @@ export default function LandingPage() {
                 )}
               </article>
               
-              <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-500 overflow-hidden">
+              <article className="glass-premium rounded-3xl p-6 sm:p-8 md:p-10 hover:bg-navy-800/15 transition-all duration-250 ease-out overflow-hidden">
                 <button
                   onClick={() => setOpenFAQ(openFAQ === 6 ? null : 6)}
-                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none border-none ring-0 rounded-lg p-2 -m-2"
+                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none focus:ring-0 border-none ring-0 rounded-lg p-2 -m-2"
+                  aria-expanded={openFAQ === 6}
+                  aria-controls="faq-answer-6"
+                  aria-label="Mogu li kombinovati različite tretmane za podmlađivanje?"
+                  type="button"
                 >
                   <h3 
-                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-300 group-hover:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)] group-focus:drop-shadow-[0_0_6px_rgba(201,162,77,0.12)]"
+                    className="text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                     style={{ 
                       background: 'linear-gradient(to bottom, #D6B45F, #C9A24D)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
                       color: openFAQ === 6 ? '#C9A24D' : undefined,
-                      textShadow: openFAQ === 6 ? '0 0 8px rgba(201, 162, 77, 0.18)' : undefined
+                      textShadow: openFAQ === 6 ? '0 0 6px rgba(201, 162, 77, 0.14)' : undefined
                     }}
                   >
                     Mogu li kombinovati različite tretmane za podmlađivanje?
                   </h3>
                   <span 
-                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-300"
+                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-250 ease-out"
                     style={{ color: '#C9A24D' }}
                   >
                     {openFAQ === 6 ? '−' : '+'}
@@ -614,10 +647,11 @@ export default function LandingPage() {
                 </button>
                 {openFAQ === 6 && (
                   <motion.p
+                    id="faq-answer-6"
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
                     className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
                   >
                     Da. Mnogi naši klijenti kombinuju različite tretmane za optimalne rezultate. 

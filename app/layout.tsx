@@ -3,6 +3,7 @@ import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { BackToTop } from "@/components/back-to-top";
+import { StructuredData } from "@/components/structured-data";
 
 const headingFont = Poppins({
   subsets: ["latin"],
@@ -21,9 +22,14 @@ const bodyFont = Inter({
 export const metadata: Metadata = {
   title: {
     template: "%s | Odalis",
-    default: "Odalis",
+    default: "Odalis - Centar za podmlađivanje lica i tela",
   },
-  description: "Modern, future-tech website foundation",
+  description: "Odalis je centar za podmlađivanje lica i tela koji se fokusira na neinvazivne, savremene tretmane i individualan pristup svakoj klijentici. Zakažite besplatne konsultacije.",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+  },
 };
 
 export default function RootLayout({
@@ -32,8 +38,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${headingFont.variable} ${bodyFont.variable}`}>
+    <html lang="sr" className={`${headingFont.variable} ${bodyFont.variable}`}>
       <body className={`${headingFont.variable} ${bodyFont.variable} relative overflow-x-hidden w-full`}>
+        <StructuredData />
         <div className="fixed inset-0 bg-[var(--bg-base)] -z-10" />
         <Header />
         {children}

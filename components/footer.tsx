@@ -42,11 +42,13 @@ export function Footer() {
                 <div className="relative h-12 md:h-16 w-auto mb-6">
                   <Image
                     src="/odalis.png"
-                    alt="Odalis"
+                    alt="Odalis - Centar za podmlađivanje"
                     width={200}
                     height={80}
+                    sizes="(max-width: 768px) 120px, 200px"
                     className="object-contain h-full w-auto"
-                    quality={100}
+                    quality={90}
+                    loading="lazy"
                   />
                 </div>
               </a>
@@ -68,7 +70,7 @@ export function Footer() {
                     e.preventDefault();
                     scrollToSection(link.href);
                   }}
-                  className="text-text-secondary text-base font-light hover:text-text-primary transition-colors duration-300 focus:outline-none w-fit"
+                  className="text-text-secondary text-base font-light hover:text-text-primary transition-colors duration-250 ease-out focus:outline-none focus:ring-0 w-fit"
                 >
                   {link.label}
                 </a>
@@ -85,7 +87,7 @@ export function Footer() {
                     href="https://www.instagram.com/odalis_nbg"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-text-secondary text-base font-light hover:text-text-primary transition-colors duration-300 focus:outline-none w-fit"
+                    className="text-text-secondary text-base font-light hover:text-text-primary transition-colors duration-250 ease-out focus:outline-none focus:ring-0 w-fit"
                   >
                     Instagram
                   </a>
@@ -93,7 +95,7 @@ export function Footer() {
                     href="https://www.facebook.com/odalis_nbg"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-text-secondary text-base font-light hover:text-text-primary transition-colors duration-300 focus:outline-none w-fit"
+                    className="text-text-secondary text-base font-light hover:text-text-primary transition-colors duration-250 ease-out focus:outline-none focus:ring-0 w-fit"
                   >
                     Facebook
                   </a>

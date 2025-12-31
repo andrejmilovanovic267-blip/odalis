@@ -74,7 +74,7 @@ export function ContactForm() {
           name="name"
           required
           disabled={isSubmitting}
-          className="w-full px-4 py-3 rounded-xl glass-premium border border-white/6 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/10 transition-all duration-300 bg-navy-900/30 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full px-4 py-3 rounded-xl glass-premium border border-white/6 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/10 transition-all duration-250 ease-out bg-navy-900/30 disabled:opacity-50 disabled:cursor-not-allowed"
           placeholder="Vaše ime i prezime"
         />
       </motion.div>
@@ -94,7 +94,7 @@ export function ContactForm() {
           name="phone"
           required
           disabled={isSubmitting}
-          className="w-full px-4 py-3 rounded-xl glass-premium border border-white/6 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/10 transition-all duration-300 bg-navy-900/30 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full px-4 py-3 rounded-xl glass-premium border border-white/6 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/10 transition-all duration-250 ease-out bg-navy-900/30 disabled:opacity-50 disabled:cursor-not-allowed"
           placeholder="Vaš broj telefona"
         />
       </motion.div>
@@ -113,7 +113,7 @@ export function ContactForm() {
           id="email"
           name="email"
           disabled={isSubmitting}
-          className="w-full px-4 py-3 rounded-xl glass-premium border border-white/6 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/10 transition-all duration-300 bg-navy-900/30 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full px-4 py-3 rounded-xl glass-premium border border-white/6 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/10 transition-all duration-250 ease-out bg-navy-900/30 disabled:opacity-50 disabled:cursor-not-allowed"
           placeholder="Vaša email adresa (opciono)"
         />
       </motion.div>
@@ -141,6 +141,9 @@ export function ContactForm() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          role="alert"
+          aria-live="polite"
           className={`p-4 rounded-xl ${
             submitStatus.type === "success"
               ? "bg-navy-800/30 border border-accent-sage/30 text-text-primary"

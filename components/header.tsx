@@ -58,7 +58,7 @@ export function Header() {
                 e.preventDefault();
                 scrollToSection(link.href);
               }}
-              className="text-text-primary text-sm font-light hover:text-text-secondary transition-colors duration-300"
+              className="text-text-primary text-sm font-light hover:text-text-secondary transition-colors duration-250 ease-out focus:outline-none focus:ring-0"
             >
               {link.label}
             </a>
@@ -77,9 +77,10 @@ export function Header() {
           >
             <Image
               src="/odalis.png"
-              alt="Odalis"
+              alt="Odalis - Centar za podmlađivanje"
               width={200}
               height={80}
+              sizes="(max-width: 768px) 120px, 200px"
               className="object-contain h-full w-auto"
               priority
               quality={100}
@@ -97,7 +98,7 @@ export function Header() {
                 e.preventDefault();
                 scrollToSection(link.href);
               }}
-              className="text-text-primary text-sm font-light hover:text-text-secondary transition-colors duration-300"
+              className="text-text-primary text-sm font-light hover:text-text-secondary transition-colors duration-250 ease-out focus:outline-none focus:ring-0"
             >
               {link.label}
             </a>

@@ -37,9 +37,9 @@ export function BackToTop() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
           onClick={scrollToTop}
-          className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50 w-12 h-12 md:w-14 md:h-14 rounded-full glass-premium flex items-center justify-center text-text-primary hover:bg-white/15 transition-all duration-500 hover:scale-105 shadow-refined hover:shadow-soft group border border-white/6"
+          className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50 w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full glass-premium flex items-center justify-center text-text-primary hover:bg-white/15 transition-all duration-250 ease-out hover:scale-105 shadow-refined hover:shadow-soft group border border-white/6 opacity-90 sm:opacity-100"
           aria-label="Back to top"
         >
           <svg
