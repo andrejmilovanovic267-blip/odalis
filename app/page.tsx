@@ -406,7 +406,7 @@ export default function LandingPage() {
                         Defining goals and a personalized plan
                       </h3>
                       <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                        Based on the consultation, we create an individual treatment plan aligned with your goals — whether it's facial rejuvenation, skin tightening, or body shaping. No universal solutions.
+                        Based on the consultation, we create an individual treatment plan aligned with your goals — whether it&apos;s facial rejuvenation, skin tightening, or body shaping. No universal solutions.
                       </p>
                     </div>
                   </div>
