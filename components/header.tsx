@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { createPortal } from "react-dom";
 import { scrollToSection } from "@/lib/scroll-utils";
 
 export function Header() {
@@ -37,6 +38,7 @@ export function Header() {
   ];
 
   return (
+    <>
     <header className="fixed top-0 left-0 right-0 w-full z-[1000] h-20 md:h-24 bg-white/5 backdrop-blur-xl border-b border-white/10 shadow-sm">
       {/* Subtle top-to-bottom gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-white/5 to-transparent pointer-events-none" />
@@ -123,44 +125,41 @@ export function Header() {
           </svg>
         </button>
       </div>
-
-      {/* Mobile Menu Overlay */}
+    </header>
+    {/* Mobile Menu Overlay - Portal to body */}
+    {typeof window !== 'undefined' && createPortal(
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <>
-            {/* Background Overlay */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="md:hidden fixed top-20 left-0 right-0 bottom-0 w-full bg-[#0B1F33] z-[998] pointer-events-none"
-            />
-            {/* Menu Container */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="md:hidden fixed inset-0 top-20 z-[999]"
-            >
-              <nav className="flex flex-col items-center justify-start pt-12 px-6 space-y-8">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(link.href, e)}
-                    className="text-text-primary text-xl font-light hover:text-text-secondary transition-colors duration-300"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </nav>
-            </motion.div>
-          </>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden fixed top-20 left-0 right-0 bottom-0 z-[1001]"
+            style={{
+              background: 'rgba(11, 31, 51, 0.85)',
+              backdropFilter: 'blur(20px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+            }}
+          >
+            <nav className="flex flex-col items-center justify-start pt-12 px-6 space-y-8">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(link.href, e)}
+                  className="text-text-primary text-xl font-light hover:text-text-secondary transition-colors duration-300"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          </motion.div>
         )}
-      </AnimatePresence>
-    </header>
+      </AnimatePresence>,
+      document.body
+    )}
+    </>
   );
 }
 
