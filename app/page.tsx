@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 import { Hero } from "@/components/hero";
 import { Section } from "@/components/section";
 import { SectionHeading } from "@/components/section-heading";
@@ -11,11 +11,95 @@ import { FeatureList } from "@/components/feature-list";
 import { Footer } from "@/components/footer";
 import { ContactForm } from "@/components/contact-form";
 
+type ViewType = 'home' | 'treatments-face' | 'treatments-body';
+
 export default function LandingPage() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+  const [currentView, setCurrentView] = useState<ViewType>('home');
+
+  useEffect(() => {
+    if (currentView !== 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [currentView]);
+
+  const handleViewChange = (view: ViewType) => {
+    setCurrentView(view);
+  };
+
+  const handleBackToHome = () => {
+    setCurrentView('home');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleConsultationClick = () => {
+    setCurrentView('home');
+    // Wait for home view to render, then scroll
+    setTimeout(() => {
+      const target = document.querySelector('#kontakt');
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }
+    }, 150);
+  };
+
+  const faceTreatments = [
+    {
+      title: "HydraFacial",
+      description: "Dubinsko čišćenje, hidratacija i osveženje kože u jednom tretmanu. Idealan za umorno lice, neujednačen ten i trenutni sjaj."
+    },
+    {
+      title: "Indiba",
+      description: "Nežan tretman koji podstiče regeneraciju kože, poboljšava elastičnost i vraća prirodan, zdrav izgled licu."
+    },
+    {
+      title: "Endosfera",
+      description: "Mikrovibracioni tretman koji stimuliše cirkulaciju, tonizira kožu i doprinosi anti-age efektu lica i vrata."
+    },
+    {
+      title: "Radiotalasni lifting",
+      description: "Zatezanje i lifting kože kroz stimulaciju kolagena i elastina, za čvršće i zategnutije lice bez invazivnih metoda."
+    }
+  ];
+
+  const bodyTreatments = [
+    {
+      title: "Indiba – regeneracija i oporavak tela",
+      description: "Poboljšava cirkulaciju, ubrzava regeneraciju tkiva i smanjuje bolove u mišićima i zglobovima."
+    },
+    {
+      title: "Endosfera",
+      description: "Mikrovibracioni tretman za smanjenje celulita, limfnu drenažu i oblikovanje kontura tela."
+    },
+    {
+      title: "Kavitacija",
+      description: "Neinvazivno razbijanje masnih naslaga i redukcija obima, idealna za stomak, butine i bokove."
+    },
+    {
+      title: "Radiotalasni lifting tela",
+      description: "Zatezanje i učvršćivanje kože, poboljšanje tonusa i vidljivo glađa koža bez hirurških zahvata."
+    },
+    {
+      title: "Ručna masaža",
+      description: "Duboko opuštanje, oslobađanje napetosti i poboljšanje opšteg stanja tela i cirkulacije."
+    }
+  ];
+
   return (
     <main className="relative z-10 overflow-x-hidden w-full pt-20 md:pt-24">
-      {/* Hero Section - H1 with primary keyword */}
+      <AnimatePresence mode="wait">
+        {currentView === 'home' ? (
+          <motion.div
+            key="home"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {/* Hero Section - H1 with primary keyword */}
       <Hero
         eyebrow="Centar za podmlađivanje lica i tela"
         title="Prirodno podmlađivanje lica i tela u centru Odalis"
@@ -26,7 +110,7 @@ export default function LandingPage() {
         imageAlt="Žena koja koristi neinvazivne tretmane za podmlađivanje lica"
       />
 
-      {/* Problem Section */}
+      {/* Problem Awareness Section */}
       <Section className="relative">
         <div className="absolute inset-0 bg-gradient-to-b from-navy-800/25 via-transparent to-transparent pointer-events-none" />
         <section className="container mx-auto px-4 sm:px-6">
@@ -35,33 +119,346 @@ export default function LandingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-4xl mx-auto space-y-8 overflow-hidden"
+            className="max-w-5xl mx-auto space-y-12 overflow-hidden"
           >
-            <motion.p
+            {/* Intro */}
+            <div className="space-y-6 text-center">
+              <SectionHeading as="h2" className="max-w-[700px] mx-auto">
+                Kada želite da se ponovo osećate dobro u svom telu i licu
+              </SectionHeading>
+              
+              <div className="space-y-4 text-text-secondary text-xl md:text-2xl leading-[1.85] font-light break-words max-w-[600px] mx-auto">
+                <p>
+                  Godine donose iskustvo i snagu – ali ponekad i promene koje ne prepoznajemo kao svoje.
+                </p>
+                <p>
+                  U Odalisu verujemo u negu, razumevanje i prirodno podmlađivanje bez pritiska.
+                </p>
+              </div>
+            </div>
+
+            {/* Problem Cards */}
+            <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+              >
+                <Card className="h-full overflow-hidden">
+                  <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-5 leading-tight break-words">
+                    Umoran izgled lica i gubitak sjaja
+                  </h3>
+                  <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                    Koža može postati suvlja, opuštenija, sa vidljivijim borama i neujednačenim tenom – čak i kada se trudite oko nege. Umorno lice, bore i gubitak sjaja mogu se rešiti kroz neinvazivne tretmane za podmlađivanje lica.
+                  </p>
+                </Card>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+              >
+                <Card className="h-full overflow-hidden">
+                  <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-5 leading-tight break-words">
+                    Gubitak čvrstoće i promena kontura tela
+                  </h3>
+                  <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                    Sa godinama, koža i mišići gube tonus, a celulit i lokalne naslage postaju otporniji na vežbanje. Tretmani za zatezanje tela i oblikovanje tela mogu pomoći prirodnim putem.
+                  </p>
+                </Card>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
+              >
+                <Card className="h-full overflow-hidden">
+                  <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-5 leading-tight break-words">
+                    Niste sigurni šta je pravi izbor za vas
+                  </h3>
+                  <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                    Previše informacija, različiti tretmani i strah od pogrešne odluke često odlažu prvi korak. Neinvazivni tretmani i estetski tretmani mogu biti pravi izbor, a besplatne konsultacije vam pomažu da donesete informisanu odluku.
+                  </p>
+                </Card>
+              </motion.div>
+            </div>
+
+            {/* Bridge to Solution */}
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-text-muted text-sm md:text-base font-medium uppercase tracking-[0.15em] text-center"
+              transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
+              className="text-center space-y-4 max-w-3xl mx-auto"
             >
-              ODALIS · CENTAR ZA PODMLAĐIVANJE
-            </motion.p>
-            
-            <SectionHeading as="h2" className="text-center mb-8 max-w-[700px] mx-auto">
-              Kada osećaj u ogledalu više ne prati kako se osećate iznutra
-            </SectionHeading>
-            
-            <div className="space-y-6 text-text-secondary text-xl md:text-2xl leading-[1.85] font-light break-words max-w-[600px] mx-auto">
-              <p>
-                Vremenom, lice i telo se menjaju na suptilan način.
-                Koža gubi svežinu, tonus i sjaj, a tragovi umora postaju vidljiviji nego ranije.
+              <h3 className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words">
+                U Odalisu verujemo u nežan, ali efikasan pristup
+              </h3>
+              <div className="space-y-3 text-text-secondary text-xl md:text-2xl leading-[1.85] font-light break-words">
+                <p>
+                  Ne nudimo univerzalna rešenja. Svako lice i svako telo ima svoju priču.
+                </p>
+                <p>
+                  Zato kroz besplatne konsultacije biramo tretmane koji su prirodni, neinvazivni i prilagođeni vama.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Soft CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
+              className="flex flex-col items-center space-y-3 pt-4"
+            >
+              <Button href="#kontakt" variant="primary" className="w-full md:w-auto">
+                Zakažite besplatne konsultacije
+              </Button>
+              <p className="text-text-muted text-sm md:text-base font-light">
+                Diskretno • Bez obaveza • Individualan plan
               </p>
-              
-              <p>
-                To ne znači da ste izgubili lepotu.
-                To samo znači da Vašoj koži i telu sada treba pažnja koja je nežna, stručna i prilagođena baš Vama.
-              </p>
+            </motion.div>
+          </motion.div>
+        </section>
+      </Section>
+
+      {/* Treatment Selection Section */}
+      <Section id="tretmani" className="relative scroll-mt-24 md:scroll-mt-28">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-950/15 to-transparent pointer-events-none" />
+        <section className="container mx-auto px-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-7xl mx-auto overflow-hidden"
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+              {/* Facial Rejuvenation Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+                className="group"
+              >
+                <div className="h-full flex flex-col rounded-3xl bg-navy-800/30 border border-blue-500/20 overflow-hidden hover:shadow-soft hover:scale-[1.01] transition-all duration-200 ease-out">
+                  {/* Top Part - Image (~40%) */}
+                  <div className="relative aspect-square overflow-hidden">
+                    <div className="w-full h-full bg-gradient-to-br from-navy-800/50 via-navy-700/40 to-navy-900/50 group-hover:scale-105 transition-transform duration-200 ease-out" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-900/15 to-transparent" />
+                  </div>
+                  
+                  {/* Bottom Part - Content (~60%) */}
+                  <div className="flex-1 flex flex-col justify-between p-6 sm:p-8 md:p-10 space-y-6">
+                    <div className="space-y-4">
+                      <h3 className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words">
+                        Podmlađivanje lica
+                      </h3>
+                      <div className="space-y-3 text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                        <p>
+                          Neinvazivni tretmani za svežiju, zategnutiju i blistaviju kožu.
+                        </p>
+                        <p>
+                          Fokusirani na regeneraciju, hidrataciju i prirodan lifting, bez oporavka.
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => handleViewChange('treatments-face')}
+                      className="inline-flex items-center justify-center rounded-xl font-medium px-10 py-5 text-lg transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C9A24D]/30 w-full md:w-auto bg-transparent border border-[#C9A24D] text-[#C9A24D] hover:bg-[#C9A24D] hover:text-[#0B1F33] whitespace-nowrap cursor-pointer"
+                    >
+                      Svi tretmani za lice
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Body Rejuvenation Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+                className="group"
+              >
+                <div className="h-full flex flex-col rounded-3xl bg-navy-800/30 border border-blue-500/20 overflow-hidden hover:shadow-soft hover:scale-[1.01] transition-all duration-200 ease-out">
+                  {/* Top Part - Image (~40%) */}
+                  <div className="relative aspect-square overflow-hidden">
+                    <div className="w-full h-full bg-gradient-to-br from-navy-700/50 via-navy-800/40 to-navy-900/50 group-hover:scale-105 transition-transform duration-200 ease-out" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-900/15 to-transparent" />
+                  </div>
+                  
+                  {/* Bottom Part - Content (~60%) */}
+                  <div className="flex-1 flex flex-col justify-between p-6 sm:p-8 md:p-10 space-y-6">
+                    <div className="space-y-4">
+                      <h3 className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words">
+                        Podmlađivanje tela
+                      </h3>
+                      <div className="space-y-3 text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                        <p>
+                          Tretmani za oblikovanje tela, zatezanje kože i osećaj lakoće.
+                        </p>
+                        <p>
+                          Podrška cirkulaciji, limfnoj drenaži i prirodnoj regeneraciji.
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => handleViewChange('treatments-body')}
+                      className="inline-flex items-center justify-center rounded-xl font-medium px-10 py-5 text-lg transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C9A24D]/30 w-full md:w-auto bg-transparent border border-[#C9A24D] text-[#C9A24D] hover:bg-[#C9A24D] hover:text-[#0B1F33] whitespace-nowrap cursor-pointer"
+                    >
+                      Svi tretmani za telo
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
             </div>
+          </motion.div>
+        </section>
+      </Section>
+
+      {/* How Odalis Works Section */}
+      <Section className="relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-950/15 to-transparent pointer-events-none" />
+        <section className="container mx-auto px-4 sm:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-7xl mx-auto space-y-12 overflow-hidden"
+          >
+            {/* Title and Intro */}
+            <div className="space-y-6 text-center">
+              <SectionHeading as="h2" className="max-w-[700px] mx-auto">
+                How your journey to natural rejuvenation begins
+              </SectionHeading>
+              
+              <div className="space-y-3 text-text-secondary text-xl md:text-2xl leading-[1.85] font-light break-words max-w-[650px] mx-auto">
+                <p>
+                  At Odalis, we believe that real results come from understanding — not quick fixes.
+                </p>
+                <p>
+                  Our approach is simple, personalized, and fully adapted to you.
+                </p>
+              </div>
+            </div>
+
+            {/* Steps Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              {/* Step 1 */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+                className="group"
+              >
+                <Card className="h-full overflow-hidden hover:shadow-soft hover:scale-[1.02] transition-all duration-200 ease-out">
+                  <div className="flex flex-col items-center text-center space-y-6">
+                    {/* Icon Circle */}
+                    <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full bg-navy-800/40 border border-blue-500/20 flex items-center justify-center">
+                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-navy-700/50 to-navy-900/50" />
+                      <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-[#C9A24D] flex items-center justify-center text-[#0B1F33] font-bold text-sm">
+                        1
+                      </span>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <h3 className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words">
+                        Free consultations & understanding your needs
+                      </h3>
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                        Every treatment begins with a conversation. We listen to your wishes, concerns, and expectations in order to understand what truly matters to you and your skin or body.
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+
+              {/* Step 2 */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+                className="group"
+              >
+                <Card className="h-full overflow-hidden hover:shadow-soft hover:scale-[1.02] transition-all duration-200 ease-out">
+                  <div className="flex flex-col items-center text-center space-y-6">
+                    {/* Icon Circle */}
+                    <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full bg-navy-800/40 border border-blue-500/20 flex items-center justify-center">
+                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-navy-700/50 to-navy-900/50" />
+                      <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-[#C9A24D] flex items-center justify-center text-[#0B1F33] font-bold text-sm">
+                        2
+                      </span>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <h3 className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words">
+                        Defining goals and a personalized plan
+                      </h3>
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                        Based on the consultation, we create an individual treatment plan aligned with your goals — whether it's facial rejuvenation, skin tightening, or body shaping. No universal solutions.
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+
+              {/* Step 3 */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+                className="group"
+              >
+                <Card className="h-full overflow-hidden hover:shadow-soft hover:scale-[1.02] transition-all duration-200 ease-out">
+                  <div className="flex flex-col items-center text-center space-y-6">
+                    {/* Icon Circle */}
+                    <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full bg-navy-800/40 border border-blue-500/20 flex items-center justify-center">
+                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-navy-700/50 to-navy-900/50" />
+                      <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-[#C9A24D] flex items-center justify-center text-[#0B1F33] font-bold text-sm">
+                        3
+                      </span>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <h3 className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words">
+                        Enjoying treatments & natural results
+                      </h3>
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                        Treatments are pleasant, non-invasive, and require no recovery time. Results appear gradually and naturally, enhancing your confidence and sense of well-being.
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            </div>
+
+            {/* Mini CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
+              className="flex flex-col items-center space-y-3 pt-4"
+            >
+              <Button href="#kontakt" variant="primary" className="w-full md:w-auto">
+                Start your Odalis experience
+              </Button>
+              <p className="text-text-muted text-sm md:text-base font-light">
+                No pressure • No obligation • At your own pace
+              </p>
+            </motion.div>
           </motion.div>
         </section>
       </Section>
@@ -174,82 +571,6 @@ export default function LandingPage() {
             </motion.div>
           </motion.div>
         </section>
-      </Section>
-
-      {/* Common Desires Section */}
-      <Section id="tretmani" className="relative scroll-mt-24 md:scroll-mt-28">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-950/20 to-transparent pointer-events-none" />
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className="max-w-5xl mx-auto overflow-hidden"
-          >
-            <SectionHeading as="h2" className="text-center mb-12">
-              Najčešće želje žena koje razmišljaju o podmlađivanju
-            </SectionHeading>
-            
-            <div className="grid md:grid-cols-3 gap-6 md:gap-8 mb-16">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <Card className="h-full overflow-hidden">
-                  <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-5 leading-tight break-words">
-                    Podmlađivanje lica
-                  </h3>
-                  <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                    Da lice izgleda mladje i svežije, sa prirodnim sjajem i elastičnošću kože. 
-                    Neinvazivni tretmani protiv bora mogu da pomognu bez agresivnih metoda.
-                  </p>
-                </Card>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-              >
-                <Card className="h-full overflow-hidden">
-                  <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-5 leading-tight break-words">
-                    Negovanje kože
-                  </h3>
-                  <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                    Da koža povrati prirodan sjaj i elastičnost kroz savremene tretmane 
-                    koji poštuju prirodnu strukturu kože i njen individualni karakter.
-                  </p>
-                </Card>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <Card className="h-full overflow-hidden">
-                  <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-5 leading-tight break-words">
-                    Samopouzdanje
-                  </h3>
-                  <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                    Da se osećaju negovano i samopouzdano, sa osećajem da su uložile 
-                    u sebe na način koji odgovara njihovim vrednostima i očekivanjima.
-                  </p>
-                </Card>
-              </motion.div>
-            </div>
-            
-            <p className="text-text-secondary text-center text-xl md:text-2xl mt-12 leading-[1.85] font-light break-words">
-              Želja za prirodnim podmlađivanjem je prirodna i opravdana. 
-              Važno je pronaći pristup koji poštuje vašu prirodnu lepotu.
-            </p>
-          </motion.div>
-        </div>
       </Section>
 
       {/* Odalis Approach - Authority Section */}
@@ -728,6 +1049,108 @@ export default function LandingPage() {
       </Section>
 
       <Footer />
+          </motion.div>
+        ) : (
+          <motion.div
+            key={currentView}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="min-h-screen"
+          >
+            {/* Treatments View */}
+            <Section className="relative">
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-950/15 to-transparent pointer-events-none" />
+              <section className="container mx-auto px-4 sm:px-6">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="max-w-7xl mx-auto space-y-12 overflow-hidden"
+                >
+                  {/* Back Button */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    className="pt-8"
+                  >
+                    <button
+                      onClick={handleBackToHome}
+                      className="inline-flex items-center gap-2 text-text-primary hover:text-text-secondary transition-colors duration-250 ease-out focus:outline-none focus:ring-0 group"
+                    >
+                      <svg
+                        className="w-5 h-5 transition-transform duration-250 ease-out group-hover:-translate-x-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                      <span className="text-lg font-light">Nazad na početak</span>
+                    </button>
+                  </motion.div>
+
+                  {/* Title */}
+                  <div className="space-y-6 text-center">
+                    <SectionHeading as="h1" className="max-w-[700px] mx-auto">
+                      {currentView === 'treatments-face' 
+                        ? 'Tretmani za podmlađivanje lica'
+                        : 'Tretmani za podmlađivanje tela'
+                      }
+                    </SectionHeading>
+                  </div>
+
+                  {/* Treatments Grid */}
+                  <div className={`grid grid-cols-1 md:grid-cols-2 ${currentView === 'treatments-body' ? 'lg:grid-cols-3 xl:grid-cols-5' : 'lg:grid-cols-3 xl:grid-cols-4'} gap-6 md:gap-8`}>
+                    {(currentView === 'treatments-face' ? faceTreatments : bodyTreatments).map((treatment, index) => (
+                      <motion.div
+                        key={treatment.title}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 + index * 0.1, ease: "easeOut" }}
+                        className="group"
+                      >
+                        <Card className="h-full overflow-hidden hover:shadow-soft hover:scale-[1.02] transition-all duration-200 ease-out">
+                          <div className="aspect-[4/3] bg-navy-800/30 rounded-2xl mb-6 overflow-hidden">
+                            <div className="w-full h-full bg-gradient-to-br from-navy-800/40 to-navy-900/40 group-hover:scale-105 transition-transform duration-200 ease-out" />
+                          </div>
+                          <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-4 leading-tight break-words">
+                            {treatment.title}
+                          </h3>
+                          <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                            {treatment.description}
+                          </p>
+                        </Card>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* CTA */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
+                    className="flex flex-col items-center space-y-3 pt-8"
+                  >
+                    <button
+                      onClick={handleConsultationClick}
+                      className="inline-flex items-center justify-center rounded-xl font-medium px-10 py-5 text-lg transition-all duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none bg-white/10 text-white hover:bg-white/15 focus:ring-white/30 shadow-refined hover:shadow-soft backdrop-blur-sm hover:scale-[1.02] w-full md:w-auto"
+                    >
+                      Zakažite besplatne konsultacije
+                    </button>
+                    <p className="text-text-muted text-sm md:text-base font-light">
+                      Individualan pristup • Neinvazivni tretmani • Prirodni rezultati
+                    </p>
+                  </motion.div>
+                </motion.div>
+              </section>
+            </Section>
+            <Footer />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }

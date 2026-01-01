@@ -3,21 +3,18 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { scrollToSection } from "@/lib/scroll-utils";
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const scrollToSection = (id: string) => {
-    const target = document.querySelector(id);
-    if (target) {
-      const headerHeight = window.innerWidth >= 768 ? 96 : 80;
-      const targetPosition = (target as HTMLElement).offsetTop - headerHeight;
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-      });
-    }
+  const handleNavClick = (id: string, e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
     setIsMobileMenuOpen(false);
+    // Small delay to ensure menu closes before scrolling
+    setTimeout(() => {
+      scrollToSection(id, { behavior: 'smooth', block: 'start' });
+    }, 50);
   };
 
   useEffect(() => {
@@ -54,10 +51,7 @@ export function Header() {
             <a
               key={link.href}
               href={link.href}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection(link.href);
-              }}
+              onClick={(e) => handleNavClick(link.href, e)}
               className="text-text-primary text-sm font-light hover:text-text-secondary transition-colors duration-250 ease-out focus:outline-none focus:ring-0"
             >
               {link.label}
@@ -69,10 +63,7 @@ export function Header() {
         <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center h-full">
           <a
             href="#hero"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection('#hero');
-            }}
+            onClick={(e) => handleNavClick('#hero', e)}
             className="relative h-12 md:h-16 w-auto max-w-[90vw]"
           >
             <Image
@@ -94,10 +85,7 @@ export function Header() {
             <a
               key={link.href}
               href={link.href}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection(link.href);
-              }}
+              onClick={(e) => handleNavClick(link.href, e)}
               className="text-text-primary text-sm font-light hover:text-text-secondary transition-colors duration-250 ease-out focus:outline-none focus:ring-0"
             >
               {link.label}
@@ -139,29 +127,37 @@ export function Header() {
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden fixed inset-0 top-20 bg-[var(--bg-base)] z-[999]"
-          >
-            <nav className="flex flex-col items-center justify-start pt-12 px-6 space-y-8">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(link.href);
-                  }}
-                  className="text-text-primary text-xl font-light hover:text-text-secondary transition-colors duration-300"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </nav>
-          </motion.div>
+          <>
+            {/* Background Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden fixed top-20 left-0 right-0 bottom-0 w-full bg-[#0B1F33] z-[998] pointer-events-none"
+            />
+            {/* Menu Container */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden fixed inset-0 top-20 z-[999]"
+            >
+              <nav className="flex flex-col items-center justify-start pt-12 px-6 space-y-8">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(link.href, e)}
+                    className="text-text-primary text-xl font-light hover:text-text-secondary transition-colors duration-300"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>

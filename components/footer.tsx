@@ -1,18 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import { scrollToSection } from "@/lib/scroll-utils";
 
 export function Footer() {
-  const scrollToSection = (id: string) => {
-    const target = document.querySelector(id);
-    if (target) {
-      const headerHeight = window.innerWidth >= 768 ? 96 : 80;
-      const targetPosition = (target as HTMLElement).offsetTop - headerHeight;
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-      });
-    }
+  const handleNavClick = (id: string, e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    scrollToSection(id, { behavior: 'smooth', block: 'start' });
   };
 
   const navLinks = [
@@ -33,10 +27,7 @@ export function Footer() {
             <div className="space-y-6">
               <a
                 href="#hero"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('#hero');
-                }}
+                onClick={(e) => handleNavClick('#hero', e)}
                 className="block"
               >
                 <div className="relative h-12 md:h-16 w-auto mb-6">
@@ -66,10 +57,7 @@ export function Footer() {
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToSection(link.href);
-                  }}
+                  onClick={(e) => handleNavClick(link.href, e)}
                   className="text-text-secondary text-base font-light hover:text-text-primary transition-colors duration-250 ease-out focus:outline-none focus:ring-0 w-fit"
                 >
                   {link.label}
