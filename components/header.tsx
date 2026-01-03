@@ -12,7 +12,26 @@ export function Header() {
   const handleNavClick = (id: string, e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
-    // Small delay to ensure menu closes before scrolling
+    
+    // Special handling for "Tretmani" link on desktop (scrolls to bottom of cards)
+    if (id === '#tretmani-end' && window.innerWidth >= 768) {
+      setTimeout(() => {
+        const cardsContainer = document.getElementById('tretmani-cards');
+        if (cardsContainer) {
+          const rect = cardsContainer.getBoundingClientRect();
+          const targetBottom = rect.bottom + window.scrollY;
+          const scrollPosition = targetBottom - window.innerHeight;
+          
+          window.scrollTo({
+            top: Math.max(0, scrollPosition),
+            behavior: 'smooth'
+          });
+        }
+      }, 50);
+      return;
+    }
+    
+    // Default behavior for all other links
     setTimeout(() => {
       scrollToSection(id, { behavior: 'smooth', block: 'start' });
     }, 50);
@@ -29,11 +48,19 @@ export function Header() {
     };
   }, [isMobileMenuOpen]);
 
-  const navLinks = [
+  // Mobile navigation links (without FAQ)
+  const mobileNavLinks = [
     { href: '#hero', label: 'Početna' },
     { href: '#pristup', label: 'Pristup' },
     { href: '#tretmani', label: 'Tretmani' },
-    { href: '#faq', label: 'FAQ' },
+    { href: '#kontakt', label: 'Kontakt' },
+  ];
+
+  // Desktop navigation links (without FAQ)
+  const desktopNavLinks = [
+    { href: '#hero', label: 'Početna' },
+    { href: '#pristup', label: 'Pristup' },
+    { href: '#tretmani-end', label: 'Tretmani' },
     { href: '#kontakt', label: 'Kontakt' },
   ];
 
@@ -47,26 +74,12 @@ export function Header() {
       <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent pointer-events-none opacity-50" />
       
       <div className="relative z-10 h-full flex items-center justify-between px-4 sm:px-6">
-        {/* Desktop Navigation - Left */}
-        <nav className="hidden md:flex items-center gap-8 flex-1">
-          {navLinks.slice(0, 2).map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => handleNavClick(link.href, e)}
-              className="text-text-primary text-sm font-light hover:text-text-secondary transition-colors duration-250 ease-out focus:outline-none focus:ring-0"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* Logo container - Centered */}
-        <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center h-full">
+        {/* Mobile Logo - Centered */}
+        <div className="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center justify-center h-full">
           <a
             href="#hero"
             onClick={(e) => handleNavClick('#hero', e)}
-            className="relative h-12 md:h-16 w-auto max-w-[90vw]"
+            className="relative h-12 w-auto max-w-[90vw]"
           >
             <Image
               src="/odalis.png"
@@ -81,19 +94,67 @@ export function Header() {
           </a>
         </div>
 
-        {/* Desktop Navigation - Right */}
-        <nav className="hidden md:flex items-center gap-8 flex-1 justify-end">
-          {navLinks.slice(2).map((link) => (
+        {/* Centered Navigation Group (Left Nav + Logo + Right Nav) */}
+        <div className="hidden md:flex items-center gap-12 absolute left-1/2 -translate-x-1/2 h-full">
+          {/* Desktop Navigation - Left (2 links) */}
+          <nav className="flex items-center gap-12">
+            {desktopNavLinks.slice(0, 2).map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleNavClick(link.href, e)}
+                className="text-[#C9A24D] text-base font-light hover:text-[#D6B45F] transition-colors duration-250 ease-out focus:outline-none focus:ring-0"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Logo container */}
+          <div className="flex items-center justify-center h-full">
             <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => handleNavClick(link.href, e)}
-              className="text-text-primary text-sm font-light hover:text-text-secondary transition-colors duration-250 ease-out focus:outline-none focus:ring-0"
+              href="#hero"
+              onClick={(e) => handleNavClick('#hero', e)}
+              className="relative h-12 md:h-16 w-auto max-w-[90vw]"
             >
-              {link.label}
+              <Image
+                src="/odalis.png"
+                alt="Odalis - Centar za podmlađivanje"
+                width={200}
+                height={80}
+                sizes="(max-width: 768px) 120px, 200px"
+                className="object-contain h-full w-auto"
+                priority
+                quality={100}
+              />
             </a>
-          ))}
-        </nav>
+          </div>
+
+          {/* Desktop Navigation - Right (2 links) */}
+          <nav className="flex items-center gap-12">
+            {desktopNavLinks.slice(2).map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleNavClick(link.href, e)}
+                className="text-[#C9A24D] text-base font-light hover:text-[#D6B45F] transition-colors duration-250 ease-out focus:outline-none focus:ring-0"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+
+        {/* CTA Button - Far Right */}
+        <div className="hidden md:flex items-center ml-auto">
+          <a
+            href="#kontakt"
+            onClick={(e) => handleNavClick('#kontakt', e)}
+            className="inline-flex items-center justify-center rounded-lg font-light px-6 py-2.5 text-sm text-[#C9A24D] border border-[#C9A24D] bg-transparent hover:bg-[#C9A24D] hover:text-[#0B1F33] transition-all duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/30 focus:ring-offset-2 whitespace-nowrap"
+          >
+            Zakaži konsultacije
+          </a>
+        </div>
 
         {/* Mobile Menu Button */}
         <button
@@ -143,16 +204,24 @@ export function Header() {
             }}
           >
             <nav className="flex flex-col items-center justify-start pt-12 px-6 space-y-8">
-              {navLinks.map((link) => (
+              {mobileNavLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(link.href, e)}
-                  className="text-text-primary text-xl font-light hover:text-text-secondary transition-colors duration-300"
+                  className="text-[#C9A24D] text-xl font-light hover:text-[#D6B45F] transition-colors duration-250 ease-out leading-relaxed"
                 >
                   {link.label}
                 </a>
               ))}
+              {/* CTA Button */}
+              <a
+                href="#kontakt"
+                onClick={(e) => handleNavClick('#kontakt', e)}
+                className="inline-flex items-center justify-center rounded-lg font-light px-6 py-2.5 text-sm text-[#C9A24D] border border-[#C9A24D] bg-transparent hover:bg-[#C9A24D] hover:text-[#0B1F33] transition-all duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/30 focus:ring-offset-2 whitespace-nowrap mt-4"
+              >
+                Zakaži konsultacije
+              </a>
             </nav>
           </motion.div>
         )}

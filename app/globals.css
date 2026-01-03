@@ -82,11 +82,85 @@ body::after {
   width: 100%;
   height: 100%;
   background: 
-    radial-gradient(ellipse at 20% 30%, rgba(26, 47, 71, 0.2) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 70%, rgba(10, 20, 30, 0.16) 0%, transparent 50%),
-    radial-gradient(ellipse at center, rgba(26, 47, 71, 0.12) 0%, var(--bg-base) 60%, var(--color-navy-950) 100%);
+    /* Soft ambient blue gradients - fully opaque */
+    radial-gradient(ellipse 1000px 800px at 20% 30%, rgba(20, 40, 60, 0.15) 0%, rgba(11, 31, 51, 0.95) 50%),
+    radial-gradient(ellipse 900px 700px at 80% 25%, rgba(15, 35, 55, 0.12) 0%, rgba(11, 31, 51, 0.95) 50%),
+    radial-gradient(ellipse 1400px 1000px at 50% 50%, rgba(18, 38, 58, 0.1) 0%, rgba(11, 31, 51, 0.98) 60%),
+    /* Base solid blue background */
+    var(--bg-base);
   pointer-events: none;
   z-index: 0;
+}
+
+/* Glossy layered section backgrounds with clear visual separation */
+/* Odd sections - slightly darker blue base with glossy top highlight */
+section:nth-of-type(odd)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    /* Glossy inner highlight at top - soft light hitting surface */
+    linear-gradient(
+      180deg,
+      rgba(24, 44, 64, 0.5) 0%,
+      rgba(20, 40, 60, 0.25) 6%,
+      rgba(16, 36, 56, 0.12) 12%,
+      rgba(12, 32, 52, 0.06) 20%,
+      rgba(10, 30, 50, 0.02) 30%,
+      rgba(9, 29, 49, 0) 45%,
+      /* Section base - slightly darker blue (opaque) */
+      rgba(9, 28, 48, 0.25) 50%,
+      rgba(8, 27, 47, 0.3) 100%
+    );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Even sections - slightly lighter blue base with glossy top highlight */
+section:nth-of-type(even)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    /* Glossy inner highlight at top - soft light hitting surface */
+    linear-gradient(
+      180deg,
+      rgba(27, 47, 67, 0.45) 0%,
+      rgba(23, 43, 63, 0.22) 6%,
+      rgba(19, 39, 59, 0.12) 12%,
+      rgba(15, 35, 55, 0.06) 20%,
+      rgba(13, 33, 53, 0.02) 30%,
+      rgba(11, 31, 51, 0) 45%,
+      /* Section base - slightly lighter blue (opaque) */
+      rgba(13, 33, 52, 0.2) 50%,
+      rgba(12, 32, 51, 0.28) 100%
+    );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Additional glossy top highlight layer for sections */
+section {
+  position: relative;
+}
+
+/* Smooth gradient transitions at section boundaries */
+section + section::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(11, 31, 51, 0.25) 30%,
+    rgba(11, 31, 51, 0.15) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* Respect user's motion preferences */

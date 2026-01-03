@@ -99,7 +99,7 @@ export default function LandingPage() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {/* Hero Section - H1 with primary keyword */}
+      {/* Hero Section - H1 with primary keyword */}
       <Hero
         eyebrow="Centar za podmlađivanje lica i tela"
         title="Prirodno podmlađivanje lica i tela u centru Odalis"
@@ -125,8 +125,8 @@ export default function LandingPage() {
             <div className="space-y-6 text-center">
               <SectionHeading as="h2" className="max-w-[700px] mx-auto">
                 Kada želite da se ponovo osećate dobro u svom telu i licu
-              </SectionHeading>
-              
+            </SectionHeading>
+            
               <div className="space-y-4 text-text-secondary text-xl md:text-2xl leading-[1.85] font-light break-words max-w-[600px] mx-auto">
                 <p>
                   Godine donose iskustvo i snagu – ali ponekad i promene koje ne prepoznajemo kao svoje.
@@ -229,7 +229,7 @@ export default function LandingPage() {
       </Section>
 
       {/* Treatment Selection Section */}
-      <Section id="tretmani" className="relative scroll-mt-24 md:scroll-mt-28">
+      <Section id="tretmani" className="relative scroll-mt-[115px] md:scroll-mt-[131px]">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-950/15 to-transparent pointer-events-none" />
         <section className="container mx-auto px-4 sm:px-6">
           <motion.div
@@ -239,7 +239,7 @@ export default function LandingPage() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-7xl mx-auto overflow-hidden"
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+            <div id="tretmani-cards" className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
               {/* Facial Rejuvenation Card */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -249,8 +249,8 @@ export default function LandingPage() {
                 className="group"
               >
                 <div className="h-full flex flex-col rounded-3xl bg-navy-800/30 border border-blue-500/20 overflow-hidden hover:shadow-soft hover:scale-[1.01] transition-all duration-200 ease-out">
-                  {/* Top Part - Image (~40%) */}
-                  <div className="relative aspect-square overflow-hidden">
+                  {/* Top Part - Image (Square) */}
+                  <div className="relative w-full aspect-square overflow-hidden">
                     <div className="w-full h-full bg-gradient-to-br from-navy-800/50 via-navy-700/40 to-navy-900/50 group-hover:scale-105 transition-transform duration-200 ease-out" />
                     <div className="absolute inset-0 bg-gradient-to-t from-navy-900/15 to-transparent" />
                   </div>
@@ -289,8 +289,8 @@ export default function LandingPage() {
                 className="group"
               >
                 <div className="h-full flex flex-col rounded-3xl bg-navy-800/30 border border-blue-500/20 overflow-hidden hover:shadow-soft hover:scale-[1.01] transition-all duration-200 ease-out">
-                  {/* Top Part - Image (~40%) */}
-                  <div className="relative aspect-square overflow-hidden">
+                  {/* Top Part - Image (Square) */}
+                  <div className="relative w-full aspect-square overflow-hidden">
                     <div className="w-full h-full bg-gradient-to-br from-navy-700/50 via-navy-800/40 to-navy-900/50 group-hover:scale-105 transition-transform duration-200 ease-out" />
                     <div className="absolute inset-0 bg-gradient-to-t from-navy-900/15 to-transparent" />
                   </div>
@@ -320,6 +320,8 @@ export default function LandingPage() {
                 </div>
               </motion.div>
             </div>
+            {/* Anchor for desktop scroll target - positioned after cards */}
+            <div id="tretmani-end" className="hidden md:block h-0 pointer-events-none" />
           </motion.div>
         </section>
       </Section>
@@ -487,8 +489,8 @@ export default function LandingPage() {
               
               <SectionHeading as="h2" className="text-center mb-6 max-w-[700px] mx-auto">
                 Podmlađivanje koje poštuje Vašu prirodnu lepotu
-              </SectionHeading>
-              
+            </SectionHeading>
+            
               <p className="text-text-secondary text-xl md:text-2xl leading-[1.85] font-light break-words max-w-[650px] mx-auto text-center">
                 U Odalis centru ne verujemo u brza i agresivna rešenja.
                 Naš pristup je nežan, neinvazivan i u potpunosti prilagođen svakoj ženi - jer podmlađivanje treba da izgleda prirodno i da se oseća dobro.
@@ -545,7 +547,7 @@ export default function LandingPage() {
                 </Card>
               </motion.div>
             </div>
-
+            
             {/* Trust Line */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -680,8 +682,8 @@ export default function LandingPage() {
                       textShadow: openFAQ === 0 ? '0 0 6px rgba(201, 162, 77, 0.14)' : undefined
                     }}
                   >
-                    Koliko traje jedan tretman za podmlađivanje lica?
-                  </h3>
+                  Koliko traje jedan tretman za podmlađivanje lica?
+                </h3>
                   <span 
                     className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-250 ease-out"
                     style={{ color: '#C9A24D' }}
@@ -698,10 +700,10 @@ export default function LandingPage() {
                     transition={{ duration: 0.25, ease: "easeOut" }}
                     className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
                   >
-                    Trajanje tretmana zavisi od vrste tretmana i vaših individualnih potreba. 
-                    Većina neinvazivnih tretmana traje između 40 i 60 minuta. Prilikom besplatne 
-                    konsultacije u Odalis centru, detaljno ćemo razgovarati o trajanju i očekivanim 
-                    rezultatima svakog tretmana, tako da možete da planirate svoj poset.
+                  Trajanje tretmana zavisi od vrste tretmana i vaših individualnih potreba. 
+                  Većina neinvazivnih tretmana traje između 40 i 60 minuta. Prilikom besplatne 
+                  konsultacije u Odalis centru, detaljno ćemo razgovarati o trajanju i očekivanim 
+                  rezultatima svakog tretmana, tako da možete da planirate svoj poset.
                   </motion.p>
                 )}
               </article>
@@ -726,8 +728,8 @@ export default function LandingPage() {
                       textShadow: openFAQ === 1 ? '0 0 6px rgba(201, 162, 77, 0.14)' : undefined
                     }}
                   >
-                    Da li tretmani za podmlađivanje kože zahtevaju oporavak?
-                  </h3>
+                  Da li tretmani za podmlađivanje kože zahtevaju oporavak?
+                </h3>
                   <span 
                     className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-250 ease-out"
                     style={{ color: '#C9A24D' }}
@@ -744,10 +746,10 @@ export default function LandingPage() {
                     transition={{ duration: 0.25, ease: "easeOut" }}
                     className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
                   >
-                    Ne. Naši neinvazivni tretmani za podmlađivanje lica i tela ne zahtevaju period 
-                    oporavka. Možete se odmah vratiti svom normalnom životu. Ako postoji bilo kakav 
-                    blagi crvenilo ili osetljivost, to je privremeno i nestaje u roku od nekoliko sati. 
-                    Fokus je na prirodnom podmlađivanju uz maksimalnu sigurnost i komfor.
+                  Ne. Naši neinvazivni tretmani za podmlađivanje lica i tela ne zahtevaju period 
+                  oporavka. Možete se odmah vratiti svom normalnom životu. Ako postoji bilo kakav 
+                  blagi crvenilo ili osetljivost, to je privremeno i nestaje u roku od nekoliko sati. 
+                  Fokus je na prirodnom podmlađivanju uz maksimalnu sigurnost i komfor.
                   </motion.p>
                 )}
               </article>
@@ -772,8 +774,8 @@ export default function LandingPage() {
                       textShadow: openFAQ === 2 ? '0 0 6px rgba(201, 162, 77, 0.14)' : undefined
                     }}
                   >
-                    Da li su tretmani u Odalis centru neinvazivni i bezbedni?
-                  </h3>
+                  Da li su tretmani u Odalis centru neinvazivni i bezbedni?
+                </h3>
                   <span 
                     className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-250 ease-out"
                     style={{ color: '#C9A24D' }}
@@ -790,10 +792,10 @@ export default function LandingPage() {
                     transition={{ duration: 0.25, ease: "easeOut" }}
                     className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
                   >
-                    Da. Odalis centar koristi isključivo neinvazivne i bezbedne tretmane. Ne koristimo 
-                    agresivne metode, hirurške intervencije ili bilo šta što bi moglo da ošteti vašu 
-                    prirodnu strukturu kože. Fokus je na prirodnom podmlađivanju uz maksimalnu sigurnost. 
-                    Svaki tretman je pažljivo osmišljen da poštuje vašu prirodnu lepotu.
+                  Da. Odalis centar koristi isključivo neinvazivne i bezbedne tretmane. Ne koristimo 
+                  agresivne metode, hirurške intervencije ili bilo šta što bi moglo da ošteti vašu 
+                  prirodnu strukturu kože. Fokus je na prirodnom podmlađivanju uz maksimalnu sigurnost. 
+                  Svaki tretman je pažljivo osmišljen da poštuje vašu prirodnu lepotu.
                   </motion.p>
                 )}
               </article>
@@ -818,8 +820,8 @@ export default function LandingPage() {
                       textShadow: openFAQ === 3 ? '0 0 6px rgba(201, 162, 77, 0.14)' : undefined
                     }}
                   >
-                    Koliko tretmana je potrebno za vidljive rezultate podmlađivanja?
-                  </h3>
+                  Koliko tretmana je potrebno za vidljive rezultate podmlađivanja?
+                </h3>
                   <span 
                     className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-250 ease-out"
                     style={{ color: '#C9A24D' }}
@@ -836,10 +838,10 @@ export default function LandingPage() {
                     transition={{ duration: 0.25, ease: "easeOut" }}
                     className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
                   >
-                    Broj tretmana zavisi od stanja kože, vaših želja i ciljeva. Tokom besplatne 
-                    konsultacije, zajedno ćemo razgovarati o vašim očekivanjima i kreirati individualni 
-                    plan koji odgovara vašim potrebama. Neki klijenti vide rezultate već posle prvog 
-                    tretmana, dok drugi preferiraju seriju tretmana za optimalne rezultate.
+                  Broj tretmana zavisi od stanja kože, vaših želja i ciljeva. Tokom besplatne 
+                  konsultacije, zajedno ćemo razgovarati o vašim očekivanjima i kreirati individualni 
+                  plan koji odgovara vašim potrebama. Neki klijenti vide rezultate već posle prvog 
+                  tretmana, dok drugi preferiraju seriju tretmana za optimalne rezultate.
                   </motion.p>
                 )}
               </article>
@@ -864,8 +866,8 @@ export default function LandingPage() {
                       textShadow: openFAQ === 4 ? '0 0 6px rgba(201, 162, 77, 0.14)' : undefined
                     }}
                   >
-                    Da li će tretmani promeniti moj prirodni izgled?
-                  </h3>
+                  Da li će tretmani promeniti moj prirodni izgled?
+                </h3>
                   <span 
                     className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-250 ease-out"
                     style={{ color: '#C9A24D' }}
@@ -882,10 +884,10 @@ export default function LandingPage() {
                     transition={{ duration: 0.25, ease: "easeOut" }}
                     className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
                   >
-                    Ne. Cilj naših tretmana za podmlađivanje nije da promenimo vaš izgled, već da 
-                    istaknemo vašu prirodnu lepotu. Koristimo metode koje podstiču prirodno podmlađivanje 
-                    kože, poboljšavaju tonus i elastičnost, ali ne menjaju vaše prirodne karakteristike. 
-                    Rezultati su prirodni i diskretni.
+                  Ne. Cilj naših tretmana za podmlađivanje nije da promenimo vaš izgled, već da 
+                  istaknemo vašu prirodnu lepotu. Koristimo metode koje podstiču prirodno podmlađivanje 
+                  kože, poboljšavaju tonus i elastičnost, ali ne menjaju vaše prirodne karakteristike. 
+                  Rezultati su prirodni i diskretni.
                   </motion.p>
                 )}
               </article>
@@ -910,8 +912,8 @@ export default function LandingPage() {
                       textShadow: openFAQ === 5 ? '0 0 6px rgba(201, 162, 77, 0.14)' : undefined
                     }}
                   >
-                    Kolika je cena tretmana za podmlađivanje?
-                  </h3>
+                  Kolika je cena tretmana za podmlađivanje?
+                </h3>
                   <span 
                     className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-250 ease-out"
                     style={{ color: '#C9A24D' }}
@@ -928,11 +930,11 @@ export default function LandingPage() {
                     transition={{ duration: 0.25, ease: "easeOut" }}
                     className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
                   >
-                    Cena tretmana zavisi od individualnog plana koji kreiramo za vas. Pošto svaki 
-                    pristup podmlađivanju je personalizovan, cene se razlikuju. Najbolji način da 
-                    saznate tačnu cenu je da zakažete besplatnu konsultaciju. Tokom konsultacije, 
-                    detaljno ćemo razgovarati o vašim ciljevima i definisati plan koji odgovara vašim 
-                    potrebama i budžetu.
+                  Cena tretmana zavisi od individualnog plana koji kreiramo za vas. Pošto svaki 
+                  pristup podmlađivanju je personalizovan, cene se razlikuju. Najbolji način da 
+                  saznate tačnu cenu je da zakažete besplatnu konsultaciju. Tokom konsultacije, 
+                  detaljno ćemo razgovarati o vašim ciljevima i definisati plan koji odgovara vašim 
+                  potrebama i budžetu.
                   </motion.p>
                 )}
               </article>
@@ -957,8 +959,8 @@ export default function LandingPage() {
                       textShadow: openFAQ === 6 ? '0 0 6px rgba(201, 162, 77, 0.14)' : undefined
                     }}
                   >
-                    Mogu li kombinovati različite tretmane za podmlađivanje?
-                  </h3>
+                  Mogu li kombinovati različite tretmane za podmlađivanje?
+                </h3>
                   <span 
                     className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-250 ease-out"
                     style={{ color: '#C9A24D' }}
@@ -975,10 +977,10 @@ export default function LandingPage() {
                     transition={{ duration: 0.25, ease: "easeOut" }}
                     className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
                   >
-                    Da. Mnogi naši klijenti kombinuju različite tretmane za optimalne rezultate. 
-                    Tokom besplatne konsultacije, lično ćemo razgovarati sa vama o vašim željama i 
-                    kreirati kombinovani plan koji odgovara vašim ciljevima. Možemo da planiramo 
-                    tretmane za podmlađivanje lica i tela u skladu sa vašim potrebama i rasporedom.
+                  Da. Mnogi naši klijenti kombinuju različite tretmane za optimalne rezultate. 
+                  Tokom besplatne konsultacije, lično ćemo razgovarati sa vama o vašim željama i 
+                  kreirati kombinovani plan koji odgovara vašim ciljevima. Možemo da planiramo 
+                  tretmane za podmlađivanje lica i tela u skladu sa vašim potrebama i rasporedom.
                   </motion.p>
                 )}
               </article>
