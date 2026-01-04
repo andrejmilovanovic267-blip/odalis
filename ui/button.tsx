@@ -7,14 +7,14 @@ import { clsx } from "clsx";
 import { scrollToSection } from "@/lib/scroll-utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-xl font-medium transition-all duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none",
+  "inline-flex items-center justify-center rounded-lg font-light transition-all duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#C9A24D]/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none",
   {
     variants: {
       variant: {
         primary:
-          "bg-white/10 text-white hover:bg-white/15 focus:ring-white/30 shadow-refined hover:shadow-soft backdrop-blur-sm px-10 py-5 text-lg font-medium transition-all duration-250 ease-out hover:scale-[1.02]",
+          "px-6 py-2.5 text-sm text-[#C9A24D] border border-[#C9A24D] bg-transparent hover:bg-[#C9A24D] hover:text-[#0B1F33] whitespace-nowrap",
         ghost:
-          "bg-transparent text-text-primary border-2 border-white/20 hover:border-white/30 hover:bg-white/5 px-8 py-4 text-lg backdrop-blur-sm transition-all duration-250 ease-out",
+          "px-6 py-2.5 text-sm text-[#C9A24D] border border-[#C9A24D] bg-transparent hover:bg-[#C9A24D] hover:text-[#0B1F33] whitespace-nowrap",
       },
     },
     defaultVariants: {

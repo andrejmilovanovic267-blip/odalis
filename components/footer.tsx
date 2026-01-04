@@ -9,99 +9,151 @@ export function Footer() {
     scrollToSection(id, { behavior: 'smooth', block: 'start' });
   };
 
-  const navLinks = [
+  const navigationLinks = [
     { href: '#hero', label: 'Početna' },
     { href: '#pristup', label: 'Naš pristup' },
     { href: '#tretmani', label: 'Tretmani' },
+  ];
+
+  const servicesLinks = [
+    { href: '#tretmani', label: 'Podmlađivanje lica' },
+    { href: '#tretmani', label: 'Podmlađivanje tela' },
+    { href: '#kontakt', label: 'Konsultacije' },
+  ];
+
+  const infoLinks = [
     { href: '#faq', label: 'FAQ' },
     { href: '#kontakt', label: 'Kontakt' },
+    { href: '#pristup', label: 'O nama' },
   ];
 
   return (
-    <footer className="bg-navy-950/90 py-16 md:py-24 mt-32 relative z-10">
+    <footer className="bg-[#0B1F33] mt-32 relative z-10">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           {/* Main Footer Content */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 mb-16">
-            {/* Brand Block */}
-            <div className="space-y-6">
-              <a
-                href="#hero"
-                onClick={(e) => handleNavClick('#hero', e)}
-                className="block"
-              >
-                <div className="relative h-12 md:h-16 w-auto mb-6">
-                  <Image
-                    src="/odalis.png"
-                    alt="Odalis - Centar za podmlađivanje"
-                    width={200}
-                    height={80}
-                    sizes="(max-width: 768px) 120px, 200px"
-                    className="object-contain h-full w-auto"
-                    quality={90}
-                    loading="lazy"
-                  />
-                </div>
-              </a>
-              <p className="text-text-secondary text-sm md:text-base font-light leading-relaxed max-w-md">
-                Odalis je centar za podmlađivanje lica i tela koji se fokusira na
-                neinvazivne, savremene tretmane i individualan pristup svakoj klijentici.
-                Naš cilj je da istaknemo prirodnu lepotu i pomognemo Vam da se osećate
-                sveže, negovano i zadovoljno u svojoj koži.
-              </p>
-            </div>
-
-            {/* Navigation Block */}
-            <nav className="flex flex-col space-y-4">
-              {navLinks.map((link) => (
+          <div className="py-16 md:py-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 lg:gap-20">
+              {/* Left: Brand Block */}
+              <div className="footer-brand space-y-6">
                 <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(link.href, e)}
-                  className="text-text-secondary text-base font-light hover:text-text-primary transition-colors duration-250 ease-out focus:outline-none focus:ring-0 w-fit"
+                  href="#hero"
+                  onClick={(e) => handleNavClick('#hero', e)}
+                  className="block"
                 >
-                  {link.label}
+                  <div className="relative h-12 md:h-16 w-auto mb-6">
+                    <Image
+                      src="/odalis.png"
+                      alt="Odalis - Centar za podmlađivanje"
+                      width={200}
+                      height={80}
+                      sizes="(max-width: 768px) 120px, 200px"
+                      className="object-contain h-full w-auto"
+                      quality={90}
+                      loading="lazy"
+                    />
+                  </div>
                 </a>
-              ))}
-            </nav>
-
-            {/* Social & Info Block */}
-            <div className="space-y-8">
-              {/* Social Media */}
-              <div className="space-y-4">
-                <p className="text-text-primary text-sm font-medium mb-3">Pratite nas</p>
-                <div className="flex flex-col space-y-3">
+                <p className="text-[#E8E5E0] text-sm md:text-base font-light leading-relaxed max-w-md">
+                  Odalis je centar za podmlađivanje lica i tela koji se fokusira na
+                  neinvazivne, savremene tretmane i individualan pristup svakoj klijentici.
+                  Naš cilj je da istaknemo prirodnu lepotu i pomognemo Vam da se osećate
+                  sveže, negovano i zadovoljno u svojoj koži.
+                </p>
+                {/* Social Icons */}
+                <div className="flex items-center gap-6 pt-2">
                   <a
                     href="https://www.instagram.com/odalis_nbg"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-text-secondary text-base font-light hover:text-text-primary transition-colors duration-250 ease-out focus:outline-none focus:ring-0 w-fit"
+                    aria-label="Instagram"
+                    className="text-[#E8E5E0] hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/30 focus:ring-offset-2 rounded"
                   >
-                    Instagram
+                    <span className="text-base font-light">Instagram</span>
                   </a>
                   <a
                     href="https://www.facebook.com/odalis_nbg"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-text-secondary text-base font-light hover:text-text-primary transition-colors duration-250 ease-out focus:outline-none focus:ring-0 w-fit"
+                    aria-label="Facebook"
+                    className="text-[#E8E5E0] hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/30 focus:ring-offset-2 rounded"
                   >
-                    Facebook
+                    <span className="text-base font-light">Facebook</span>
                   </a>
                 </div>
               </div>
 
-              {/* Location Info */}
-              <div className="pt-4">
-                <p className="text-text-muted text-xs md:text-sm font-light">
-                  Radimo sa klijentima širom Srbije.
-                </p>
-              </div>
+              {/* Right: Three Columns of Links */}
+              <nav aria-label="Footer Navigation" className="footer-links grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12">
+                {/* Column 1: Navigation */}
+                <div className="footer-column">
+                  <h3 className="text-[#FDFCFA] text-sm font-medium mb-4 uppercase tracking-wider">
+                    Navigacija
+                  </h3>
+                  <ul className="space-y-3">
+                    {navigationLinks.map((link) => (
+                      <li key={link.href}>
+                        <a
+                          href={link.href}
+                          onClick={(e) => handleNavClick(link.href, e)}
+                          className="text-[#E8E5E0] text-sm font-light hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/30 focus:ring-offset-2 rounded w-fit block"
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Column 2: Services */}
+                <div className="footer-column">
+                  <h3 className="text-[#FDFCFA] text-sm font-medium mb-4 uppercase tracking-wider">
+                    Usluge
+                  </h3>
+                  <ul className="space-y-3">
+                    {servicesLinks.map((link) => (
+                      <li key={link.href}>
+                        <a
+                          href={link.href}
+                          onClick={(e) => handleNavClick(link.href, e)}
+                          className="text-[#E8E5E0] text-sm font-light hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/30 focus:ring-offset-2 rounded w-fit block"
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Column 3: Info */}
+                <div className="footer-column">
+                  <h3 className="text-[#FDFCFA] text-sm font-medium mb-4 uppercase tracking-wider">
+                    Informacije
+                  </h3>
+                  <ul className="space-y-3">
+                    {infoLinks.map((link) => (
+                      <li key={link.href}>
+                        <a
+                          href={link.href}
+                          onClick={(e) => handleNavClick(link.href, e)}
+                          className="text-[#E8E5E0] text-sm font-light hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/30 focus:ring-offset-2 rounded w-fit block"
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </nav>
             </div>
           </div>
 
+          {/* Gold Accent Bar */}
+          <div className="h-1 bg-[#C9A24D] w-full"></div>
+
           {/* Bottom Copyright Bar */}
-          <div className="pt-8 border-t border-white/5">
-            <p className="text-center text-text-muted text-xs md:text-sm font-light">
+          <div className="py-6">
+            <p className="text-center text-[#B8B5B0] text-xs md:text-sm font-light">
               © {new Date().getFullYear()} Odalis. Sva prava zadržana.
             </p>
           </div>

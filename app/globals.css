@@ -163,6 +163,54 @@ section + section::before {
   z-index: -1;
 }
 
+/* Unified background for Problem Awareness Section - remove all child backgrounds */
+.problem-section-unified-bg .glass-premium,
+.problem-section-unified-bg [class*="glass-premium"] {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-color: transparent !important;
+}
+
+.problem-section-unified-bg .glass-premium:hover,
+.problem-section-unified-bg [class*="glass-premium"]:hover {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.problem-section-unified-bg [class*="bg-"],
+.problem-section-unified-bg [class*="background"] {
+  background: transparent !important;
+}
+
+.problem-section-unified-bg *::before,
+.problem-section-unified-bg *::after {
+  background: transparent !important;
+}
+
+/* Unified background for Treatment Cards Section - remove all child backgrounds */
+.treatment-cards-unified-bg [class*="bg-"],
+.treatment-cards-unified-bg [class*="background"] {
+  background: transparent !important;
+}
+
+.treatment-cards-unified-bg [class*="bg-gradient"] {
+  background: transparent !important;
+  background-image: none !important;
+}
+
+.treatment-cards-unified-bg *::before,
+.treatment-cards-unified-bg *::after {
+  background: transparent !important;
+  background-image: none !important;
+}
+
+.treatment-cards-unified-bg [class*="bg-navy"],
+.treatment-cards-unified-bg [class*="bg-blue"] {
+  background: transparent !important;
+}
+
 /* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,
