@@ -25,87 +25,85 @@ export function Hero({
   imageAlt = "Woman",
 }: HeroProps) {
   return (
-    <section id="hero" className="min-h-screen flex items-center py-24 md:py-40 relative z-10 scroll-mt-20 md:scroll-mt-24">
-      {/* Unified dark canvas with layered gradients */}
-      <div className="absolute inset-0 bg-gradient-to-br from-navy-950/50 via-transparent to-navy-800/30 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-r from-navy-800/15 via-transparent to-transparent pointer-events-none" />
-      
-      {/* Soft radial gradient behind text for depth (reduced) */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] rounded-full blur-3xl pointer-events-none opacity-40 overflow-hidden" style={{ backgroundImage: 'radial-gradient(circle, rgba(26, 47, 71, 0.16) 0%, transparent 70%)' }} />
-      
-      <div className="container mx-auto px-4 sm:px-6 relative z-10 max-w-full overflow-hidden">
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16 lg:gap-20 items-center">
-          {/* Left: Text Content */}
+    <section
+      id="hero"
+      className="relative flex items-end min-h-[100svh] pt-8 md:pt-12 lg:pt-16 pb-0 overflow-hidden scroll-mt-24"
+    >
+      {/* Background layers */}
+      <div className="absolute inset-0 bg-gradient-to-br from-navy-950/60 via-transparent to-navy-800/30 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-navy-800/20 via-transparent to-transparent pointer-events-none" />
+
+      {/* Soft radial glow */}
+      <div
+        className="absolute left-0 top-1/2 -translate-y-1/2 w-[420px] md:w-[640px] h-[420px] md:h-[640px] rounded-full blur-3xl opacity-40 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(26,47,71,0.18) 0%, transparent 70%)",
+        }}
+      />
+
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-start">
+          {/* TEXT */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="space-y-6 md:space-y-8 min-w-0"
-            style={{ willChange: 'opacity, transform' }}
+            className="max-w-xl space-y-6 md:space-y-8"
           >
             {eyebrow && (
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="text-text-muted text-sm md:text-base font-medium uppercase tracking-[0.15em] break-words"
-              >
+              <p className="text-text-muted text-sm md:text-base uppercase tracking-[0.15em]">
                 {eyebrow}
-              </motion.p>
+              </p>
             )}
 
-            <SectionHeading as="h1" className="text-5xl md:text-6xl lg:text-7xl leading-[1.1] font-bold break-words">
+            <SectionHeading
+              as="h1"
+              className="
+                font-bold leading-[1.1]
+                text-[clamp(2.75rem,6vw,4.5rem)]
+              "
+            >
               {title}
             </SectionHeading>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="space-y-6 pt-2 min-w-0"
-            >
-              <div className="relative inline-block w-full md:w-auto">
-                {/* Subtle glow behind CTA (reduced) */}
-                <div className="absolute inset-0 bg-white/4 blur-xl rounded-xl -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-250 ease-out" />
-                <Button href={ctaHref} variant="primary" className="w-full md:w-auto group">
-                  {ctaText}
-                </Button>
-              </div>
+            {supportingText && (
+              <p className="text-text-secondary text-[clamp(1rem,1.6vw,1.25rem)] leading-relaxed">
+                {supportingText}
+              </p>
+            )}
 
-              {supportingText && (
-                <p className="text-text-secondary text-lg md:text-xl max-w-lg leading-[1.85] font-light break-words">
-                  {supportingText}
-                </p>
-              )}
-            </motion.div>
+            <Button
+              href={ctaHref}
+              variant="primary"
+              className="w-full sm:w-auto px-8 py-4 text-base md:text-lg"
+            >
+              {ctaText}
+            </Button>
           </motion.div>
 
-          {/* Right: Image */}
+          {/* IMAGE */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="relative h-[400px] sm:h-[450px] md:h-[550px] lg:h-[650px] rounded-3xl overflow-hidden glass-premium w-full"
+            transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="
+              relative w-full
+              h-[420px] sm:h-[520px] md:h-[600px] lg:h-[720px]
+              self-end
+            "
           >
-            {/* Gradient overlay for image desaturation effect (reduced) */}
-            <div className="absolute inset-0 bg-gradient-to-br from-navy-900/32 via-transparent to-navy-950/24 z-10 pointer-events-none" />
-            
-            {/* Vignette edges (reduced) */}
-            <div className="absolute inset-0 z-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at center, transparent 0%, rgba(5, 15, 26, 0.32) 100%)' }} />
-            
-            {imageSrc ? (
+            <div className="absolute inset-0 bg-gradient-to-b from-navy-900/10 to-transparent z-10 pointer-events-none" />
+
+            {imageSrc && (
               <Image
                 src={imageSrc}
                 alt={imageAlt}
                 fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover brightness-[0.85] saturate-[0.75] contrast-[1.05]"
                 priority
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-contain object-bottom"
               />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-navy-800/40 to-navy-950/60">
-                <div className="text-text-muted text-sm font-light">Image placeholder</div>
-              </div>
             )}
           </motion.div>
         </div>
@@ -113,4 +111,3 @@ export function Hero({
     </section>
   );
 }
-

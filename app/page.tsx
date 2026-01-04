@@ -323,8 +323,7 @@ export default function LandingPage() {
       </Section>
 
       {/* How Odalis Works Section */}
-      <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-950/15 to-transparent pointer-events-none" />
+      <Section className="relative journey-section-unified-bg">
         <section className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -462,8 +461,7 @@ export default function LandingPage() {
       </Section>
 
       {/* Solution Section - Odalis Approach */}
-      <Section id="pristup" className="relative scroll-mt-24 md:scroll-mt-28">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-950/20 to-transparent pointer-events-none" />
+      <Section id="pristup" className="relative scroll-mt-24 md:scroll-mt-28 approach-section-unified-bg">
         <section className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -573,7 +571,6 @@ export default function LandingPage() {
 
       {/* Odalis Approach - Authority Section */}
       <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-800/30 to-transparent pointer-events-none" />
         <article className="container mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -617,7 +614,6 @@ export default function LandingPage() {
 
       {/* What to Expect Section */}
       <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-950/15 to-transparent pointer-events-none" />
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -645,7 +641,6 @@ export default function LandingPage() {
 
       {/* FAQ Section - SEO Optimized */}
       <Section id="faq" className="relative scroll-mt-24 md:scroll-mt-28" aria-labelledby="faq">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-800/20 to-transparent pointer-events-none" />
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -1008,7 +1003,6 @@ export default function LandingPage() {
 
       {/* Final CTA Section */}
       <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-950/25 to-transparent pointer-events-none" />
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -1033,7 +1027,6 @@ export default function LandingPage() {
 
       {/* Contact Form Section */}
       <Section id="kontakt" className="relative scroll-mt-24 md:scroll-mt-28">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-950/20 to-transparent pointer-events-none" />
         <section className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -1080,7 +1073,6 @@ export default function LandingPage() {
           >
             {/* Treatments View */}
             <Section className="relative">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-950/15 to-transparent pointer-events-none" />
               <section className="container mx-auto px-4 sm:px-6">
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}

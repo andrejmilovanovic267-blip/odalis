@@ -25,11 +25,12 @@ export const metadata: Metadata = {
     default: "Odalis - Centar za podmlađivanje lica i tela",
   },
   description: "Odalis je centar za podmlađivanje lica i tela koji se fokusira na neinvazivne, savremene tretmane i individualan pristup svakoj klijentici. Zakažite besplatne konsultacije.",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-  },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({
