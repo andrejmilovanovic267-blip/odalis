@@ -27,6 +27,7 @@ export const metadata: Metadata = {
   description: "Odalis je centar za podmlađivanje lica i tela koji se fokusira na neinvazivne, savremene tretmane i individualan pristup svakoj klijentici. Zakažite besplatne konsultacije.",
   icons: {
     icon: "/favicon.png",
+    apple: "/apple-touch-icon.png",
   },
 };
 
