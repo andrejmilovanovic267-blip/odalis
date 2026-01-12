@@ -8,15 +8,15 @@ export async function POST(request: NextRequest) {
   
   try {
     const body = await request.json();
-    const { name, phone, email, message } = body;
+    const { name, phone, email, message, interest, intent } = body;
 
     console.log('[CONTACT API] Received data:', { name, phone, email: email ? 'provided' : 'not provided', message: message ? 'provided' : 'not provided' });
 
     // Validate required fields
-    if (!name || !phone) {
-      console.log('[CONTACT API] Validation failed: missing name or phone');
+    if (!name || (!phone && !email)) {
+      console.log('[CONTACT API] Validation failed: missing name or contact');
       return NextResponse.json(
-        { error: 'Ime i broj telefona su obavezni.' },
+        { error: 'Ime i kontakt (telefon ili email) su obavezni.' },
         { status: 400 }
       );
     }
@@ -58,8 +58,10 @@ export async function POST(request: NextRequest) {
         
         <div style="background-color: #1A2F47; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
           <p style="margin: 10px 0;"><strong style="color: #E8E5E0;">Ime i prezime:</strong> <span style="color: #FDFCFA;">${name}</span></p>
-          <p style="margin: 10px 0;"><strong style="color: #E8E5E0;">Broj telefona:</strong> <span style="color: #FDFCFA;">${phone}</span></p>
+          ${phone ? `<p style="margin: 10px 0;"><strong style="color: #E8E5E0;">Broj telefona:</strong> <span style="color: #FDFCFA;">${phone}</span></p>` : ''}
           ${email ? `<p style="margin: 10px 0;"><strong style="color: #E8E5E0;">Email adresa:</strong> <span style="color: #FDFCFA;">${email}</span></p>` : ''}
+          ${interest ? `<p style="margin: 10px 0;"><strong style="color: #E8E5E0;">Interest:</strong> <span style="color: #FDFCFA;">${interest === 'facial-rejuvenation' ? 'Facial rejuvenation' : interest === 'body-rejuvenation' ? 'Body rejuvenation' : 'Not sure / need advice'}</span></p>` : ''}
+          ${intent ? `<p style="margin: 10px 0;"><strong style="color: #E8E5E0;">Intent:</strong> <span style="color: #FDFCFA;">${intent === 'question' ? 'I would like to ask a question' : 'I would like to book a free consultation'}</span></p>` : ''}
           ${message ? `<div style="margin-top: 15px;"><strong style="color: #E8E5E0; display: block; margin-bottom: 8px;">Poruka:</strong><p style="color: #FDFCFA; white-space: pre-wrap; margin: 0;">${message}</p></div>` : ''}
         </div>
         
@@ -71,8 +73,10 @@ export async function POST(request: NextRequest) {
 Nova konsultacija – Odalis
 
 Ime i prezime: ${name}
-Broj telefona: ${phone}
+${phone ? `Broj telefona: ${phone}` : ''}
 ${email ? `Email adresa: ${email}` : ''}
+${interest ? `Interest: ${interest === 'facial-rejuvenation' ? 'Facial rejuvenation' : interest === 'body-rejuvenation' ? 'Body rejuvenation' : 'Not sure / need advice'}` : ''}
+${intent ? `Intent: ${intent === 'question' ? 'I would like to ask a question' : 'I would like to book a free consultation'}` : ''}
 ${message ? `\nPoruka:\n${message}` : ''}
     `.trim();
 

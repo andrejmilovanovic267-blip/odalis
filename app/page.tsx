@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Hero } from "@/components/hero";
 import { Section } from "@/components/section";
 import { SectionHeading } from "@/components/section-heading";
@@ -9,27 +10,63 @@ import { Card } from "@/ui/card";
 import { Button } from "@/ui/button";
 import { FeatureList } from "@/components/feature-list";
 import { Footer } from "@/components/footer";
-import { ContactForm } from "@/components/contact-form";
+import { ConsultationSection } from "@/components/consultation-section";
+import { scrollToSection } from "@/lib/scroll-utils";
 
 type ViewType = 'home' | 'treatments-face' | 'treatments-body';
 
 export default function LandingPage() {
+  const router = useRouter();
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const [currentView, setCurrentView] = useState<ViewType>('home');
+  const [isNavigatingBack, setIsNavigatingBack] = useState(false);
 
+  // Handle browser back/forward buttons
   useEffect(() => {
-    if (currentView !== 'home') {
+    const handlePopState = (event: PopStateEvent) => {
+      setIsNavigatingBack(true);
+      if (event.state && event.state.view) {
+        setCurrentView(event.state.view);
+      } else {
+        // Going back to initial state (homepage)
+        setCurrentView('home');
+      }
+      // Browser will automatically restore scroll position
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Only scroll to top when navigating forward to a treatment view, not when going back
+  useEffect(() => {
+    if (currentView !== 'home' && !isNavigatingBack) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [currentView]);
+    setIsNavigatingBack(false);
+  }, [currentView, isNavigatingBack]);
 
   const handleViewChange = (view: ViewType) => {
+    // Push state to history when navigating to treatment views
+    // This creates a history entry so back button can restore scroll position
+    if (view !== 'home') {
+      window.history.pushState({ view }, '', window.location.pathname);
+    }
     setCurrentView(view);
   };
 
   const handleBackToHome = () => {
+    // Navigate to the treatment selection section (same as header "Tretmani" link)
+    // This section contains the "Svi tretmani za lice" and "Svi tretmani za telo" buttons
     setCurrentView('home');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    router.push("/", { scroll: false });
+    
+    requestAnimationFrame(() => {
+      const el = document.getElementById("treatments");
+      if (el) {
+        el.scrollIntoView({ behavior: "auto", block: "start" });
+      }
+    });
   };
 
   const handleConsultationClick = () => {
@@ -121,114 +158,131 @@ export default function LandingPage() {
             className="max-w-5xl mx-auto space-y-12 overflow-hidden"
           >
             {/* Intro */}
-            <div className="space-y-6 text-center">
-              <SectionHeading as="h2" className="max-w-[700px] mx-auto">
+            <div className="space-y-6 text-center mb-16">
+              <SectionHeading as="h2" className="max-w-3xl mx-auto">
                 Kada želite da se ponovo osećate dobro u svom telu i licu
             </SectionHeading>
             
-              <div className="space-y-4 text-text-secondary text-xl md:text-2xl leading-[1.85] font-light break-words max-w-[600px] mx-auto">
+              <div className="space-y-4 text-text-secondary text-lg md:text-xl leading-relaxed font-light break-words max-w-2xl mx-auto">
                 <p>
-                  Godine donose iskustvo i snagu – ali ponekad i promene koje ne prepoznajemo kao svoje.
+                  Promene na koži i telu dolaze prirodno.
                 </p>
                 <p>
-                  U Odalisu verujemo u negu, razumevanje i prirodno podmlađivanje bez pritiska.
+                  U Odalisu nudimo neinvazivne tretmane za prirodno, dugotrajno podmlađivanje bez pritiska.
                 </p>
               </div>
             </div>
 
-            {/* Problem Cards */}
-            <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-              >
-                <Card className="h-full overflow-hidden">
-                  <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-5 leading-tight break-words">
-                    Umoran izgled lica i gubitak sjaja
-                  </h3>
-                  <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                    Koža može postati suvlja, opuštenija, sa vidljivijim borama i neujednačenim tenom – čak i kada se trudite oko nege. Umorno lice, bore i gubitak sjaja mogu se rešiti kroz neinvazivne tretmane za podmlađivanje lica.
-                  </p>
-                </Card>
-              </motion.div>
+            {/* Process Steps */}
+            <div className="relative">
+              {/* Desktop: Horizontal connector line */}
+              <div className="hidden md:block absolute top-12 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A24D]/40 to-transparent" />
               
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
-              >
-                <Card className="h-full overflow-hidden">
-                  <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-5 leading-tight break-words">
-                    Gubitak čvrstoće i promena kontura tela
-                  </h3>
-                  <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                    Sa godinama, koža i mišići gube tonus, a celulit i lokalne naslage postaju otporniji na vežbanje. Tretmani za zatezanje tela i oblikovanje tela mogu pomoći prirodnim putem.
-                  </p>
-                </Card>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
-              >
-                <Card className="h-full overflow-hidden">
-                  <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-5 leading-tight break-words">
-                    Niste sigurni šta je pravi izbor za vas
-                  </h3>
-                  <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                    Previše informacija, različiti tretmani i strah od pogrešne odluke često odlažu prvi korak. Neinvazivni tretmani i estetski tretmani mogu biti pravi izbor, a besplatne konsultacije vam pomažu da donesete informisanu odluku.
-                  </p>
-                </Card>
-              </motion.div>
-            </div>
+              <div className="flex flex-col md:flex-row md:items-start gap-12 md:gap-8 relative">
+                {/* Step 1 */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+                  className="flex-1 relative"
+                >
+                  {/* Mobile: Vertical connector line */}
+                  <div className="md:hidden absolute -top-6 left-1/2 -translate-x-1/2 w-px h-6 bg-gradient-to-b from-transparent to-[#C9A24D]/40" />
+                  
+                  <div className="text-center space-y-4 max-w-sm mx-auto">
+                    {/* Icon */}
+                    <div className="flex justify-center mb-2">
+                      <svg className="w-12 h-12 text-[#C9A24D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                      </svg>
+                    </div>
+                    
+                    <h3 className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words">
+                      Umoran izgled lica i gubitak sjaja
+                    </h3>
+                    <p className="text-text-secondary text-base md:text-lg leading-relaxed font-light break-words">
+                      Suvoća, bore i neujednačen ten mogu učiniti da lice izgleda umorno. Neinvazivni tretmani za podmlađivanje lica pomažu koži da povrati sjaj, svežinu i elastičnost.
+                    </p>
+                  </div>
+                  
+                  {/* Desktop: Right connector line */}
+                  <div className="hidden md:block absolute top-12 -right-4 w-8 h-px bg-gradient-to-r from-[#C9A24D]/40 to-transparent" />
+                </motion.div>
 
-            {/* Bridge to Solution */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
-              className="text-center space-y-4 max-w-3xl mx-auto"
-            >
-              <h3 className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words">
-                U Odalisu verujemo u nežan, ali efikasan pristup
-              </h3>
-              <div className="space-y-3 text-text-secondary text-xl md:text-2xl leading-[1.85] font-light break-words">
-                <p>
-                  Ne nudimo univerzalna rešenja. Svako lice i svako telo ima svoju priču.
-                </p>
-                <p>
-                  Zato kroz besplatne konsultacije biramo tretmane koji su prirodni, neinvazivni i prilagođeni vama.
-                </p>
+                {/* Step 2 */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+                  className="flex-1 relative"
+                >
+                  {/* Mobile: Vertical connector lines */}
+                  <div className="md:hidden absolute -top-6 left-1/2 -translate-x-1/2 w-px h-6 bg-gradient-to-b from-transparent to-[#C9A24D]/40" />
+                  <div className="md:hidden absolute -bottom-6 left-1/2 -translate-x-1/2 w-px h-6 bg-gradient-to-b from-[#C9A24D]/40 to-transparent" />
+                  
+                  <div className="text-center space-y-4 max-w-sm mx-auto">
+                    {/* Icon */}
+                    <div className="flex justify-center mb-2">
+                      <svg className="w-12 h-12 text-[#C9A24D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      </svg>
+                    </div>
+                    
+                    <h3 className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words">
+                      Gubitak čvrstoće i promena kontura tela
+                    </h3>
+                    <p className="text-text-secondary text-base md:text-lg leading-relaxed font-light break-words">
+                      Pad tonusa, celulit i lokalne masne naslage često ne reaguju na vežbanje. Tretmani za zatezanje i oblikovanje tela deluju prirodno i postepeno.
+                    </p>
+                  </div>
+                  
+                  {/* Desktop: Left and right connector lines */}
+                  <div className="hidden md:block absolute top-12 -left-4 w-8 h-px bg-gradient-to-r from-transparent to-[#C9A24D]/40" />
+                  <div className="hidden md:block absolute top-12 -right-4 w-8 h-px bg-gradient-to-r from-[#C9A24D]/40 to-transparent" />
+                </motion.div>
+
+                {/* Step 3 */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
+                  className="flex-1 relative"
+                >
+                  {/* Mobile: Vertical connector line */}
+                  <div className="md:hidden absolute -top-6 left-1/2 -translate-x-1/2 w-px h-6 bg-gradient-to-b from-transparent to-[#C9A24D]/40" />
+                  
+                  <div className="text-center space-y-4 max-w-sm mx-auto">
+                    {/* Icon */}
+                    <div className="flex justify-center mb-2">
+                      <svg className="w-12 h-12 text-[#C9A24D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                      </svg>
+                    </div>
+                    
+                    <h3 className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words">
+                      Niste sigurni šta je pravi izbor za vas
+                    </h3>
+                    <p className="text-text-secondary text-base md:text-lg leading-relaxed font-light break-words">
+                      Veliki izbor tretmana može zbuniti. Besplatne konsultacije vam pomažu da bez pritiska odaberete rešenje prilagođeno vašem telu i ciljevima.
+                    </p>
+                  </div>
+                  
+                  {/* Desktop: Left connector line */}
+                  <div className="hidden md:block absolute top-12 -left-4 w-8 h-px bg-gradient-to-r from-transparent to-[#C9A24D]/40" />
+                </motion.div>
               </div>
-            </motion.div>
-
-            {/* Soft CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
-              className="flex flex-col items-center space-y-3 pt-4"
-            >
-              <Button href="#kontakt" variant="primary" className="w-full md:w-auto">
-                Zakažite besplatne konsultacije
-              </Button>
-              <p className="text-text-muted text-sm md:text-base font-light">
-                Diskretno • Bez obaveza • Individualan plan
-              </p>
-            </motion.div>
+            </div>
           </motion.div>
         </section>
       </Section>
 
       {/* Treatment Selection Section */}
-      <Section id="tretmani" className="relative scroll-mt-[115px] md:scroll-mt-[131px] treatment-cards-unified-bg">
+      <Section id="treatments" className="relative scroll-mt-[115px] md:scroll-mt-[131px] treatment-cards-unified-bg">
+        {/* Hidden anchor for backward compatibility with header link */}
+        <div id="tretmani" className="absolute top-0 pointer-events-none" aria-hidden="true" />
         <section className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -647,9 +701,9 @@ export default function LandingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto overflow-hidden"
+            className="max-w-4xl mx-auto overflow-hidden pt-4 md:pt-6"
           >
-            <SectionHeading as="h2" id="faq" className="text-center mb-12">
+            <SectionHeading as="h2" id="faq" className="text-center -mt-6 md:-mt-8 mb-16">
               Najčešća pitanja o tretmanima za podmlađivanje
             </SectionHeading>
             
@@ -684,20 +738,22 @@ export default function LandingPage() {
                 </button>
                 <AnimatePresence>
                   {openFAQ === 0 && (
-                    <motion.p
+                    <motion.div
                       key="faq-0"
                       id="faq-answer-0"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.35, ease: "easeInOut" }}
-                      className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
+                      initial={{ opacity: 0, maxHeight: 0 }}
+                      animate={{ opacity: 1, maxHeight: 1000 }}
+                      exit={{ opacity: 0, maxHeight: 0 }}
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
                     >
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
                   Trajanje tretmana zavisi od vrste tretmana i vaših individualnih potreba. 
                   Većina neinvazivnih tretmana traje između 40 i 60 minuta. Prilikom besplatne 
                   konsultacije u Odalis centru, detaljno ćemo razgovarati o trajanju i očekivanim 
                   rezultatima svakog tretmana, tako da možete da planirate svoj poset.
-                    </motion.p>
+                </p>
+                    </motion.div>
                   )}
                 </AnimatePresence>
               </article>
@@ -733,20 +789,22 @@ export default function LandingPage() {
                 </button>
                 <AnimatePresence>
                   {openFAQ === 1 && (
-                    <motion.p
+                    <motion.div
                       key="faq-1"
                       id="faq-answer-1"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.35, ease: "easeInOut" }}
-                      className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
+                      initial={{ opacity: 0, maxHeight: 0 }}
+                      animate={{ opacity: 1, maxHeight: 1000 }}
+                      exit={{ opacity: 0, maxHeight: 0 }}
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
                     >
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
                   Ne. Naši neinvazivni tretmani za podmlađivanje lica i tela ne zahtevaju period 
                   oporavka. Možete se odmah vratiti svom normalnom životu. Ako postoji bilo kakav 
                   blagi crvenilo ili osetljivost, to je privremeno i nestaje u roku od nekoliko sati. 
                   Fokus je na prirodnom podmlađivanju uz maksimalnu sigurnost i komfor.
-                    </motion.p>
+                </p>
+                    </motion.div>
                   )}
                 </AnimatePresence>
               </article>
@@ -782,20 +840,22 @@ export default function LandingPage() {
                 </button>
                 <AnimatePresence>
                   {openFAQ === 2 && (
-                    <motion.p
+                    <motion.div
                       key="faq-2"
                       id="faq-answer-2"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.35, ease: "easeInOut" }}
-                      className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
+                      initial={{ opacity: 0, maxHeight: 0 }}
+                      animate={{ opacity: 1, maxHeight: 1000 }}
+                      exit={{ opacity: 0, maxHeight: 0 }}
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
                     >
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
                   Da. Odalis centar koristi isključivo neinvazivne i bezbedne tretmane. Ne koristimo 
                   agresivne metode, hirurške intervencije ili bilo šta što bi moglo da ošteti vašu 
                   prirodnu strukturu kože. Fokus je na prirodnom podmlađivanju uz maksimalnu sigurnost. 
                   Svaki tretman je pažljivo osmišljen da poštuje vašu prirodnu lepotu.
-                    </motion.p>
+                </p>
+                    </motion.div>
                   )}
                 </AnimatePresence>
               </article>
@@ -831,20 +891,22 @@ export default function LandingPage() {
                 </button>
                 <AnimatePresence>
                   {openFAQ === 3 && (
-                    <motion.p
+                    <motion.div
                       key="faq-3"
                       id="faq-answer-3"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.35, ease: "easeInOut" }}
-                      className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
+                      initial={{ opacity: 0, maxHeight: 0 }}
+                      animate={{ opacity: 1, maxHeight: 1000 }}
+                      exit={{ opacity: 0, maxHeight: 0 }}
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
                     >
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
                   Broj tretmana zavisi od stanja kože, vaših želja i ciljeva. Tokom besplatne 
                   konsultacije, zajedno ćemo razgovarati o vašim očekivanjima i kreirati individualni 
                   plan koji odgovara vašim potrebama. Neki klijenti vide rezultate već posle prvog 
                   tretmana, dok drugi preferiraju seriju tretmana za optimalne rezultate.
-                    </motion.p>
+                </p>
+                    </motion.div>
                   )}
                 </AnimatePresence>
               </article>
@@ -880,20 +942,22 @@ export default function LandingPage() {
                 </button>
                 <AnimatePresence>
                   {openFAQ === 4 && (
-                    <motion.p
+                    <motion.div
                       key="faq-4"
                       id="faq-answer-4"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.35, ease: "easeInOut" }}
-                      className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
+                      initial={{ opacity: 0, maxHeight: 0 }}
+                      animate={{ opacity: 1, maxHeight: 1000 }}
+                      exit={{ opacity: 0, maxHeight: 0 }}
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
                     >
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
                   Ne. Cilj naših tretmana za podmlađivanje nije da promenimo vaš izgled, već da 
                   istaknemo vašu prirodnu lepotu. Koristimo metode koje podstiču prirodno podmlađivanje 
                   kože, poboljšavaju tonus i elastičnost, ali ne menjaju vaše prirodne karakteristike. 
                   Rezultati su prirodni i diskretni.
-                    </motion.p>
+                </p>
+                    </motion.div>
                   )}
                 </AnimatePresence>
               </article>
@@ -929,21 +993,23 @@ export default function LandingPage() {
                 </button>
                 <AnimatePresence>
                   {openFAQ === 5 && (
-                    <motion.p
+                    <motion.div
                       key="faq-5"
                       id="faq-answer-5"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.35, ease: "easeInOut" }}
-                      className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
+                      initial={{ opacity: 0, maxHeight: 0 }}
+                      animate={{ opacity: 1, maxHeight: 1000 }}
+                      exit={{ opacity: 0, maxHeight: 0 }}
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
                     >
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
                   Cena tretmana zavisi od individualnog plana koji kreiramo za vas. Pošto svaki 
                   pristup podmlađivanju je personalizovan, cene se razlikuju. Najbolji način da 
                   saznate tačnu cenu je da zakažete besplatnu konsultaciju. Tokom konsultacije, 
                   detaljno ćemo razgovarati o vašim ciljevima i definisati plan koji odgovara vašim 
                   potrebama i budžetu.
-                    </motion.p>
+                </p>
+                    </motion.div>
                   )}
                 </AnimatePresence>
               </article>
@@ -979,20 +1045,22 @@ export default function LandingPage() {
                 </button>
                 <AnimatePresence>
                   {openFAQ === 6 && (
-                    <motion.p
+                    <motion.div
                       key="faq-6"
                       id="faq-answer-6"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.35, ease: "easeInOut" }}
-                      className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words"
+                      initial={{ opacity: 0, maxHeight: 0 }}
+                      animate={{ opacity: 1, maxHeight: 1000 }}
+                      exit={{ opacity: 0, maxHeight: 0 }}
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
                     >
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
                   Da. Mnogi naši klijenti kombinuju različite tretmane za optimalne rezultate. 
                   Tokom besplatne konsultacije, lično ćemo razgovarati sa vama o vašim željama i 
                   kreirati kombinovani plan koji odgovara vašim ciljevima. Možemo da planiramo 
                   tretmane za podmlađivanje lica i tela u skladu sa vašim potrebama i rasporedom.
-                    </motion.p>
+                </p>
+                    </motion.div>
                   )}
                 </AnimatePresence>
               </article>
@@ -1001,64 +1069,8 @@ export default function LandingPage() {
         </div>
       </Section>
 
-      {/* Final CTA Section */}
-      <Section className="relative">
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className="max-w-2xl mx-auto text-center space-y-8 overflow-hidden"
-          >
-            <SectionHeading as="h2">
-              Spremni da započnete putovanje ka prirodnom podmlađivanju?
-            </SectionHeading>
-            <p className="text-text-secondary text-xl md:text-2xl leading-[1.85] font-light max-w-2xl mx-auto break-words">
-              Zakažite besplatnu konsultaciju i razgovarajmo o vašim željama i očekivanjima. 
-              Bez obaveza, samo iskren razgovor.
-            </p>
-            <Button href="#kontakt" variant="primary" className="mx-auto">
-              Zakaži besplatne konsultacije
-            </Button>
-          </motion.div>
-        </div>
-      </Section>
-
-      {/* Contact Form Section */}
-      <Section id="kontakt" className="relative scroll-mt-24 md:scroll-mt-28">
-        <section className="container mx-auto px-4 sm:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-[520px] mx-auto space-y-8 overflow-hidden"
-          >
-            <div className="space-y-6 text-center">
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-text-muted text-sm md:text-base font-medium uppercase tracking-[0.15em]"
-              >
-                KONTAKT
-              </motion.p>
-              
-              <SectionHeading as="h2" className="mb-6">
-                Započnite sa besplatnim konsultacijama
-              </SectionHeading>
-              
-              <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                Ostavite svoje podatke i javićemo Vam se kako bismo zajedno pronašli najbolje rešenje za Vas - bez obaveza i bez pritiska.
-              </p>
-            </div>
-
-            <ContactForm />
-          </motion.div>
-        </section>
-      </Section>
+      {/* Consultation Section */}
+      <ConsultationSection />
 
       <Footer />
           </motion.div>
@@ -1099,7 +1111,7 @@ export default function LandingPage() {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                       </svg>
-                      <span className="text-lg font-light">Nazad na početak</span>
+                      <span className="text-lg font-light">Nazad</span>
                     </button>
                   </motion.div>
 
@@ -1110,7 +1122,7 @@ export default function LandingPage() {
                         ? 'Tretmani za podmlađivanje lica'
                         : 'Tretmani za podmlađivanje tela'
                       }
-                    </SectionHeading>
+            </SectionHeading>
                   </div>
 
                   {/* Treatments Grid */}
@@ -1134,9 +1146,9 @@ export default function LandingPage() {
                             {treatment.description}
                           </p>
                         </Card>
-                      </motion.div>
+          </motion.div>
                     ))}
-                  </div>
+        </div>
 
                   {/* CTA */}
                   <motion.div
@@ -1158,7 +1170,7 @@ export default function LandingPage() {
                 </motion.div>
               </section>
             </Section>
-            <Footer />
+      <Footer />
           </motion.div>
         )}
       </AnimatePresence>

@@ -67,7 +67,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Instagram"
-                    className="text-[#E8E5E0] hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/30 focus:ring-offset-2 rounded"
+                    className="text-[#E8E5E0] hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 rounded"
                   >
                     <span className="text-base font-light">Instagram</span>
                   </a>
@@ -76,7 +76,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Facebook"
-                    className="text-[#E8E5E0] hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/30 focus:ring-offset-2 rounded"
+                    className="text-[#E8E5E0] hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 rounded"
                   >
                     <span className="text-base font-light">Facebook</span>
                   </a>
@@ -96,7 +96,7 @@ export function Footer() {
                         <a
                           href={link.href}
                           onClick={(e) => handleNavClick(link.href, e)}
-                          className="text-[#E8E5E0] text-sm font-light hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/30 focus:ring-offset-2 rounded w-fit block"
+                          className="text-[#E8E5E0] text-sm font-light hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 rounded w-fit block"
                         >
                           {link.label}
                         </a>
@@ -116,7 +116,7 @@ export function Footer() {
                         <a
                           href={link.href}
                           onClick={(e) => handleNavClick(link.href, e)}
-                          className="text-[#E8E5E0] text-sm font-light hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/30 focus:ring-offset-2 rounded w-fit block"
+                          className="text-[#E8E5E0] text-sm font-light hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 rounded w-fit block"
                         >
                           {link.label}
                         </a>
@@ -136,7 +136,7 @@ export function Footer() {
                         <a
                           href={link.href}
                           onClick={(e) => handleNavClick(link.href, e)}
-                          className="text-[#E8E5E0] text-sm font-light hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/30 focus:ring-offset-2 rounded w-fit block"
+                          className="text-[#E8E5E0] text-sm font-light hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 rounded w-fit block"
                         >
                           {link.label}
                         </a>
@@ -147,17 +147,17 @@ export function Footer() {
               </nav>
             </div>
           </div>
-
-          {/* Gold Accent Bar */}
-          <div className="h-1 bg-[#C9A24D] w-full"></div>
-
-          {/* Bottom Copyright Bar */}
-          <div className="py-6">
-            <p className="text-center text-[#B8B5B0] text-xs md:text-sm font-light">
-              © {new Date().getFullYear()} Odalis. Sva prava zadržana.
-            </p>
-          </div>
         </div>
+      </div>
+
+      {/* Gold Accent Bar - Full Width */}
+      <div className="h-1 bg-[#C9A24D] w-full"></div>
+
+      {/* Bottom Copyright Bar */}
+      <div className="w-full px-4 sm:px-6 flex items-center justify-center h-12">
+        <p className="text-center text-[#B8B5B0] text-xs md:text-sm font-light max-w-7xl mx-auto">
+          © {new Date().getFullYear()} Odalis. Sva prava zadržana.
+        </p>
       </div>
     </footer>
   );

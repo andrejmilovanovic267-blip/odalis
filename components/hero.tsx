@@ -27,7 +27,7 @@ export function Hero({
   return (
     <section
       id="hero"
-      className="relative flex items-end min-h-[100svh] pt-8 md:pt-12 lg:pt-16 pb-0 overflow-hidden scroll-mt-24"
+      className="relative flex justify-start md:items-center md:justify-center min-h-[calc(100vh-var(--header-height))] pt-24 pb-20 md:pt-0 md:pb-0 overflow-hidden scroll-mt-24"
     >
       {/* Background layers */}
       <div className="absolute inset-0 bg-gradient-to-br from-navy-950/60 via-transparent to-navy-800/30 pointer-events-none" />
@@ -43,7 +43,7 @@ export function Hero({
       />
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-start">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-center">
           {/* TEXT */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -89,21 +89,24 @@ export function Hero({
             transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="
               relative w-full
-              h-[420px] sm:h-[520px] md:h-[600px] lg:h-[720px]
-              self-end
+              h-[315px] sm:h-[390px] md:h-[450px] lg:h-[540px]
+              flex items-center justify-center
+              mt-12 md:mt-0
             "
           >
             <div className="absolute inset-0 bg-gradient-to-b from-navy-900/10 to-transparent z-10 pointer-events-none" />
 
             {imageSrc && (
-              <Image
-                src={imageSrc}
-                alt={imageAlt}
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-contain object-bottom"
-              />
+              <div className="relative w-full h-full border-2 border-[#C9A24D] rounded-[30%] overflow-hidden">
+                <Image
+                  src={imageSrc}
+                  alt={imageAlt}
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-contain object-center rounded-[30%]"
+                />
+              </div>
             )}
           </motion.div>
         </div>

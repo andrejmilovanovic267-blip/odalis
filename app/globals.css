@@ -33,7 +33,16 @@
   --shadow-subtle: 0 0.8px 1.6px 0 rgba(0, 0, 0, 0.09);
   --shadow-glow: 0 0 18px rgba(255, 255, 255, 0.018);
 
+  /* Header height for hero section centering */
+  --header-height: 80px;
+
   /* Fonts - set by next/font via CSS variables */
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-height: 96px;
+  }
 }
 
 * {
@@ -353,4 +362,151 @@ p {
     pointer-events: none;
     z-index: 1;
   }
+}
+
+/* Calendly Widget Styles - Ensure full height expansion, no internal scrolling */
+/* DIAGNOSIS: #calendly-container starts empty with height: auto, causing collapse when Calendly injects iframe */
+/* FIX: Set min-height on container and ensure iframe has proper height context */
+#calendly-container {
+  display: block;
+  min-height: 900px !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* Desktop: min-height 1100px */
+@media (min-width: 768px) {
+  #calendly-container {
+    min-height: 1100px !important;
+  }
+}
+
+/* Large screens (≥1280px): min-height 1200px */
+@media (min-width: 1280px) {
+  #calendly-container {
+    min-height: 1200px !important;
+  }
+}
+
+/* DIAGNOSIS: .calendly-inline-widget needs explicit min-height to prevent collapse */
+#calendly-container .calendly-inline-widget {
+  width: 100% !important;
+  min-height: 900px !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* Desktop: min-height 1100px */
+@media (min-width: 768px) {
+  #calendly-container .calendly-inline-widget {
+    min-height: 1100px !important;
+  }
+}
+
+/* Large screens (≥1280px): min-height 1200px */
+@media (min-width: 1280px) {
+  #calendly-container .calendly-inline-widget {
+    min-height: 1200px !important;
+  }
+}
+
+/* DIAGNOSIS: iframe with height: auto collapses when parent has no height context */
+/* FIX: Set explicit min-height matching parent, use height: 100% to fill parent */
+#calendly-container .calendly-inline-widget iframe {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 900px !important;
+  max-height: none !important;
+  overflow: visible !important;
+  border: none !important;
+}
+
+/* Desktop iframe: min-height 1100px */
+@media (min-width: 768px) {
+  #calendly-container .calendly-inline-widget iframe {
+    min-height: 1100px !important;
+  }
+}
+
+/* Large screens iframe (≥1280px): min-height 1200px */
+@media (min-width: 1280px) {
+  #calendly-container .calendly-inline-widget iframe {
+    min-height: 1200px !important;
+  }
+}
+
+/* Consultation Form Radio Buttons - Custom Gold Styling */
+.consultation-radio {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  width: 1rem !important;
+  height: 1rem !important;
+  border: 1.5px solid rgba(201, 162, 77, 0.4) !important;
+  border-radius: 50% !important;
+  background-color: transparent !important;
+  cursor: pointer !important;
+  position: relative !important;
+  transition: all 0.2s ease-out !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.consultation-radio:checked {
+  border-color: #C9A24D !important;
+  background-color: transparent !important;
+}
+
+.consultation-radio:checked::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 0.5rem !important;
+  height: 0.5rem !important;
+  border-radius: 50% !important;
+  background-color: #C9A24D !important;
+}
+
+.consultation-radio:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #C9A24D !important;
+}
+
+.consultation-radio:focus-visible {
+  outline: 2px solid rgba(201, 162, 77, 0.3) !important;
+  outline-offset: 2px !important;
+}
+
+.consultation-radio:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+/* Remove default browser outline and replace with gold focus-visible style */
+/* This ensures keyboard users still have focus indication, but mouse clicks don't show outline */
+button:focus,
+a:focus,
+[role="button"]:focus {
+  outline: none !important;
+}
+
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid rgba(201, 162, 77, 0.6) !important;
+  outline-offset: 2px !important;
+  border-radius: inherit;
+}
+
+/* Ensure rounded buttons get rounded focus outline */
+button.rounded-lg:focus-visible,
+a.rounded-lg:focus-visible,
+button[class*="rounded"]:focus-visible,
+a[class*="rounded"]:focus-visible {
+  border-radius: 0.5rem;
 }
