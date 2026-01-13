@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { BackToTop } from "@/components/back-to-top";
@@ -50,6 +51,11 @@ export default function RootLayout({
         <Header />
         {children}
         <BackToTop />
+        {/* Calendly Script - Load globally once */}
+        <Script
+          src="https://assets.calendly.com/assets/external/widget.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

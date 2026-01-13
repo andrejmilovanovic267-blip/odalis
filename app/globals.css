@@ -364,77 +364,68 @@ p {
   }
 }
 
-/* Calendly Widget Styles - Ensure full height expansion, no internal scrolling */
-/* DIAGNOSIS: #calendly-container starts empty with height: auto, causing collapse when Calendly injects iframe */
-/* FIX: Set min-height on container and ensure iframe has proper height context */
+/* Calendly Widget Styles - Fixed height, no internal scrolling */
+/* FIX: Use fixed heights instead of auto to prevent collapse and internal scrolling */
 #calendly-container {
   display: block;
+  position: relative;
+  width: 100%;
+  height: 900px !important;
   min-height: 900px !important;
-  height: auto !important;
   max-height: none !important;
-  overflow: visible !important;
+  overflow: hidden !important;
 }
 
-/* Desktop: min-height 1100px */
+/* Desktop: height 1100px */
 @media (min-width: 768px) {
   #calendly-container {
+    height: 1100px !important;
     min-height: 1100px !important;
   }
 }
 
-/* Large screens (≥1280px): min-height 1200px */
+/* Large screens (≥1280px): height 1200px */
 @media (min-width: 1280px) {
   #calendly-container {
+    height: 1200px !important;
     min-height: 1200px !important;
   }
 }
 
-/* DIAGNOSIS: .calendly-inline-widget needs explicit min-height to prevent collapse */
+/* Calendly inline widget - fill container height */
 #calendly-container .calendly-inline-widget {
   width: 100% !important;
-  min-height: 900px !important;
-  height: auto !important;
+  height: 100% !important;
+  min-height: inherit !important;
   max-height: none !important;
-  overflow: visible !important;
+  overflow: hidden !important;
 }
 
-/* Desktop: min-height 1100px */
+/* Desktop: inherit from container */
 @media (min-width: 768px) {
   #calendly-container .calendly-inline-widget {
-    min-height: 1100px !important;
+    height: 100% !important;
+    min-height: inherit !important;
   }
 }
 
-/* Large screens (≥1280px): min-height 1200px */
+/* Large screens: inherit from container */
 @media (min-width: 1280px) {
   #calendly-container .calendly-inline-widget {
-    min-height: 1200px !important;
+    height: 100% !important;
+    min-height: inherit !important;
   }
 }
 
-/* DIAGNOSIS: iframe with height: auto collapses when parent has no height context */
-/* FIX: Set explicit min-height matching parent, use height: 100% to fill parent */
+/* Calendly iframe - fill parent completely, no borders, no internal scroll */
 #calendly-container .calendly-inline-widget iframe {
   width: 100% !important;
   height: 100% !important;
-  min-height: 900px !important;
+  min-height: 100% !important;
   max-height: none !important;
-  overflow: visible !important;
+  overflow: hidden !important;
   border: none !important;
-}
-
-/* Desktop iframe: min-height 1100px */
-@media (min-width: 768px) {
-  #calendly-container .calendly-inline-widget iframe {
-    min-height: 1100px !important;
-  }
-}
-
-/* Large screens iframe (≥1280px): min-height 1200px */
-@media (min-width: 1280px) {
-  #calendly-container .calendly-inline-widget iframe {
-    min-height: 1200px !important;
-  }
+  display: block !important;
 }
 
 /* Consultation Form Radio Buttons - Custom Gold Styling */

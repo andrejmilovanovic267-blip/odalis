@@ -154,8 +154,8 @@ export function Footer() {
       <div className="h-1 bg-[#C9A24D] w-full"></div>
 
       {/* Bottom Copyright Bar */}
-      <div className="w-full px-4 sm:px-6 flex items-center justify-center h-12">
-        <p className="text-center text-[#B8B5B0] text-xs md:text-sm font-light max-w-7xl mx-auto">
+      <div className="w-full px-4 sm:px-6 flex items-center justify-center h-12 md:h-14">
+        <p className="text-center text-[#B8B5B0] text-xs md:text-sm font-light leading-none m-0">
           © {new Date().getFullYear()} Odalis. Sva prava zadržana.
         </p>
       </div>

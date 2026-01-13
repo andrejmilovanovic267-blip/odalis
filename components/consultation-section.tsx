@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, FormEvent, useEffect } from "react";
+import { useState, FormEvent, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Script from "next/script";
 import { Section } from "@/components/section";
 import { SectionHeading } from "@/components/section-heading";
 import { Button } from "@/ui/button";
@@ -14,6 +13,9 @@ export function ConsultationSection() {
     type: "success" | "error" | null;
     message: string;
   }>({ type: null, message: "" });
+  const [calendlyError, setCalendlyError] = useState(false);
+  const calendlyInitialized = useRef(false);
+  const retryCountRef = useRef(0);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -70,21 +72,78 @@ export function ConsultationSection() {
     setSelectedIntent(e.target.value);
   };
 
+  // Initialize Calendly with retry logic
   useEffect(() => {
-    // Initialize Calendly inline widget when consultation option is selected and script is loaded
-    if (selectedIntent === "consultation" && typeof window !== "undefined" && (window as any).Calendly) {
+    // Only initialize when consultation option is selected
+    if (selectedIntent !== "consultation") {
+      calendlyInitialized.current = false;
+      retryCountRef.current = 0;
+      setCalendlyError(false);
+      return;
+    }
+
+    // Reset error state when intent changes
+    setCalendlyError(false);
+
+    const initializeCalendly = (attempt: number = 1): void => {
+      const maxRetries = 5;
+      const retryDelay = 500; // 500ms between retries
+
+      // Check if script is loaded
+      if (typeof window === "undefined" || !(window as any).Calendly) {
+        if (attempt <= maxRetries) {
+          setTimeout(() => initializeCalendly(attempt + 1), retryDelay);
+        } else {
+          setCalendlyError(true);
+        }
+        return;
+      }
+
+      // Check if container exists
       const container = document.getElementById("calendly-container");
-      if (container && !container.querySelector(".calendly-inline-widget")) {
+      if (!container) {
+        if (attempt <= maxRetries) {
+          setTimeout(() => initializeCalendly(attempt + 1), retryDelay);
+        } else {
+          setCalendlyError(true);
+        }
+        return;
+      }
+
+      // Guard against double-init
+      if (calendlyInitialized.current || container.querySelector(".calendly-inline-widget")) {
+        return;
+      }
+
+      try {
         (window as any).Calendly.initInlineWidget({
           url: "https://calendly.com/andrejmilovanovic267/free-app-discuss-zoom-call",
           parentElement: container,
         });
+        calendlyInitialized.current = true;
+        retryCountRef.current = 0;
+      } catch (error) {
+        console.error("Calendly initialization error:", error);
+        if (attempt <= maxRetries) {
+          setTimeout(() => initializeCalendly(attempt + 1), retryDelay);
+        } else {
+          setCalendlyError(true);
+        }
       }
-    }
+    };
+
+    // Start initialization with a small delay to ensure DOM is ready
+    const timeoutId = setTimeout(() => {
+      initializeCalendly();
+    }, 100);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [selectedIntent]);
 
   return (
-    <Section className="relative !pb-0">
+    <Section className="relative pb-20 md:pb-28 lg:pb-32">
       <div className="container mx-auto px-4 sm:px-6 pb-6 md:pb-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -250,16 +309,27 @@ export function ConsultationSection() {
                     {/* Calendly wrapper */}
                     <div 
                       id="calendly-container"
-                      className="relative rounded-2xl overflow-visible bg-navy-900/20 backdrop-blur-sm border border-white/5 p-4 md:p-6 w-full"
+                      className="relative rounded-2xl overflow-hidden bg-navy-900/20 backdrop-blur-sm border border-white/5 p-4 md:p-6 w-full"
                       style={{
+                        height: "900px",
                         minHeight: "900px",
-                        height: "auto",
-                        maxHeight: "none",
-                        overflow: "visible",
                       }}
                       role="region"
                       aria-label="Calendar booking"
                     />
+                    {/* Fallback link if Calendly fails to load */}
+                    {calendlyError && (
+                      <div className="mt-4 text-center">
+                        <a
+                          href="https://calendly.com/andrejmilovanovic267/free-app-discuss-zoom-call"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#C9A24D] hover:text-[#D4AF37] underline transition-colors duration-250"
+                        >
+                          Otvori stranicu za zakazivanje
+                        </a>
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               )}
@@ -334,24 +404,6 @@ export function ConsultationSection() {
           </form>
         </motion.div>
       </div>
-      
-      {/* Calendly Script - Load once */}
-      <Script
-        src="https://assets.calendly.com/assets/external/widget.js"
-        strategy="lazyOnload"
-        onLoad={() => {
-          // Initialize if consultation is already selected
-          if (selectedIntent === "consultation" && typeof window !== "undefined" && (window as any).Calendly) {
-            const container = document.getElementById("calendly-container");
-            if (container) {
-              (window as any).Calendly.initInlineWidget({
-                url: "https://calendly.com/andrejmilovanovic267/free-app-discuss-zoom-call",
-                parentElement: container,
-              });
-            }
-          }
-        }}
-      />
     </Section>
   );
 }
