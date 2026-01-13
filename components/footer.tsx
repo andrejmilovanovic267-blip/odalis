@@ -28,7 +28,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-[#0B1F33] mt-32 relative z-10">
+    <footer className="bg-[#0B1F33] mt-0 relative z-10">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           {/* Main Footer Content */}

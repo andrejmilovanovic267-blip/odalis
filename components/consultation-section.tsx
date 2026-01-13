@@ -84,8 +84,8 @@ export function ConsultationSection() {
   }, [selectedIntent]);
 
   return (
-    <Section className="relative">
-      <div className="container mx-auto px-4 sm:px-6">
+    <Section className="relative !pb-0">
+      <div className="container mx-auto px-4 sm:px-6 pb-6 md:pb-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

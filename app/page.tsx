@@ -163,12 +163,9 @@ export default function LandingPage() {
                 Kada želite da se ponovo osećate dobro u svom telu i licu
             </SectionHeading>
             
-              <div className="space-y-4 text-text-secondary text-lg md:text-xl leading-relaxed font-light break-words max-w-2xl mx-auto">
+              <div className="text-text-secondary text-lg md:text-xl leading-relaxed font-light break-words max-w-2xl mx-auto">
                 <p>
-                  Promene na koži i telu dolaze prirodno.
-                </p>
-                <p>
-                  U Odalisu nudimo neinvazivne tretmane za prirodno, dugotrajno podmlađivanje bez pritiska.
+                  Promene na koži i telu dolaze prirodno. Zato i podmlađivanje treba da bude takvo. U Odalisu nudimo neinvazivne tretmane za prirodne, dugotrajne rezultate bez pritiska i bez agresivnih metoda.
                 </p>
               </div>
             </div>
@@ -178,7 +175,7 @@ export default function LandingPage() {
               {/* Desktop: Horizontal connector line */}
               <div className="hidden md:block absolute top-12 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A24D]/40 to-transparent" />
               
-              <div className="flex flex-col md:flex-row md:items-start gap-12 md:gap-8 relative">
+              <div className="flex flex-col md:flex-row md:items-stretch gap-12 md:gap-8 relative">
                 {/* Step 1 */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -190,7 +187,7 @@ export default function LandingPage() {
                   {/* Mobile: Vertical connector line */}
                   <div className="md:hidden absolute -top-6 left-1/2 -translate-x-1/2 w-px h-6 bg-gradient-to-b from-transparent to-[#C9A24D]/40" />
                   
-                  <div className="text-center space-y-4 max-w-sm mx-auto">
+                  <div className="text-center space-y-4 max-w-sm mx-auto bg-navy-900/30 border border-[#C9A24D]/60 rounded-2xl p-6 md:p-8 shadow-[0_2px_8px_rgba(0,0,0,0.15)] transition-all duration-250 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.2)] h-full flex flex-col">
                     {/* Icon */}
                     <div className="flex justify-center mb-2">
                       <svg className="w-12 h-12 text-[#C9A24D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -222,7 +219,7 @@ export default function LandingPage() {
                   <div className="md:hidden absolute -top-6 left-1/2 -translate-x-1/2 w-px h-6 bg-gradient-to-b from-transparent to-[#C9A24D]/40" />
                   <div className="md:hidden absolute -bottom-6 left-1/2 -translate-x-1/2 w-px h-6 bg-gradient-to-b from-[#C9A24D]/40 to-transparent" />
                   
-                  <div className="text-center space-y-4 max-w-sm mx-auto">
+                  <div className="text-center space-y-4 max-w-sm mx-auto bg-navy-900/30 border border-[#C9A24D]/60 rounded-2xl p-6 md:p-8 shadow-[0_2px_8px_rgba(0,0,0,0.15)] transition-all duration-250 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.2)] h-full flex flex-col">
                     {/* Icon */}
                     <div className="flex justify-center mb-2">
                       <svg className="w-12 h-12 text-[#C9A24D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -231,7 +228,7 @@ export default function LandingPage() {
                     </div>
                     
                     <h3 className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words">
-                      Gubitak čvrstoće i promena kontura tela
+                      Gubitak čvrstoće i kontura tela
                     </h3>
                     <p className="text-text-secondary text-base md:text-lg leading-relaxed font-light break-words">
                       Pad tonusa, celulit i lokalne masne naslage često ne reaguju na vežbanje. Tretmani za zatezanje i oblikovanje tela deluju prirodno i postepeno.
@@ -254,7 +251,7 @@ export default function LandingPage() {
                   {/* Mobile: Vertical connector line */}
                   <div className="md:hidden absolute -top-6 left-1/2 -translate-x-1/2 w-px h-6 bg-gradient-to-b from-transparent to-[#C9A24D]/40" />
                   
-                  <div className="text-center space-y-4 max-w-sm mx-auto">
+                  <div className="text-center space-y-4 max-w-sm mx-auto bg-navy-900/30 border border-[#C9A24D]/60 rounded-2xl p-6 md:p-8 shadow-[0_2px_8px_rgba(0,0,0,0.15)] transition-all duration-250 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.2)] h-full flex flex-col">
                     {/* Icon */}
                     <div className="flex justify-center mb-2">
                       <svg className="w-12 h-12 text-[#C9A24D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
