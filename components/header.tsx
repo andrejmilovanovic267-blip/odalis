@@ -13,17 +13,30 @@ export function Header() {
     e.preventDefault();
     setIsMobileMenuOpen(false);
     
-    // Special handling for "Tretmani" link on desktop (scrolls to bottom of cards)
-    if (id === '#tretmani-end' && window.innerWidth >= 768) {
+    // Special handling for "Tretmani" link (both mobile and desktop)
+    // Scrolls so bottom of cards block is 20px above viewport bottom
+    if (id === '#tretmani' || id === '#tretmani-end') {
       setTimeout(() => {
-        const cardsContainer = document.getElementById('tretmani-cards');
-        if (cardsContainer) {
-          const rect = cardsContainer.getBoundingClientRect();
-          const targetBottom = rect.bottom + window.scrollY;
-          const scrollPosition = targetBottom - window.innerHeight;
+        const targetElement = document.getElementById('tretmani-cards');
+        const headerElement = document.querySelector('header');
+        
+        if (targetElement && headerElement) {
+          // Measure cards block bottom position
+          const elRect = targetElement.getBoundingClientRect();
+          const elBottomDocY = elRect.bottom + window.scrollY;
           
+          // Measure viewport and header
+          const viewportH = window.innerHeight;
+          const headerH = headerElement ? Math.ceil(headerElement.getBoundingClientRect().height) : 0;
+          
+          // Compute scroll position so: elBottomDocY - scrollTop = viewportH - 20 - headerH
+          // => scrollTop = elBottomDocY - (viewportH - 20 - headerH)
+          const GAP = 20;
+          const top = Math.max(0, Math.round(elBottomDocY - (viewportH - GAP - headerH)));
+          
+          // Single deterministic scroll
           window.scrollTo({
-            top: Math.max(0, scrollPosition),
+            top,
             behavior: 'smooth'
           });
         }

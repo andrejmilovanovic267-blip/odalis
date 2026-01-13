@@ -267,6 +267,26 @@ section + section::before {
   background: transparent !important;
 }
 
+/* Debug outlines for treatment pages - TEMPORARY */
+[data-debug="treatments-root"] {
+  outline: 2px solid red;
+}
+[data-debug="treatments-root"] > * {
+  outline: 1px solid rgba(255, 0, 0, 0.35);
+}
+[data-debug="treatments-section"] {
+  outline: 2px solid blue;
+}
+
+/* Hide scrollbar for horizontal scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,

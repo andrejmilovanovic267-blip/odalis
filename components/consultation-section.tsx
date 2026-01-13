@@ -143,7 +143,7 @@ export function ConsultationSection() {
   }, [selectedIntent]);
 
   return (
-    <Section className="relative pb-20 md:pb-28 lg:pb-32">
+    <Section className="relative pb-20 md:pb-28 lg:pb-32 before:content-none">
       <div className="container mx-auto px-4 sm:px-6 pb-6 md:pb-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

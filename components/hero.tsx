@@ -60,7 +60,7 @@ export function Hero({
             <SectionHeading
               as="h1"
               className="
-                font-bold leading-[1.1]
+                font-bold !leading-[1.25] tracking-[0.01em]
                 text-[clamp(2.75rem,6vw,4.5rem)]
               "
             >
@@ -97,15 +97,19 @@ export function Hero({
             <div className="absolute inset-0 bg-gradient-to-b from-navy-900/10 to-transparent z-10 pointer-events-none" />
 
             {imageSrc && (
-              <div className="relative w-full h-full border-2 border-[#C9A24D] rounded-[30%] overflow-hidden">
-                <Image
-                  src={imageSrc}
-                  alt={imageAlt}
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-contain object-center rounded-[30%]"
-                />
+              <div className="relative inline-block w-fit max-w-full">
+                {/* Image wrapper with border - border on same element that clips the image */}
+                <div className="relative inline-block max-w-[calc(100vw-2rem)] sm:max-w-[calc(50vw-3rem)] border-[3px] border-[#C9A24D] rounded-2xl overflow-hidden bg-transparent p-0 m-0 block">
+                  <Image
+                    src={imageSrc}
+                    alt={imageAlt}
+                    width={400}
+                    height={533}
+                    priority
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-contain object-center max-h-[315px] sm:max-h-[390px] md:max-h-[450px] lg:max-h-[540px] w-auto h-auto block m-0 p-0"
+                  />
+                </div>
               </div>
             )}
           </motion.div>
