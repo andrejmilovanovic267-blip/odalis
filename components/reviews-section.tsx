@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Section } from "./section";
 import { SectionHeading } from "./section-heading";
+import { SafeImage } from "./safe-image";
 
 const reviews = [
   {
@@ -100,7 +100,7 @@ export function ReviewsSection() {
         }}
       />
 
-      <Section className="relative" id="reviews">
+      <Section className="relative" id="rezultati">
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
             {/* Heading */}
@@ -142,10 +142,9 @@ export function ReviewsSection() {
                       <div className="bg-white/5 border border-[rgba(201,162,76,0.25)] rounded-2xl overflow-hidden h-full shadow-lg hover:shadow-xl transition-all duration-200">
                         {/* Image */}
                         <div className="relative w-full h-[170px]">
-                          <Image
+                          <SafeImage
                             src={review.image}
                             alt="Rezultat tretmana – prirodno podmlađivanje kože"
-                            fill
                             sizes="(max-width: 768px) 85vw, 33vw"
                             className="object-cover object-center rounded-t-2xl"
                           />
@@ -161,17 +160,16 @@ export function ReviewsSection() {
                           <p className="text-text-secondary text-sm leading-relaxed mb-4">
                             {review.text}
                           </p>
-                          {/* Treatment tag */}
-                          <div className="mb-3">
-                            <span className="inline-block px-3 py-1 rounded-full bg-[rgba(201,162,76,0.15)] text-[#C9A24D] text-xs font-light border border-[rgba(201,162,76,0.3)]">
-                              {review.treatment}
-                            </span>
-                          </div>
-                          {/* Client info */}
-                          <div className="pt-4 border-t border-white/10">
-                            <p className="text-text-primary text-sm font-medium truncate">
-                              {review.client}, {review.age}
-                            </p>
+                          {/* Meta row: Client info + Treatment tag */}
+                          <div className="mt-6 border-t border-white/10 mb-2.5">
+                            <div className="h-[44px] flex items-center justify-center gap-3 p-0 leading-none">
+                              <p className="text-text-primary text-sm font-medium whitespace-nowrap truncate min-w-0 m-0 leading-none">
+                                {review.client} {review.age}
+                              </p>
+                              <span className="inline-block px-3 py-1 rounded-full bg-[rgba(201,162,76,0.15)] text-[#C9A24D] text-xs font-light border border-[rgba(201,162,76,0.3)] flex-shrink-0 m-0 leading-none">
+                                {review.treatment}
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -197,10 +195,9 @@ export function ReviewsSection() {
                   <div className="bg-white/5 border border-[rgba(201,162,76,0.25)] rounded-2xl overflow-hidden h-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform">
                     {/* Image */}
                     <div className="relative w-full h-[200px]">
-                      <Image
+                      <SafeImage
                         src={review.image}
                         alt="Rezultat tretmana – prirodno podmlađivanje kože"
-                        fill
                         sizes="(max-width: 1024px) 50vw, 33vw"
                         className="object-cover object-center rounded-t-2xl"
                       />
@@ -216,17 +213,16 @@ export function ReviewsSection() {
                       <p className="text-text-secondary text-sm leading-relaxed mb-4">
                         {review.text}
                       </p>
-                      {/* Treatment tag */}
-                      <div className="mb-3">
-                        <span className="inline-block px-3 py-1 rounded-full bg-[rgba(201,162,76,0.15)] text-[#C9A24D] text-xs font-light border border-[rgba(201,162,76,0.3)]">
-                          {review.treatment}
-                        </span>
-                      </div>
-                      {/* Client info */}
-                      <div className="pt-4 border-t border-white/10">
-                        <p className="text-text-primary text-sm font-medium truncate">
-                          {review.client}, {review.age}
-                        </p>
+                      {/* Meta row: Client info + Treatment tag */}
+                      <div className="mt-6 border-t border-white/10 mb-2.5">
+                        <div className="h-[46px] flex items-center justify-center gap-3 p-0 leading-none">
+                          <p className="text-text-primary text-sm font-medium whitespace-nowrap truncate min-w-0 m-0 leading-none">
+                            {review.client} {review.age}
+                          </p>
+                          <span className="inline-block px-3 py-1 rounded-full bg-[rgba(201,162,76,0.15)] text-[#C9A24D] text-xs font-light border border-[rgba(201,162,76,0.3)] flex-shrink-0 m-0 leading-none">
+                            {review.treatment}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>

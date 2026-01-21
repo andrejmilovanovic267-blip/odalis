@@ -92,7 +92,7 @@ export function Footer() {
                   </h3>
                   <ul className="space-y-3">
                     {navigationLinks.map((link) => (
-                      <li key={link.href}>
+                      <li key={`${link.href}-${link.label}`}>
                         <a
                           href={link.href}
                           onClick={(e) => handleNavClick(link.href, e)}
@@ -112,7 +112,7 @@ export function Footer() {
                   </h3>
                   <ul className="space-y-3">
                     {servicesLinks.map((link) => (
-                      <li key={link.href}>
+                      <li key={`${link.href}-${link.label}`}>
                         <a
                           href={link.href}
                           onClick={(e) => handleNavClick(link.href, e)}
@@ -132,7 +132,7 @@ export function Footer() {
                   </h3>
                   <ul className="space-y-3">
                     {infoLinks.map((link) => (
-                      <li key={link.href}>
+                      <li key={`${link.href}-${link.label}`}>
                         <a
                           href={link.href}
                           onClick={(e) => handleNavClick(link.href, e)}

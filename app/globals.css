@@ -324,6 +324,15 @@ section + section::before {
 }
 
 /* Typography Refinements */
+/* Default font weights - ensure normal weights are used */
+body {
+  font-weight: 400;
+}
+
+strong, b {
+  font-weight: 600;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 600;
@@ -340,11 +349,13 @@ h1 {
 h2 {
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.2;
+  font-weight: 600;
 }
 
 h3 {
   font-size: clamp(1.5rem, 3vw, 2rem);
   line-height: 1.3;
+  font-weight: 600;
 }
 
 p {

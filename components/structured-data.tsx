@@ -4,11 +4,12 @@ export function StructuredData() {
     "@context": "https://schema.org",
     "@type": "BeautySalon",
     "name": "Odalis",
-    "description": "Center for non-invasive facial and body rejuvenation",
+    "description": "Odalis je centar za podmlađivanje lica i tela u Beogradu, sa fokusom na neinvazivne tretmane i prirodne rezultate.",
     "url": "https://odalis.rs",
     "email": "andrejmilovanovic267@gmail.com",
     "address": {
       "@type": "PostalAddress",
+      "addressLocality": "Beograd",
       "addressCountry": "RS"
     },
     "areaServed": {
@@ -80,6 +81,14 @@ export function StructuredData() {
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Da. Mnogi naši klijenti kombinuju različite tretmane za optimalne rezultate. Tokom besplatne konsultacije, lično ćemo razgovarati sa vama o vašim željama i kreirati kombinovani plan koji odgovara vašim ciljevima. Možemo da planiramo tretmane za podmlađivanje lica i tela u skladu sa vašim potrebama i rasporedom."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Gde se nalazi Odalis centar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Odalis je centar za podmlađivanje lica i tela u Beogradu. Tačnu adresu i kontakt informacije možete pronaći u kontakt sekciji."
         }
       }
     ]

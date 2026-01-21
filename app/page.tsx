@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import type { KeyboardEvent } from "react";
 import Image from "next/image";
 import { CheckCircle2, XCircle } from "lucide-react";
 import { Hero } from "@/components/hero";
@@ -145,7 +146,7 @@ export default function LandingPage() {
         title="Prirodno podmlađivanje lica i tela u centru Odalis"
         ctaText="Zakaži besplatne konsultacije"
         ctaHref="#kontakt"
-        supportingText="Savetovanje bez obaveza. Razgovarajmo o vašim željama i očekivanjima."
+        supportingText="Savetovanje bez obaveza. Razgovarajmo o vašim željama i očekivanjima. Dobrodošli u Odalis centar za podmlađivanje lica i tela u Beogradu."
         imageSrc="/heroslika1.png"
         imageAlt="Prirodno podmlađivanje lica i tela - Neinvazivni tretmani u Odalis centru za podmlađivanje"
       />
@@ -389,122 +390,151 @@ export default function LandingPage() {
       </Section>
 
       {/* How Odalis Works Section */}
-      <Section className="relative journey-section-unified-bg">
+      <Section id="proces" className="relative journey-section-unified-bg">
         <section className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-7xl mx-auto space-y-12 overflow-hidden"
+            className="max-w-6xl mx-auto space-y-10 overflow-hidden"
           >
-            {/* Title and Intro */}
-            <div className="space-y-6 text-center">
-              <SectionHeading as="h2" className="max-w-[700px] mx-auto">
-                How your journey to natural rejuvenation begins
+            {/* Header */}
+            <div className="space-y-5 text-center max-w-3xl mx-auto">
+              <SectionHeading
+                as="h2"
+                className="mx-auto text-3xl md:text-4xl lg:text-5xl mb-4"
+              >
+                Kako izgleda vaš Odalis put do prirodnog podmlađivanja
               </SectionHeading>
-              
-              <div className="space-y-3 text-text-secondary text-xl md:text-2xl leading-[1.85] font-light break-words max-w-[650px] mx-auto">
-                <p>
-                  At Odalis, we believe that real results come from understanding — not quick fixes.
-                </p>
-                <p>
-                  Our approach is simple, personalized, and fully adapted to you.
-                </p>
-              </div>
+
+              <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words max-w-[720px] mx-auto">
+                Kroz konsultacije, plan po meri i pažljivo odabrane tretmane dolazite do rezultata koji izgledaju prirodno.
+              </p>
+
+              <p className="text-text-muted text-sm md:text-base font-light">
+                Bez oporavka • Bez obaveza • Prirodni, postepeni rezultati
+              </p>
             </div>
 
-            {/* Steps Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-              {/* Step 1 */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-                className="group"
-              >
-                <Card className="h-full overflow-hidden hover:shadow-soft hover:scale-[1.02] transition-all duration-200 ease-out">
-                  <div className="flex flex-col items-center text-center space-y-6">
-                    {/* Icon Circle */}
-                    <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full bg-navy-800/40 border border-blue-500/20 flex items-center justify-center">
-                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-navy-700/50 to-navy-900/50" />
-                      <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-[#C9A24D] flex items-center justify-center text-[#0B1F33] font-bold text-sm">
-                        1
-                      </span>
-                    </div>
-                    
-                    <div className="space-y-4">
-                      <h3 className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words">
-                        Free consultations & understanding your needs
-                      </h3>
-                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                        Every treatment begins with a conversation. We listen to your wishes, concerns, and expectations in order to understand what truly matters to you and your skin or body.
-                      </p>
+            {/* Text-only steps (centered) */}
+            <div className="max-w-6xl mx-auto">
+              <ol className="max-w-5xl mx-auto space-y-8">
+                {/* Step 1 */}
+                <li className="flex items-stretch gap-3 md:gap-6">
+                  <div className="relative flex-shrink-0 w-10 md:w-12 flex flex-col items-center">
+                    {/* continuous connector line (to next step) */}
+                    <div className="absolute left-1/2 -translate-x-1/2 top-[18px] md:top-[20px] bottom-[-32px] w-px bg-[rgba(201,162,77,0.5)]" />
+                    <div className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-[#C9A24D] bg-transparent flex items-center justify-center">
+                      <span className="text-[#C9A24D] font-semibold">1</span>
                     </div>
                   </div>
-                </Card>
-              </motion.div>
 
-              {/* Step 2 */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-                className="group"
-              >
-                <Card className="h-full overflow-hidden hover:shadow-soft hover:scale-[1.02] transition-all duration-200 ease-out">
-                  <div className="flex flex-col items-center text-center space-y-6">
-                    {/* Icon Circle */}
-                    <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full bg-navy-800/40 border border-blue-500/20 flex items-center justify-center">
-                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-navy-700/50 to-navy-900/50" />
-                      <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-[#C9A24D] flex items-center justify-center text-[#0B1F33] font-bold text-sm">
-                        2
-                      </span>
-                    </div>
-                    
+                  <Card className="w-full rounded-3xl bg-white/5 border border-[rgba(201,162,76,0.25)] p-6 md:p-7 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 ease-out">
                     <div className="space-y-4">
-                      <h3 className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words">
-                        Defining goals and a personalized plan
+                      <div className="inline-flex items-center gap-2 text-xs font-medium tracking-wide uppercase text-[#C9A24D] border border-[rgba(201,162,76,0.45)] bg-[#0B1F33]/30 rounded-full px-3 py-1">
+                        Korak 1
+                      </div>
+                      <h3 className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words">
+                        Konsultacije i procena
                       </h3>
-                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                        Based on the consultation, we create an individual treatment plan aligned with your goals — whether it&apos;s facial rejuvenation, skin tightening, or body shaping. No universal solutions.
+                      <ul className="space-y-2 text-text-secondary text-base leading-relaxed font-light">
+                        <li className="flex items-start gap-3">
+                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                          <span>Razgovor o željama, navikama i prioritetima.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                          <span>Procena kože/lica ili tela i realnih mogućnosti.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                          <span>Bez pritiska, bez obaveze.</span>
+                        </li>
+                      </ul>
+                      <p className="text-text-muted text-sm font-light">
+                        Besplatno • 10–15 min • Konkretne preporuke. Ovaj razgovor postavlja osnovu da prirodni rezultati budu realni i merljivi.
                       </p>
                     </div>
-                  </div>
-                </Card>
-              </motion.div>
+                  </Card>
+                </li>
 
-              {/* Step 3 */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
-                className="group"
-              >
-                <Card className="h-full overflow-hidden hover:shadow-soft hover:scale-[1.02] transition-all duration-200 ease-out">
-                  <div className="flex flex-col items-center text-center space-y-6">
-                    {/* Icon Circle */}
-                    <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full bg-navy-800/40 border border-blue-500/20 flex items-center justify-center">
-                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-navy-700/50 to-navy-900/50" />
-                      <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-[#C9A24D] flex items-center justify-center text-[#0B1F33] font-bold text-sm">
-                        3
-                      </span>
-                    </div>
-                    
-                    <div className="space-y-4">
-                      <h3 className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words">
-                        Enjoying treatments & natural results
-                      </h3>
-                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                        Treatments are pleasant, non-invasive, and require no recovery time. Results appear gradually and naturally, enhancing your confidence and sense of well-being.
-                      </p>
+                {/* Step 2 */}
+                <li className="flex items-stretch gap-3 md:gap-6">
+                  <div className="relative flex-shrink-0 w-10 md:w-12 flex flex-col items-center">
+                    {/* continuous connector line (to next step) */}
+                    <div className="absolute left-1/2 -translate-x-1/2 top-[18px] md:top-[20px] bottom-[-32px] w-px bg-[rgba(201,162,77,0.5)]" />
+                    <div className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-[#C9A24D] bg-transparent flex items-center justify-center">
+                      <span className="text-[#C9A24D] font-semibold">2</span>
                     </div>
                   </div>
-                </Card>
-              </motion.div>
+
+                  <Card className="w-full rounded-3xl bg-white/5 border border-[rgba(201,162,76,0.25)] p-6 md:p-7 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 ease-out">
+                    <div className="space-y-4">
+                      <div className="inline-flex items-center gap-2 text-xs font-medium tracking-wide uppercase text-[#C9A24D] border border-[rgba(201,162,76,0.45)] bg-[#0B1F33]/30 rounded-full px-3 py-1">
+                        Korak 2
+                      </div>
+                      <h3 className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words">
+                        Individualni plan
+                      </h3>
+                      <ul className="space-y-2 text-text-secondary text-base leading-relaxed font-light">
+                        <li className="flex items-start gap-3">
+                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                          <span>Definišemo cilj i očekivanja — jasno i realno.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                          <span>Predlog tretmana i dinamike, po meri.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                          <span>Znate šta radimo i zašto — pre početka.</span>
+                        </li>
+                      </ul>
+                      <p className="text-text-muted text-sm font-light">
+                        Plan dobijate odmah • Transparentno objašnjenje. Plan po meri je zasnovan na neinvazivni pristup i cilju da prirodni rezultati izgledaju skladno.
+                      </p>
+                    </div>
+                  </Card>
+                </li>
+
+                {/* Step 3 */}
+                <li className="flex items-stretch gap-3 md:gap-6">
+                  <div className="relative flex-shrink-0 w-10 md:w-12 flex flex-col items-center">
+                    <div className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-[#C9A24D] bg-transparent flex items-center justify-center">
+                      <span className="text-[#C9A24D] font-semibold">3</span>
+                    </div>
+                  </div>
+
+                  <Card className="w-full rounded-3xl bg-white/5 border border-[rgba(201,162,76,0.25)] p-6 md:p-7 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 ease-out">
+                    <div className="space-y-4">
+                      <div className="inline-flex items-center gap-2 text-xs font-medium tracking-wide uppercase text-[#C9A24D] border border-[rgba(201,162,76,0.45)] bg-[#0B1F33]/30 rounded-full px-3 py-1">
+                        Korak 3
+                      </div>
+                      <h3 className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words">
+                        Neinvazivni tretmani i rezultati
+                      </h3>
+                      <ul className="space-y-2 text-text-secondary text-base leading-relaxed font-light">
+                        <li className="flex items-start gap-3">
+                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                          <span>Prijatno, bez oporavka i bez prekida rutine.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                          <span>Prirodni postepeni rezultati koji izgledaju skladno.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                          <span>Bolji tonus i svežiji izgled kroz vreme.</span>
+                        </li>
+                      </ul>
+                      <p className="text-text-muted text-sm font-light">
+                        Bez oporavka • Postepen, vidljiv napredak. Neinvazivni tretmani podržavaju da prirodni rezultati dolaze postepeno i diskretno.
+                      </p>
+                    </div>
+                  </Card>
+                </li>
+              </ol>
             </div>
 
             {/* Mini CTA */}
@@ -516,10 +546,10 @@ export default function LandingPage() {
               className="flex flex-col items-center space-y-3 pt-4"
             >
               <Button href="#kontakt" variant="primary" className="w-full md:w-auto">
-                Start your Odalis experience
+                Zakaži besplatne konsultacije
               </Button>
               <p className="text-text-muted text-sm md:text-base font-light">
-                No pressure • No obligation • At your own pace
+                Bez pritiska • Bez obaveza • U vašem ritmu
               </p>
             </motion.div>
           </motion.div>
@@ -997,6 +1027,46 @@ export default function LandingPage() {
                   )}
                 </AnimatePresence>
               </article>
+
+              <article className="bg-white/5 border border-[rgba(201,162,76,0.25)] rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
+                <button
+                  onClick={() => setOpenFAQ(openFAQ === 7 ? null : 7)}
+                  className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none focus:ring-0 border-none ring-0 rounded-lg p-2 -m-2"
+                  aria-expanded={openFAQ === 7}
+                  aria-controls="faq-answer-7"
+                  aria-label="Gde se nalazi Odalis centar?"
+                  type="button"
+                >
+                  <h3
+                    className="text-text-primary text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                  >
+                    Gde se nalazi Odalis centar?
+                  </h3>
+                  <span
+                    className="text-2xl md:text-3xl font-light flex-shrink-0 mt-1 transition-all duration-250 ease-out"
+                    style={{ color: "#C9A24D" }}
+                  >
+                    {openFAQ === 7 ? "−" : "+"}
+                  </span>
+                </button>
+                <AnimatePresence>
+                  {openFAQ === 7 && (
+                    <motion.div
+                      key="faq-7"
+                      id="faq-answer-7"
+                      initial={{ opacity: 0, maxHeight: 0 }}
+                      animate={{ opacity: 1, maxHeight: 1000 }}
+                      exit={{ opacity: 0, maxHeight: 0 }}
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                        Odalis je centar za podmlađivanje lica i tela u Beogradu. Tačnu adresu i kontakt informacije možete pronaći u kontakt sekciji.
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </article>
             </div>
           </motion.div>
         </div>
@@ -1018,7 +1088,7 @@ export default function LandingPage() {
             data-debug="treatments-root"
           >
             {/* Treatments View */}
-            <Section className="relative !pt-[calc(var(--header-height,80px)+16px)] md:!pt-[calc(var(--header-height,96px)+16px)]" data-debug="treatments-section">
+            <Section className="relative !pt-4" noOverlay data-debug="treatments-section">
               <section className="container mx-auto px-4 sm:px-6">
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
@@ -1068,7 +1138,34 @@ export default function LandingPage() {
                         transition={{ duration: 0.5, delay: 0.2 + index * 0.1, ease: "easeOut" }}
                         className="group"
                       >
-                        <Card className="h-full overflow-hidden hover:shadow-soft hover:scale-[1.02] transition-all duration-200 ease-out">
+                        {treatment.title === "HydraFacial" ? (
+                          <div
+                            className="h-full cursor-pointer"
+                            role="link"
+                            tabIndex={0}
+                            aria-label="Otvori blog: HydraFacial tretman"
+                            onClick={() => router.push("/blog/hydrafacial")}
+                            onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
+                              if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
+                                router.push("/blog/hydrafacial");
+                              }
+                            }}
+                          >
+                            <Card className="h-full overflow-hidden hover:shadow-soft hover:scale-[1.02] transition-all duration-200 ease-out !bg-transparent">
+                              <div className="aspect-[4/3] bg-navy-800/30 rounded-2xl mb-6 overflow-hidden">
+                                <div className="w-full h-full bg-gradient-to-br from-navy-800/40 to-navy-900/40 group-hover:scale-105 transition-transform duration-200 ease-out" />
+                              </div>
+                              <h3 className="text-text-primary text-2xl md:text-3xl font-bold mb-4 leading-tight break-words">
+                                {treatment.title}
+                              </h3>
+                              <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                                {treatment.description}
+                              </p>
+                            </Card>
+                          </div>
+                        ) : (
+                          <Card className="h-full overflow-hidden hover:shadow-soft hover:scale-[1.02] transition-all duration-200 ease-out !bg-transparent">
                           <div className="aspect-[4/3] bg-navy-800/30 rounded-2xl mb-6 overflow-hidden">
                             <div className="w-full h-full bg-gradient-to-br from-navy-800/40 to-navy-900/40 group-hover:scale-105 transition-transform duration-200 ease-out" />
                           </div>
@@ -1078,7 +1175,8 @@ export default function LandingPage() {
                           <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
                             {treatment.description}
                           </p>
-                        </Card>
+                          </Card>
+                        )}
           </motion.div>
                     ))}
         </div>

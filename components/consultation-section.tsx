@@ -159,8 +159,8 @@ export function ConsultationSection() {
             </SectionHeading>
             
             {/* Intro text */}
-            <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words max-w-[600px] mx-auto">
-              Bilo da imate konkretno pitanje ili želite stručno mišljenje, naše besplatne konsultacije pomažu vam da saznate koji tretmani su najbolji za vaše lice ili telo — prirodno, diskretno i bez ikakve obaveze.
+            <p className="text-text-secondary text-lg md:text-xl leading-[1.85] break-words max-w-[600px] mx-auto">
+              Bilo da imate konkretno pitanje ili želite stručno mišljenje, naše besplatne konsultacije pomažu vam da saznate koji tretmani su najbolji za vaše lice ili telo — prirodno, diskretno i bez ikakve obaveze. Konsultacije se obavljaju u Odalis centru u Beogradu.
             </p>
           </div>
 
@@ -262,7 +262,7 @@ export function ConsultationSection() {
                       onChange={handleIntentChange}
                       className="consultation-radio"
                     />
-                    <span className="text-text-secondary text-base font-light group-hover:text-text-primary transition-colors duration-250 ease-out">
+                    <span className="text-text-secondary text-base group-hover:text-text-primary transition-colors duration-250 ease-out">
                       Želim da postavim pitanje
                     </span>
                   </label>
@@ -276,7 +276,7 @@ export function ConsultationSection() {
                       onChange={handleIntentChange}
                       className="consultation-radio"
                     />
-                    <span className="text-text-secondary text-base font-light group-hover:text-text-primary transition-colors duration-250 ease-out">
+                    <span className="text-text-secondary text-base group-hover:text-text-primary transition-colors duration-250 ease-out">
                       Želim da zakažem besplatne konsultacije
                     </span>
                   </label>
@@ -369,7 +369,7 @@ export function ConsultationSection() {
                     : "bg-navy-800/30 border border-red-500/30 text-text-primary"
                 }`}
               >
-                <p className="text-base font-light">{submitStatus.message}</p>
+                <p className="text-base">{submitStatus.message}</p>
               </motion.div>
             )}
 
@@ -397,7 +397,7 @@ export function ConsultationSection() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className="text-text-muted text-sm text-center font-light"
+              className="text-text-muted text-sm text-center"
             >
               Diskretno • Bez obaveze • Individualan pristup
             </motion.p>

@@ -64,17 +64,17 @@ export function Header() {
   // Mobile navigation links (without FAQ)
   const mobileNavLinks = [
     { href: '#hero', label: 'Početna' },
-    { href: '#pristup', label: 'Pristup' },
+    { href: '#proces', label: 'Proces' },
     { href: '#tretmani', label: 'Tretmani' },
-    { href: '#kontakt', label: 'Kontakt' },
+    { href: '#rezultati', label: 'Rezultati' },
   ];
 
   // Desktop navigation links (without FAQ)
   const desktopNavLinks = [
     { href: '#hero', label: 'Početna' },
-    { href: '#pristup', label: 'Pristup' },
+    { href: '#proces', label: 'Proces' },
     { href: '#tretmani-end', label: 'Tretmani' },
-    { href: '#kontakt', label: 'Kontakt' },
+    { href: '#rezultati', label: 'Rezultati' },
   ];
 
   return (
@@ -116,7 +116,7 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleNavClick(link.href, e)}
-                className="text-[#C9A24D] text-base font-light hover:text-[#D6B45F] transition-colors duration-250 ease-out focus:outline-none focus:ring-0"
+                className="text-[#C9A24D] text-base font-medium hover:text-[#D6B45F] transition-colors duration-250 ease-out focus:outline-none focus:ring-0"
               >
                 {link.label}
               </a>
@@ -150,7 +150,7 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleNavClick(link.href, e)}
-                className="text-[#C9A24D] text-base font-light hover:text-[#D6B45F] transition-colors duration-250 ease-out focus:outline-none focus:ring-0"
+                className="text-[#C9A24D] text-base font-medium hover:text-[#D6B45F] transition-colors duration-250 ease-out focus:outline-none focus:ring-0"
               >
                 {link.label}
               </a>
@@ -163,7 +163,7 @@ export function Header() {
           <a
             href="#kontakt"
             onClick={(e) => handleNavClick('#kontakt', e)}
-            className="inline-flex items-center justify-center rounded-lg font-light px-6 py-2.5 text-sm text-[#C9A24D] border border-[#C9A24D] bg-transparent hover:bg-[#C9A24D] hover:text-[#0B1F33] transition-all duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 whitespace-nowrap"
+            className="inline-flex items-center justify-center rounded-lg font-semibold px-6 py-2.5 text-sm text-[#C9A24D] border border-[#C9A24D] bg-transparent hover:bg-[#C9A24D] hover:text-[#0B1F33] transition-all duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 whitespace-nowrap"
           >
             Zakaži konsultacije
           </a>
@@ -222,7 +222,7 @@ export function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(link.href, e)}
-                  className="text-[#C9A24D] text-xl font-light hover:text-[#D6B45F] transition-colors duration-250 ease-out leading-relaxed"
+                  className="text-[#C9A24D] text-xl font-medium hover:text-[#D6B45F] transition-colors duration-250 ease-out leading-relaxed"
                 >
                   {link.label}
                 </a>

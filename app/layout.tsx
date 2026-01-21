@@ -23,9 +23,9 @@ const bodyFont = Inter({
 export const metadata: Metadata = {
   title: {
     template: "%s | Odalis",
-    default: "Odalis - Centar za podmlađivanje lica i tela",
+    default: "Odalis - Centar za podmlađivanje lica i tela u Beogradu",
   },
-  description: "Odalis je centar za podmlađivanje lica i tela koji se fokusira na neinvazivne, savremene tretmane i individualan pristup svakoj klijentici. Zakažite besplatne konsultacije.",
+  description: "Odalis je centar za podmlađivanje lica i tela u Beogradu sa fokusom na neinvazivne, savremene tretmane i individualan pristup svakoj klijentici. Zakažite besplatne konsultacije.",
   icons: {
     icon: "/favicon.png",
     apple: "/apple-touch-icon.png",
