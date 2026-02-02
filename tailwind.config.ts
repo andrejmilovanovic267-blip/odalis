@@ -39,6 +39,9 @@ const config = {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
+      screens: {
+        nav: "968px", // Custom breakpoint for navigation (md + 200px)
+      },
       container: {
         center: true,
         padding: {

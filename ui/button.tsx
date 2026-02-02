@@ -7,7 +7,7 @@ import { clsx } from "clsx";
 import { scrollToSection } from "@/lib/scroll-utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-lg font-light transition-all duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none",
+  "inline-flex items-center justify-center rounded-lg font-semibold transition-all duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none",
   {
     variants: {
       variant: {

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import type { KeyboardEvent } from "react";
 import Image from "next/image";
@@ -24,6 +24,11 @@ export default function LandingPage() {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const [currentView, setCurrentView] = useState<ViewType>('home');
   const [isNavigatingBack, setIsNavigatingBack] = useState(false);
+  
+  // Process steps connector animation
+  const processStepsRef = useRef<HTMLDivElement>(null);
+  const [connectorActive, setConnectorActive] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
 
   // Handle browser back/forward buttons
   useEffect(() => {
@@ -49,6 +54,38 @@ export default function LandingPage() {
     }
     setIsNavigatingBack(false);
   }, [currentView, isNavigatingBack]);
+
+  // Prefers-reduced-motion detection
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduceMotion(!!mq.matches);
+    update();
+    mq.addEventListener?.("change", update);
+    return () => mq.removeEventListener?.("change", update);
+  }, []);
+
+  // IntersectionObserver for process steps connector animation
+  useEffect(() => {
+    if (!processStepsRef.current || connectorActive) return;
+    const el = processStepsRef.current;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+          setConnectorActive(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: [0, 0.35, 1] }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [connectorActive]);
+
+  // If reduced motion, show lines immediately
+  useEffect(() => {
+    if (reduceMotion) setConnectorActive(true);
+  }, [reduceMotion]);
 
   const handleViewChange = (view: ViewType) => {
     // Push state to history when navigating to treatment views
@@ -145,7 +182,7 @@ export default function LandingPage() {
         eyebrow="Centar za podmlađivanje lica i tela"
         title="Prirodno podmlađivanje lica i tela u centru Odalis"
         ctaText="Zakaži besplatne konsultacije"
-        ctaHref="#kontakt"
+        ctaHref="#konsultacije"
         supportingText="Savetovanje bez obaveza. Razgovarajmo o vašim željama i očekivanjima. Dobrodošli u Odalis centar za podmlađivanje lica i tela u Beogradu."
         imageSrc="/heroslika1.png"
         imageAlt="Prirodno podmlađivanje lica i tela - Neinvazivni tretmani u Odalis centru za podmlađivanje"
@@ -168,7 +205,7 @@ export default function LandingPage() {
             </SectionHeading>
             
               <div className="text-text-secondary text-lg md:text-xl leading-relaxed font-light break-words max-w-2xl mx-auto">
-                <p>
+              <p>
                   Promene na koži i telu dolaze prirodno. Zato i podmlađivanje treba da bude takvo. U Odalisu nudimo neinvazivne tretmane za prirodne, dugotrajne rezultate bez pritiska i bez agresivnih metoda.
                 </p>
               </div>
@@ -191,7 +228,7 @@ export default function LandingPage() {
                   {/* Mobile: Vertical connector line */}
                   <div className="md:hidden absolute -top-6 left-1/2 -translate-x-1/2 w-px h-6 bg-gradient-to-b from-transparent to-[#C9A24D]/40" />
                   
-                  <div className="text-center space-y-4 max-w-sm mx-auto bg-navy-900/30 border border-[#C9A24D]/60 rounded-2xl p-6 md:p-8 shadow-[0_2px_8px_rgba(0,0,0,0.15)] transition-all duration-250 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.2)] h-full flex flex-col">
+                  <div className="text-center space-y-4 max-w-sm mx-auto bg-white/5 border border-[#C9A24D]/60 rounded-2xl p-6 md:p-8 shadow-[0_2px_8px_rgba(0,0,0,0.15)] transition-all duration-250 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.2)] h-full flex flex-col">
                     {/* Icon */}
                     <div className="flex justify-center mb-2">
                       <svg className="w-12 h-12 text-[#C9A24D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -204,17 +241,17 @@ export default function LandingPage() {
                     </h3>
                     <p className="text-text-secondary text-base md:text-lg leading-relaxed font-light break-words">
                       Suvoća, bore i neujednačen ten mogu učiniti da lice izgleda umorno. Neinvazivni tretmani za podmlađivanje lica pomažu koži da povrati sjaj, svežinu i elastičnost.
-                    </p>
-                  </div>
+              </p>
+            </div>
                   
                   {/* Desktop: Right connector line */}
                   <div className="hidden md:block absolute top-12 -right-4 w-8 h-px bg-gradient-to-r from-[#C9A24D]/40 to-transparent" />
-                </motion.div>
+          </motion.div>
 
                 {/* Step 2 */}
-                <motion.div
+          <motion.div
                   initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
                   className="flex-1 relative"
@@ -223,7 +260,7 @@ export default function LandingPage() {
                   <div className="md:hidden absolute -top-6 left-1/2 -translate-x-1/2 w-px h-6 bg-gradient-to-b from-transparent to-[#C9A24D]/40" />
                   <div className="md:hidden absolute -bottom-6 left-1/2 -translate-x-1/2 w-px h-6 bg-gradient-to-b from-[#C9A24D]/40 to-transparent" />
                   
-                  <div className="text-center space-y-4 max-w-sm mx-auto bg-navy-900/30 border border-[#C9A24D]/60 rounded-2xl p-6 md:p-8 shadow-[0_2px_8px_rgba(0,0,0,0.15)] transition-all duration-250 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.2)] h-full flex flex-col">
+                  <div className="text-center space-y-4 max-w-sm mx-auto bg-white/5 border border-[#C9A24D]/60 rounded-2xl p-6 md:p-8 shadow-[0_2px_8px_rgba(0,0,0,0.15)] transition-all duration-250 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.2)] h-full flex flex-col">
                     {/* Icon */}
                     <div className="flex justify-center mb-2">
                       <svg className="w-12 h-12 text-[#C9A24D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -245,17 +282,17 @@ export default function LandingPage() {
                 </motion.div>
 
                 {/* Step 3 */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
                   className="flex-1 relative"
                 >
                   {/* Mobile: Vertical connector line */}
                   <div className="md:hidden absolute -top-6 left-1/2 -translate-x-1/2 w-px h-6 bg-gradient-to-b from-transparent to-[#C9A24D]/40" />
                   
-                  <div className="text-center space-y-4 max-w-sm mx-auto bg-navy-900/30 border border-[#C9A24D]/60 rounded-2xl p-6 md:p-8 shadow-[0_2px_8px_rgba(0,0,0,0.15)] transition-all duration-250 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.2)] h-full flex flex-col">
+                  <div className="text-center space-y-4 max-w-sm mx-auto bg-white/5 border border-[#C9A24D]/60 rounded-2xl p-6 md:p-8 shadow-[0_2px_8px_rgba(0,0,0,0.15)] transition-all duration-250 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.2)] h-full flex flex-col">
                     {/* Icon */}
                     <div className="flex justify-center mb-2">
                       <svg className="w-12 h-12 text-[#C9A24D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -265,7 +302,7 @@ export default function LandingPage() {
                     
                     <h3 className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words">
                       Niste sigurni šta je pravi izbor za vas
-                    </h3>
+                  </h3>
                     <p className="text-text-secondary text-base md:text-lg leading-relaxed font-light break-words">
                       Veliki izbor tretmana može zbuniti. Besplatne konsultacije vam pomažu da bez pritiska odaberete rešenje prilagođeno vašem telu i ciljevima.
                     </p>
@@ -276,7 +313,7 @@ export default function LandingPage() {
                 </motion.div>
               </div>
             </div>
-          </motion.div>
+              </motion.div>
         </section>
       </Section>
 
@@ -301,7 +338,7 @@ export default function LandingPage() {
                 transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
                 className="group relative z-0 hover:z-10"
               >
-                <div className="h-full grid grid-rows-2 rounded-3xl border border-blue-500/20 hover:shadow-soft hover:scale-[1.01] transition-all duration-200 ease-out will-change-transform">
+                <div className="h-full grid grid-rows-2 rounded-3xl card-surface hover:shadow-soft hover:scale-[1.01] transition-all duration-200 ease-out will-change-transform">
                   {/* Top Part - Image (Square) */}
                   <div className="relative w-full h-full overflow-hidden rounded-t-3xl">
                     <Image
@@ -314,11 +351,11 @@ export default function LandingPage() {
                   </div>
                   
                   {/* Bottom Part - Content (~60%) */}
-                  <div className="h-full flex flex-col justify-between p-6 sm:p-8 md:p-10 space-y-6 rounded-b-3xl overflow-hidden">
+                  <div className="h-full flex flex-col justify-between p-6 sm:p-8 md:p-10 space-y-6 rounded-b-3xl overflow-hidden bg-transparent">
                     <div className="space-y-4">
                       <h3 className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words">
                         Podmlađivanje lica
-                      </h3>
+                  </h3>
                       <div className="space-y-3 text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
                         <p>
                           Neinvazivni tretmani za svežiju, zategnutiju i blistaviju kožu.
@@ -329,15 +366,18 @@ export default function LandingPage() {
                       </div>
                     </div>
                     <button
-                      onClick={() => handleViewChange('treatments-face')}
-                      className="inline-flex items-center justify-center rounded-lg font-light px-6 py-2.5 text-sm text-[#C9A24D] border border-[#C9A24D] bg-transparent hover:!bg-[#C9A24D] hover:!text-[#0B1F33] transition-all duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/30 focus:ring-offset-2 w-full md:w-auto whitespace-nowrap cursor-pointer"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollToSection('#tretmani', { behavior: 'smooth', block: 'start' });
+                      }}
+                      className="btn-cta w-full md:w-auto cursor-pointer"
                     >
                       Svi tretmani za lice
                     </button>
                   </div>
                 </div>
               </motion.div>
-
+              
               {/* Body Rejuvenation Card */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -346,7 +386,7 @@ export default function LandingPage() {
                 transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
                 className="group relative z-0 hover:z-10"
               >
-                <div className="h-full grid grid-rows-2 rounded-3xl border border-blue-500/20 hover:shadow-soft hover:scale-[1.01] transition-all duration-200 ease-out will-change-transform">
+                <div className="h-full grid grid-rows-2 rounded-3xl card-surface hover:shadow-soft hover:scale-[1.01] transition-all duration-200 ease-out will-change-transform">
                   {/* Top Part - Image (Square) */}
                   <div className="relative w-full h-full overflow-hidden rounded-t-3xl">
                     <Image
@@ -356,10 +396,10 @@ export default function LandingPage() {
                       sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover object-center group-hover:scale-105 transition-transform duration-200 ease-out"
                     />
-                  </div>
-                  
+            </div>
+            
                   {/* Bottom Part - Content (~60%) */}
-                  <div className="h-full flex flex-col justify-between p-6 sm:p-8 md:p-10 space-y-6 rounded-b-3xl overflow-hidden">
+                  <div className="h-full flex flex-col justify-between p-6 sm:p-8 md:p-10 space-y-6 rounded-b-3xl overflow-hidden bg-transparent">
                     <div className="space-y-4">
                       <h3 className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words">
                         Podmlađivanje tela
@@ -374,15 +414,18 @@ export default function LandingPage() {
                       </div>
                     </div>
                     <button
-                      onClick={() => handleViewChange('treatments-body')}
-                      className="inline-flex items-center justify-center rounded-lg font-light px-6 py-2.5 text-sm text-[#C9A24D] border border-[#C9A24D] bg-transparent hover:!bg-[#C9A24D] hover:!text-[#0B1F33] transition-all duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/30 focus:ring-offset-2 w-full md:w-auto whitespace-nowrap cursor-pointer"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollToSection('#tretmani', { behavior: 'smooth', block: 'start' });
+                      }}
+                      className="btn-cta w-full md:w-auto cursor-pointer"
                     >
                       Svi tretmani za telo
                     </button>
                   </div>
                 </div>
-              </motion.div>
-            </div>
+          </motion.div>
+        </div>
             {/* Anchor for desktop scroll target - positioned after cards */}
             <div id="tretmani-end" className="hidden md:block h-0 pointer-events-none" />
           </motion.div>
@@ -390,14 +433,14 @@ export default function LandingPage() {
       </Section>
 
       {/* How Odalis Works Section */}
-      <Section id="proces" className="relative journey-section-unified-bg">
-        <section className="container mx-auto px-4 sm:px-6">
+      <Section id="proces" className="relative proces-section-no-overlay" noOverlay>
+        <div className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-6xl mx-auto space-y-10 overflow-hidden"
+            className="max-w-6xl mx-auto space-y-10"
           >
             {/* Header */}
             <div className="space-y-5 text-center max-w-3xl mx-auto">
@@ -406,8 +449,8 @@ export default function LandingPage() {
                 className="mx-auto text-3xl md:text-4xl lg:text-5xl mb-4"
               >
                 Kako izgleda vaš Odalis put do prirodnog podmlađivanja
-              </SectionHeading>
-
+            </SectionHeading>
+            
               <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words max-w-[720px] mx-auto">
                 Kroz konsultacije, plan po meri i pažljivo odabrane tretmane dolazite do rezultata koji izgledaju prirodno.
               </p>
@@ -418,142 +461,184 @@ export default function LandingPage() {
             </div>
 
             {/* Text-only steps (centered) */}
-            <div className="max-w-6xl mx-auto">
-              <ol className="max-w-5xl mx-auto space-y-8">
-                {/* Step 1 */}
-                <li className="flex items-stretch gap-3 md:gap-6">
-                  <div className="relative flex-shrink-0 w-10 md:w-12 flex flex-col items-center">
-                    {/* continuous connector line (to next step) */}
-                    <div className="absolute left-1/2 -translate-x-1/2 top-[18px] md:top-[20px] bottom-[-32px] w-px bg-[rgba(201,162,77,0.5)]" />
-                    <div className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-[#C9A24D] bg-transparent flex items-center justify-center">
-                      <span className="text-[#C9A24D] font-semibold">1</span>
-                    </div>
+            <div id="process-steps" ref={processStepsRef} className="mx-auto max-w-6xl pb-16 md:pb-20">
+              {/* Circle row with connectors */}
+              <div className="relative h-[56px] mb-3 md:mb-4 lg:mb-6 overflow-visible hidden lg:block">
+                {/* Circles */}
+                <div className="relative flex justify-center lg:grid lg:grid-cols-3 items-center h-full px-4 lg:px-0 z-10 overflow-visible">
+                  {/* Circle 1 */}
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-[#C9A24D] bg-transparent flex items-center justify-center relative z-10 lg:justify-self-center">
+                    <span className="text-[#C9A24D] font-semibold text-lg md:text-xl">1</span>
                   </div>
+                  
+                  {/* Circle 2 - hidden on mobile, visible on lg+ */}
+                  <div className="hidden lg:flex w-12 h-12 rounded-full border-2 border-[#C9A24D] bg-transparent items-center justify-center relative z-10 justify-self-center">
+                    <span className="text-[#C9A24D] font-semibold text-xl">2</span>
+                  </div>
+                  
+                  {/* Circle 3 - hidden on mobile, visible on lg+ */}
+                  <div className="hidden lg:flex w-12 h-12 rounded-full border-2 border-[#C9A24D] bg-transparent items-center justify-center relative z-10 justify-self-center">
+                    <span className="text-[#C9A24D] font-semibold text-xl">3</span>
+                  </div>
+                </div>
+                
+                {/* DEBUG CONNECTOR LINE */}
+                <div className="relative w-full mt-4">
+                  <div className="mx-auto h-[2px] w-2/3 bg-[#C9A24D]"></div>
+                </div>
+                
+                {/* Connector lines - hidden on mobile, visible on lg+ */}
+                <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 w-full pointer-events-none z-[1] hidden lg:block" aria-hidden="true">
+                  {/* Track lines (always visible) */}
+                  <div className="absolute left-[16.666%] w-[33.333%] h-[2px] bg-[#C9A24D]/25" />
+                  <div className="absolute left-[50%] w-[33.333%] h-[2px] bg-[#C9A24D]/25" />
+                  
+                  {/* Fill lines (animated) */}
+                  <div
+                    className={`absolute left-[16.666%] w-[33.333%] h-[2px] bg-[#C9A24D] origin-left ${
+                      reduceMotion ? "" : "transition-transform duration-[600ms] ease-out"
+                    }`}
+                    style={{
+                      transform: connectorActive ? "scaleX(1)" : "scaleX(0)",
+                    }}
+                  />
+                  <div
+                    className={`absolute left-[50%] w-[33.333%] h-[2px] bg-[#C9A24D] origin-left ${
+                      reduceMotion ? "" : "transition-transform duration-[600ms] ease-out"
+                    }`}
+                    style={{
+                      transform: connectorActive ? "scaleX(1)" : "scaleX(0)",
+                      transitionDelay: reduceMotion ? "0ms" : "600ms",
+                    }}
+                  />
+                </div>
+              </div>
+              
+              <ol className="grid gap-6 md:gap-8 lg:grid-cols-3 mb-10 md:mb-12">
+                {/* Step 1 */}
+                <li className="relative">
+                  <div className="flex flex-row items-start gap-4 lg:flex-col lg:items-center lg:gap-0">
+                    {/* Step number badge */}
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-[#C9A24D] bg-transparent flex items-center justify-center flex-shrink-0 lg:hidden">
+                      <span className="text-[#C9A24D] font-semibold text-lg md:text-xl">1</span>
+                    </div>
 
-                  <Card className="w-full rounded-3xl bg-white/5 border border-[rgba(201,162,76,0.25)] p-6 md:p-7 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 ease-out">
-                    <div className="space-y-4">
-                      <div className="inline-flex items-center gap-2 text-xs font-medium tracking-wide uppercase text-[#C9A24D] border border-[rgba(201,162,76,0.45)] bg-[#0B1F33]/30 rounded-full px-3 py-1">
-                        Korak 1
-                      </div>
-                      <h3 className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words">
+                    {/* Testimonials card wrapper classes: card-surface overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform */}
+                    <div className="card-surface overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform flex-1 lg:w-full">
+                    <div className="p-5">
+                      <h3 className="text-text-primary text-lg font-bold mb-2 leading-tight">
                         Konsultacije i procena
                       </h3>
-                      <ul className="space-y-2 text-text-secondary text-base leading-relaxed font-light">
+                      <p className="text-text-secondary text-sm leading-relaxed mb-3">
+                        Kratko upoznajemo vašu kožu i ciljeve, pa dobijate jasnu preporuku za prirodan rezultat.
+                      </p>
+                      <ul className="space-y-2 text-text-secondary text-sm leading-relaxed mb-3">
                         <li className="flex items-start gap-3">
                           <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                          <span>Razgovor o željama, navikama i prioritetima.</span>
+                          <span>Razgovor o željama i prioritetima</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                          <span>Procena kože/lica ili tela i realnih mogućnosti.</span>
+                          <span>Procena kože lica ili tela</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                          <span>Bez pritiska, bez obaveze.</span>
+                          <span>Preporuka bez pritiska</span>
                         </li>
                       </ul>
-                      <p className="text-text-muted text-sm font-light">
-                        Besplatno • 10–15 min • Konkretne preporuke. Ovaj razgovor postavlja osnovu da prirodni rezultati budu realni i merljivi.
-                      </p>
                     </div>
-                  </Card>
+                  </div>
+                  </div>
                 </li>
 
                 {/* Step 2 */}
-                <li className="flex items-stretch gap-3 md:gap-6">
-                  <div className="relative flex-shrink-0 w-10 md:w-12 flex flex-col items-center">
-                    {/* continuous connector line (to next step) */}
-                    <div className="absolute left-1/2 -translate-x-1/2 top-[18px] md:top-[20px] bottom-[-32px] w-px bg-[rgba(201,162,77,0.5)]" />
-                    <div className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-[#C9A24D] bg-transparent flex items-center justify-center">
-                      <span className="text-[#C9A24D] font-semibold">2</span>
+                <li className="relative">
+                  <div className="flex flex-row items-start gap-4 lg:flex-col lg:items-center lg:gap-0">
+                    {/* Step number badge */}
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-[#C9A24D] bg-transparent flex items-center justify-center flex-shrink-0 lg:hidden">
+                      <span className="text-[#C9A24D] font-semibold text-lg md:text-xl">2</span>
+                    </div>
+
+                    {/* Testimonials card wrapper classes: card-surface overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform */}
+                    <div className="card-surface overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform flex-1 lg:w-full">
+                      <div className="p-5">
+                        <h3 className="text-text-primary text-lg font-bold mb-2 leading-tight">
+                          Individualni plan
+                        </h3>
+                        <p className="text-text-secondary text-sm leading-relaxed mb-3">
+                          Kreiramo plan nege i tretmana koji je realan, postepen i prilagođen vašem ritmu.
+                        </p>
+                        <ul className="space-y-2 text-text-secondary text-sm leading-relaxed mb-3">
+                          <li className="flex items-start gap-3">
+                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                            <span>Jasna očekivanja</span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                            <span>Odabir tretmana po meri</span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                            <span>Plan bez iznenađenja</span>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
-
-                  <Card className="w-full rounded-3xl bg-white/5 border border-[rgba(201,162,76,0.25)] p-6 md:p-7 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 ease-out">
-                    <div className="space-y-4">
-                      <div className="inline-flex items-center gap-2 text-xs font-medium tracking-wide uppercase text-[#C9A24D] border border-[rgba(201,162,76,0.45)] bg-[#0B1F33]/30 rounded-full px-3 py-1">
-                        Korak 2
-                      </div>
-                      <h3 className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words">
-                        Individualni plan
-                      </h3>
-                      <ul className="space-y-2 text-text-secondary text-base leading-relaxed font-light">
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                          <span>Definišemo cilj i očekivanja — jasno i realno.</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                          <span>Predlog tretmana i dinamike, po meri.</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                          <span>Znate šta radimo i zašto — pre početka.</span>
-                        </li>
-                      </ul>
-                      <p className="text-text-muted text-sm font-light">
-                        Plan dobijate odmah • Transparentno objašnjenje. Plan po meri je zasnovan na neinvazivni pristup i cilju da prirodni rezultati izgledaju skladno.
-                      </p>
-                    </div>
-                  </Card>
                 </li>
 
                 {/* Step 3 */}
-                <li className="flex items-stretch gap-3 md:gap-6">
-                  <div className="relative flex-shrink-0 w-10 md:w-12 flex flex-col items-center">
-                    <div className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-[#C9A24D] bg-transparent flex items-center justify-center">
-                      <span className="text-[#C9A24D] font-semibold">3</span>
+                <li className="relative">
+                  <div className="flex flex-row items-start gap-4 lg:flex-col lg:items-center lg:gap-0">
+                    {/* Step number badge */}
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-[#C9A24D] bg-transparent flex items-center justify-center flex-shrink-0 lg:hidden">
+                      <span className="text-[#C9A24D] font-semibold text-lg md:text-xl">3</span>
+                    </div>
+
+                    {/* Testimonials card wrapper classes: card-surface overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform */}
+                    <div className="card-surface overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform flex-1 lg:w-full">
+                      <div className="p-5">
+                        <h3 className="text-text-primary text-lg font-bold mb-2 leading-tight">
+                          Neinvazivni tretmani i rezultati
+                        </h3>
+                        <p className="text-text-secondary text-sm leading-relaxed mb-3">
+                          Sprovodimo neinvazivne tretmane koji podižu kvalitet kože bez agresivnih metoda.
+                        </p>
+                        <ul className="space-y-2 text-text-secondary text-sm leading-relaxed mb-3">
+                          <li className="flex items-start gap-3">
+                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                            <span>Bez pauze u rutini</span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                            <span>Prirodni rezultati</span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                            <span>Praćenje napretka</span>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
-
-                  <Card className="w-full rounded-3xl bg-white/5 border border-[rgba(201,162,76,0.25)] p-6 md:p-7 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 ease-out">
-                    <div className="space-y-4">
-                      <div className="inline-flex items-center gap-2 text-xs font-medium tracking-wide uppercase text-[#C9A24D] border border-[rgba(201,162,76,0.45)] bg-[#0B1F33]/30 rounded-full px-3 py-1">
-                        Korak 3
-                      </div>
-                      <h3 className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words">
-                        Neinvazivni tretmani i rezultati
-                      </h3>
-                      <ul className="space-y-2 text-text-secondary text-base leading-relaxed font-light">
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                          <span>Prijatno, bez oporavka i bez prekida rutine.</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                          <span>Prirodni postepeni rezultati koji izgledaju skladno.</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                          <span>Bolji tonus i svežiji izgled kroz vreme.</span>
-                        </li>
-                      </ul>
-                      <p className="text-text-muted text-sm font-light">
-                        Bez oporavka • Postepen, vidljiv napredak. Neinvazivni tretmani podržavaju da prirodni rezultati dolaze postepeno i diskretno.
-                      </p>
-                    </div>
-                  </Card>
                 </li>
               </ol>
-            </div>
 
-            {/* Mini CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
-              className="flex flex-col items-center space-y-3 pt-4"
-            >
-              <Button href="#kontakt" variant="primary" className="w-full md:w-auto">
+              {/* Mini CTA */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
+                className="mt-10 flex flex-col items-center"
+              >
+              <Button href="#kontakt" variant="primary" className="w-full md:w-auto px-6 py-2.5 text-sm">
                 Zakaži besplatne konsultacije
               </Button>
-              <p className="text-text-muted text-sm md:text-base font-light">
-                Bez pritiska • Bez obaveza • U vašem ritmu
-              </p>
             </motion.div>
+            </div>
           </motion.div>
-        </section>
+        </div>
       </Section>
 
       {/* Šta jeste / šta nije Section */}
@@ -570,7 +655,7 @@ export default function LandingPage() {
             <div className="text-center mb-8 md:mb-12">
               <SectionHeading as="h2" className="text-3xl md:text-5xl mb-4 md:mb-6">
                 Zašto klijentkinje biraju Odalis centar za podmlađivanje
-              </SectionHeading>
+            </SectionHeading>
               <p className="text-base md:text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto">
                 Podmlađivanje nije samo tretman — to je odluka o poverenju.
                 U Odalis centru verujemo u iskren pristup, realna očekivanja i prirodne rezultate.
@@ -579,55 +664,60 @@ export default function LandingPage() {
             </div>
 
             {/* Two Column Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mb-12 md:mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mb-12 md:mb-16 items-stretch">
               {/* Leva kolona - ŠTA JESTE */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="bg-white/5 border border-[rgba(201,162,76,0.35)] rounded-3xl p-6 md:p-8 shadow-lg"
+                className="card-surface p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform h-full flex flex-col"
               >
-                <h3 className="text-text-primary text-sm font-medium uppercase tracking-wider mb-6 md:mb-8">
+                <h3 className="text-text-primary text-lg font-bold mb-3 leading-tight">
                   Šta možete da očekujete u Odalis centru
                 </h3>
-                <ul className="space-y-4">
+                <ul className="space-y-4 mb-4">
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
                       <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Neinvazivne i bezbedne tretmane</span>
-                      <span className="text-text-secondary text-base leading-relaxed">Bez igala, bez oporavka i bez agresivnih intervencija — samo metode koje poštuju vašu kožu i telo.</span>
+                      <span className="text-text-secondary text-sm leading-relaxed">Bez igala, bez oporavka i bez agresivnih intervencija — samo metode koje poštuju vašu kožu i telo.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
                       <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Individualan pristup vašem licu i telu</span>
-                      <span className="text-text-secondary text-base leading-relaxed">Svaki tretman biramo prema vašim ciljevima, stanju kože i tempu koji vama odgovara.</span>
+                      <span className="text-text-secondary text-sm leading-relaxed">Svaki tretman biramo prema vašim ciljevima, stanju kože i tempu koji vama odgovara.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
                       <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Prirodne i postepene rezultate</span>
-                      <span className="text-text-secondary text-base leading-relaxed">Naš cilj nije da promenimo vaš izgled, već da istaknemo ono najbolje — diskretno i skladno.</span>
+                      <span className="text-text-secondary text-sm leading-relaxed">Naš cilj nije da promenimo vaš izgled, već da istaknemo ono najbolje — diskretno i skladno.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
                       <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Prijatno i opuštajuće iskustvo</span>
-                      <span className="text-text-secondary text-base leading-relaxed">Tretmani su deo nege i brige o sebi, a ne stres ili neprijatnost.</span>
+                      <span className="text-text-secondary text-sm leading-relaxed">Tretmani su deo nege i brige o sebi, a ne stres ili neprijatnost.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
                       <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Stručno vođene preporuke</span>
-                      <span className="text-text-secondary text-base leading-relaxed">Dobijate iskren savet, jasno objašnjenje i realan plan — bez ulepšavanja i bez pritiska.</span>
+                      <span className="text-text-secondary text-sm leading-relaxed">Dobijate iskren savet, jasno objašnjenje i realan plan — bez ulepšavanja i bez pritiska.</span>
                     </div>
                   </li>
                 </ul>
+                {/* Divider line matching testimonials */}
+                <div className="mt-auto border-t border-white/10 mb-2.5">
+                  <div className="h-[44px] flex items-center justify-center p-0 leading-none">
+                  </div>
+                </div>
               </motion.div>
 
               {/* Desna kolona - ŠTA NIJE */}
@@ -636,48 +726,53 @@ export default function LandingPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-white/5 border border-[rgba(201,162,76,0.35)] rounded-3xl p-6 md:p-8 shadow-lg"
+                className="card-surface p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform h-full flex flex-col"
               >
-                <h3 className="text-text-primary text-sm font-medium uppercase tracking-wider mb-6 md:mb-8">
+                <h3 className="text-text-primary text-lg font-bold mb-3 leading-tight">
                   Naš pristup u praksi – iskreno i transparentno
                 </h3>
-                <ul className="space-y-4">
+                <ul className="space-y-4 mb-4">
                   <li className="flex items-start gap-3">
                     <XCircle className="text-white/40 flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
                       <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Ne jurimo instant efekte</span>
-                      <span className="text-text-secondary text-base leading-relaxed">Verujemo u rezultate koji dolaze prirodno i traju duže, bez šoka za kožu.</span>
+                      <span className="text-text-secondary text-sm leading-relaxed">Verujemo u rezultate koji dolaze prirodno i traju duže, bez šoka za kožu.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <XCircle className="text-white/40 flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
                       <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Ne menjamo vaš identitet</span>
-                      <span className="text-text-secondary text-base leading-relaxed">Podmlađivanje kod nas znači osvežen, zdrav i odmoran izgled — ne &ldquo;novo lice&rdquo;.</span>
+                      <span className="text-text-secondary text-sm leading-relaxed">Podmlađivanje kod nas znači osvežen, zdrav i odmoran izgled — ne &ldquo;novo lice&rdquo;.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <XCircle className="text-white/40 flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
                       <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Bez bola i neprijatnih iskustava</span>
-                      <span className="text-text-secondary text-base leading-relaxed">Tretmani su blagi, sigurni i prilagođeni vašem komforu.</span>
+                      <span className="text-text-secondary text-sm leading-relaxed">Tretmani su blagi, sigurni i prilagođeni vašem komforu.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <XCircle className="text-white/40 flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
                       <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Bez obaveze i pritiska</span>
-                      <span className="text-text-secondary text-base leading-relaxed">Besplatne konsultacije služe da dobijete odgovor i jasnoću — odluka je uvek vaša.</span>
+                      <span className="text-text-secondary text-sm leading-relaxed">Besplatne konsultacije služe da dobijete odgovor i jasnoću — odluka je uvek vaša.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <XCircle className="text-white/40 flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
                       <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Ako tretman nije za vas – reći ćemo vam</span>
-                      <span className="text-text-secondary text-base leading-relaxed">Iskren odnos je važniji od prodaje. Vaše poverenje nam je prioritet.</span>
+                      <span className="text-text-secondary text-sm leading-relaxed">Iskren odnos je važniji od prodaje. Vaše poverenje nam je prioritet.</span>
                     </div>
                   </li>
                 </ul>
+                {/* Divider line matching testimonials */}
+                <div className="mt-auto border-t border-white/10 mb-2.5">
+                  <div className="h-[44px] flex items-center justify-center p-0 leading-none">
+                  </div>
+            </div>
               </motion.div>
             </div>
 
@@ -710,7 +805,7 @@ export default function LandingPage() {
       </Section>
 
       {/* Reviews Section */}
-      <ReviewsSection />
+      {false && <ReviewsSection />}
 
       {/* FAQ Section - SEO Optimized */}
       <Section id="faq" className="relative scroll-mt-24 md:scroll-mt-28" aria-labelledby="faq">
@@ -722,12 +817,12 @@ export default function LandingPage() {
             transition={{ duration: 0.6 }}
             className="max-w-4xl mx-auto overflow-hidden pt-4 md:pt-6"
           >
-            <SectionHeading as="h2" id="faq" className="text-center -mt-6 md:-mt-8 mb-16">
+            <SectionHeading as="h2" id="faq" className="text-center mb-20 md:mb-24">
               Najčešća pitanja o tretmanima za podmlađivanje
             </SectionHeading>
             
             <div className="space-y-10">
-              <article className="bg-white/5 border border-[rgba(201,162,76,0.25)] rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
+              <article className="card-surface rounded-3xl py-6 px-6 hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
                 <button
                   onClick={() => setOpenFAQ(openFAQ === 0 ? null : 0)}
                   className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none focus:ring-0 border-none ring-0 rounded-lg p-2 -m-2"
@@ -736,7 +831,7 @@ export default function LandingPage() {
                   aria-label="Koliko traje jedan tretman za podmlađivanje lica?"
                 >
                   <h3 
-                    className="text-text-primary text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                    className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                   >
                   Koliko traje jedan tretman za podmlađivanje lica?
                 </h3>
@@ -747,29 +842,25 @@ export default function LandingPage() {
                     {openFAQ === 0 ? '−' : '+'}
                   </span>
                 </button>
-                <AnimatePresence>
-                  {openFAQ === 0 && (
-                    <motion.div
-                      key="faq-0"
-                      id="faq-answer-0"
-                      initial={{ opacity: 0, maxHeight: 0 }}
-                      animate={{ opacity: 1, maxHeight: 1000 }}
-                      exit={{ opacity: 0, maxHeight: 0 }}
-                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                <motion.div
+                  id="faq-answer-0"
+                  animate={{
+                    height: openFAQ === 0 ? "auto" : 0,
+                    opacity: openFAQ === 0 ? 1 : 0
+                  }}
+                  transition={{ duration: 0.65, ease: "easeInOut" }}
+                  className="overflow-hidden mt-4"
+                >
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words pb-2">
                   Trajanje tretmana zavisi od vrste tretmana i vaših individualnih potreba. 
                   Većina neinvazivnih tretmana traje između 40 i 60 minuta. Prilikom besplatne 
                   konsultacije u Odalis centru, detaljno ćemo razgovarati o trajanju i očekivanim 
                   rezultatima svakog tretmana, tako da možete da planirate svoj poset.
                 </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                </motion.div>
               </article>
               
-              <article className="bg-white/5 border border-[rgba(201,162,76,0.25)] rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
+              <article className="card-surface rounded-3xl py-6 px-6 hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
                 <button
                   onClick={() => setOpenFAQ(openFAQ === 1 ? null : 1)}
                   className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none focus:ring-0 border-none ring-0 rounded-lg p-2 -m-2"
@@ -779,7 +870,7 @@ export default function LandingPage() {
                   type="button"
                 >
                   <h3 
-                    className="text-text-primary text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                    className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                   >
                   Da li tretmani za podmlađivanje kože zahtevaju oporavak?
                 </h3>
@@ -790,29 +881,25 @@ export default function LandingPage() {
                     {openFAQ === 1 ? '−' : '+'}
                   </span>
                 </button>
-                <AnimatePresence>
-                  {openFAQ === 1 && (
-                    <motion.div
-                      key="faq-1"
-                      id="faq-answer-1"
-                      initial={{ opacity: 0, maxHeight: 0 }}
-                      animate={{ opacity: 1, maxHeight: 1000 }}
-                      exit={{ opacity: 0, maxHeight: 0 }}
-                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                <motion.div
+                  id="faq-answer-1"
+                  animate={{
+                    height: openFAQ === 1 ? "auto" : 0,
+                    opacity: openFAQ === 1 ? 1 : 0
+                  }}
+                  transition={{ duration: 0.65, ease: "easeInOut" }}
+                  className="overflow-hidden mt-4"
+                >
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words pb-2">
                   Ne. Naši neinvazivni tretmani za podmlađivanje lica i tela ne zahtevaju period 
                   oporavka. Možete se odmah vratiti svom normalnom životu. Ako postoji bilo kakav 
                   blagi crvenilo ili osetljivost, to je privremeno i nestaje u roku od nekoliko sati. 
                   Fokus je na prirodnom podmlađivanju uz maksimalnu sigurnost i komfor.
                 </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                </motion.div>
               </article>
               
-              <article className="bg-white/5 border border-[rgba(201,162,76,0.25)] rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
+              <article className="card-surface rounded-3xl py-6 px-6 hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
                 <button
                   onClick={() => setOpenFAQ(openFAQ === 2 ? null : 2)}
                   className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none focus:ring-0 border-none ring-0 rounded-lg p-2 -m-2"
@@ -822,7 +909,7 @@ export default function LandingPage() {
                   type="button"
                 >
                   <h3 
-                    className="text-text-primary text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                    className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                   >
                   Da li su tretmani u Odalis centru neinvazivni i bezbedni?
                 </h3>
@@ -833,29 +920,25 @@ export default function LandingPage() {
                     {openFAQ === 2 ? '−' : '+'}
                   </span>
                 </button>
-                <AnimatePresence>
-                  {openFAQ === 2 && (
-                    <motion.div
-                      key="faq-2"
-                      id="faq-answer-2"
-                      initial={{ opacity: 0, maxHeight: 0 }}
-                      animate={{ opacity: 1, maxHeight: 1000 }}
-                      exit={{ opacity: 0, maxHeight: 0 }}
-                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                <motion.div
+                  id="faq-answer-2"
+                  animate={{
+                    height: openFAQ === 2 ? "auto" : 0,
+                    opacity: openFAQ === 2 ? 1 : 0
+                  }}
+                  transition={{ duration: 0.65, ease: "easeInOut" }}
+                  className="overflow-hidden mt-4"
+                >
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words pb-2">
                   Da. Odalis centar koristi isključivo neinvazivne i bezbedne tretmane. Ne koristimo 
                   agresivne metode, hirurške intervencije ili bilo šta što bi moglo da ošteti vašu 
                   prirodnu strukturu kože. Fokus je na prirodnom podmlađivanju uz maksimalnu sigurnost. 
                   Svaki tretman je pažljivo osmišljen da poštuje vašu prirodnu lepotu.
                 </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                </motion.div>
               </article>
               
-              <article className="bg-white/5 border border-[rgba(201,162,76,0.25)] rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
+              <article className="card-surface rounded-3xl py-6 px-6 hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
                 <button
                   onClick={() => setOpenFAQ(openFAQ === 3 ? null : 3)}
                   className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none focus:ring-0 border-none ring-0 rounded-lg p-2 -m-2"
@@ -865,7 +948,7 @@ export default function LandingPage() {
                   type="button"
                 >
                   <h3 
-                    className="text-text-primary text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                    className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                   >
                   Koliko tretmana je potrebno za vidljive rezultate podmlađivanja?
                 </h3>
@@ -876,29 +959,25 @@ export default function LandingPage() {
                     {openFAQ === 3 ? '−' : '+'}
                   </span>
                 </button>
-                <AnimatePresence>
-                  {openFAQ === 3 && (
-                    <motion.div
-                      key="faq-3"
-                      id="faq-answer-3"
-                      initial={{ opacity: 0, maxHeight: 0 }}
-                      animate={{ opacity: 1, maxHeight: 1000 }}
-                      exit={{ opacity: 0, maxHeight: 0 }}
-                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                <motion.div
+                  id="faq-answer-3"
+                  animate={{
+                    height: openFAQ === 3 ? "auto" : 0,
+                    opacity: openFAQ === 3 ? 1 : 0
+                  }}
+                  transition={{ duration: 0.65, ease: "easeInOut" }}
+                  className="overflow-hidden mt-4"
+                >
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words pb-2">
                   Broj tretmana zavisi od stanja kože, vaših želja i ciljeva. Tokom besplatne 
                   konsultacije, zajedno ćemo razgovarati o vašim očekivanjima i kreirati individualni 
                   plan koji odgovara vašim potrebama. Neki klijenti vide rezultate već posle prvog 
                   tretmana, dok drugi preferiraju seriju tretmana za optimalne rezultate.
                 </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                </motion.div>
               </article>
               
-              <article className="bg-white/5 border border-[rgba(201,162,76,0.25)] rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
+              <article className="card-surface rounded-3xl py-6 px-6 hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
                 <button
                   onClick={() => setOpenFAQ(openFAQ === 4 ? null : 4)}
                   className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none focus:ring-0 border-none ring-0 rounded-lg p-2 -m-2"
@@ -908,7 +987,7 @@ export default function LandingPage() {
                   type="button"
                 >
                   <h3 
-                    className="text-text-primary text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                    className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                   >
                   Da li će tretmani promeniti moj prirodni izgled?
                 </h3>
@@ -919,29 +998,25 @@ export default function LandingPage() {
                     {openFAQ === 4 ? '−' : '+'}
                   </span>
                 </button>
-                <AnimatePresence>
-                  {openFAQ === 4 && (
-                    <motion.div
-                      key="faq-4"
-                      id="faq-answer-4"
-                      initial={{ opacity: 0, maxHeight: 0 }}
-                      animate={{ opacity: 1, maxHeight: 1000 }}
-                      exit={{ opacity: 0, maxHeight: 0 }}
-                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                <motion.div
+                  id="faq-answer-4"
+                  animate={{
+                    height: openFAQ === 4 ? "auto" : 0,
+                    opacity: openFAQ === 4 ? 1 : 0
+                  }}
+                  transition={{ duration: 0.65, ease: "easeInOut" }}
+                  className="overflow-hidden mt-4"
+                >
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words pb-2">
                   Ne. Cilj naših tretmana za podmlađivanje nije da promenimo vaš izgled, već da 
                   istaknemo vašu prirodnu lepotu. Koristimo metode koje podstiču prirodno podmlađivanje 
                   kože, poboljšavaju tonus i elastičnost, ali ne menjaju vaše prirodne karakteristike. 
                   Rezultati su prirodni i diskretni.
                 </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                </motion.div>
               </article>
               
-              <article className="bg-white/5 border border-[rgba(201,162,76,0.25)] rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
+              <article className="card-surface rounded-3xl py-6 px-6 hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
                 <button
                   onClick={() => setOpenFAQ(openFAQ === 5 ? null : 5)}
                   className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none focus:ring-0 border-none ring-0 rounded-lg p-2 -m-2"
@@ -951,7 +1026,7 @@ export default function LandingPage() {
                   type="button"
                 >
                   <h3 
-                    className="text-text-primary text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                    className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                   >
                   Kolika je cena tretmana za podmlađivanje?
                 </h3>
@@ -962,30 +1037,26 @@ export default function LandingPage() {
                     {openFAQ === 5 ? '−' : '+'}
                   </span>
                 </button>
-                <AnimatePresence>
-                  {openFAQ === 5 && (
-                    <motion.div
-                      key="faq-5"
-                      id="faq-answer-5"
-                      initial={{ opacity: 0, maxHeight: 0 }}
-                      animate={{ opacity: 1, maxHeight: 1000 }}
-                      exit={{ opacity: 0, maxHeight: 0 }}
-                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                <motion.div
+                  id="faq-answer-5"
+                  animate={{
+                    height: openFAQ === 5 ? "auto" : 0,
+                    opacity: openFAQ === 5 ? 1 : 0
+                  }}
+                  transition={{ duration: 0.65, ease: "easeInOut" }}
+                  className="overflow-hidden mt-4"
+                >
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words pb-2">
                   Cena tretmana zavisi od individualnog plana koji kreiramo za vas. Pošto svaki 
                   pristup podmlađivanju je personalizovan, cene se razlikuju. Najbolji način da 
                   saznate tačnu cenu je da zakažete besplatnu konsultaciju. Tokom konsultacije, 
                   detaljno ćemo razgovarati o vašim ciljevima i definisati plan koji odgovara vašim 
                   potrebama i budžetu.
                 </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                </motion.div>
               </article>
               
-              <article className="bg-white/5 border border-[rgba(201,162,76,0.25)] rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
+              <article className="card-surface rounded-3xl py-6 px-6 hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
                 <button
                   onClick={() => setOpenFAQ(openFAQ === 6 ? null : 6)}
                   className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none focus:ring-0 border-none ring-0 rounded-lg p-2 -m-2"
@@ -995,7 +1066,7 @@ export default function LandingPage() {
                   type="button"
                 >
                   <h3 
-                    className="text-text-primary text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                    className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                   >
                   Mogu li kombinovati različite tretmane za podmlađivanje?
                 </h3>
@@ -1006,29 +1077,25 @@ export default function LandingPage() {
                     {openFAQ === 6 ? '−' : '+'}
                   </span>
                 </button>
-                <AnimatePresence>
-                  {openFAQ === 6 && (
-                    <motion.div
-                      key="faq-6"
-                      id="faq-answer-6"
-                      initial={{ opacity: 0, maxHeight: 0 }}
-                      animate={{ opacity: 1, maxHeight: 1000 }}
-                      exit={{ opacity: 0, maxHeight: 0 }}
-                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
+                <motion.div
+                  id="faq-answer-6"
+                  animate={{
+                    height: openFAQ === 6 ? "auto" : 0,
+                    opacity: openFAQ === 6 ? 1 : 0
+                  }}
+                  transition={{ duration: 0.65, ease: "easeInOut" }}
+                  className="overflow-hidden mt-4"
+                >
+                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words pb-2">
                   Da. Mnogi naši klijenti kombinuju različite tretmane za optimalne rezultate. 
                   Tokom besplatne konsultacije, lično ćemo razgovarati sa vama o vašim željama i 
                   kreirati kombinovani plan koji odgovara vašim ciljevima. Možemo da planiramo 
                   tretmane za podmlađivanje lica i tela u skladu sa vašim potrebama i rasporedom.
                 </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                </motion.div>
               </article>
 
-              <article className="bg-white/5 border border-[rgba(201,162,76,0.25)] rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
+              <article className="card-surface rounded-3xl py-6 px-6 hover:shadow-xl transition-all duration-250 ease-out overflow-hidden">
                 <button
                   onClick={() => setOpenFAQ(openFAQ === 7 ? null : 7)}
                   className="w-full text-left flex items-start justify-between gap-4 group focus:outline-none focus:ring-0 border-none ring-0 rounded-lg p-2 -m-2"
@@ -1038,7 +1105,7 @@ export default function LandingPage() {
                   type="button"
                 >
                   <h3
-                    className="text-text-primary text-2xl md:text-3xl font-bold mb-6 leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                    className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                   >
                     Gde se nalazi Odalis centar?
                   </h3>
@@ -1049,23 +1116,19 @@ export default function LandingPage() {
                     {openFAQ === 7 ? "−" : "+"}
                   </span>
                 </button>
-                <AnimatePresence>
-                  {openFAQ === 7 && (
-                    <motion.div
-                      key="faq-7"
-                      id="faq-answer-7"
-                      initial={{ opacity: 0, maxHeight: 0 }}
-                      animate={{ opacity: 1, maxHeight: 1000 }}
-                      exit={{ opacity: 0, maxHeight: 0 }}
-                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words">
-                        Odalis je centar za podmlađivanje lica i tela u Beogradu. Tačnu adresu i kontakt informacije možete pronaći u kontakt sekciji.
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <motion.div
+                  id="faq-answer-7"
+                  animate={{
+                    height: openFAQ === 7 ? "auto" : 0,
+                    opacity: openFAQ === 7 ? 1 : 0
+                  }}
+                  transition={{ duration: 0.65, ease: "easeInOut" }}
+                  className="overflow-hidden mt-4"
+                >
+                  <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words pb-2">
+                    Odalis je centar za podmlađivanje lica i tela se nalazi u TC Piramida Plus u Nehruovoj 51 na Novom Beogradu. 
+                  </p>
+                </motion.div>
               </article>
             </div>
           </motion.div>
@@ -1090,10 +1153,10 @@ export default function LandingPage() {
             {/* Treatments View */}
             <Section className="relative !pt-4" noOverlay data-debug="treatments-section">
               <section className="container mx-auto px-4 sm:px-6">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6 }}
                   className="max-w-7xl mx-auto space-y-12 overflow-hidden"
                 >
                   {/* Back Button */}
@@ -1105,7 +1168,7 @@ export default function LandingPage() {
                     <button
                       onClick={handleBackToHome}
                       className="inline-flex items-center gap-2 text-text-primary hover:text-text-secondary transition-colors duration-250 ease-out focus:outline-none focus:ring-0 group"
-                    >
+          >
                       <svg
                         className="w-5 h-5 transition-transform duration-250 ease-out group-hover:-translate-x-1"
                         fill="none"
@@ -1190,7 +1253,7 @@ export default function LandingPage() {
                   >
                     <button
                       onClick={handleConsultationClick}
-                      className="inline-flex items-center justify-center rounded-lg font-light px-6 py-2.5 text-sm text-[#C9A24D] border border-[#C9A24D] bg-transparent hover:bg-[#C9A24D] hover:text-[#0B1F33] transition-all duration-250 ease-out focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/30 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none w-full md:w-auto whitespace-nowrap"
+                      className="btn-cta w-full md:w-auto disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none"
                     >
                       Zakažite besplatne konsultacije
                     </button>
@@ -1200,7 +1263,7 @@ export default function LandingPage() {
                   </motion.div>
                 </motion.div>
               </section>
-            </Section>
+      </Section>
       <ConsultationSection />
       <Footer />
           </motion.div>

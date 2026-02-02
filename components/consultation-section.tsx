@@ -143,7 +143,7 @@ export function ConsultationSection() {
   }, [selectedIntent]);
 
   return (
-    <Section className="relative pb-20 md:pb-28 lg:pb-32 before:content-none">
+    <Section id="konsultacije" className="relative pb-20 md:pb-28 lg:pb-32 before:content-none scroll-mt-24 md:scroll-mt-28">
       <div className="container mx-auto px-4 sm:px-6 pb-6 md:pb-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -182,7 +182,7 @@ export function ConsultationSection() {
                 name="name"
                 required
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 rounded-xl glass-premium border border-white/6 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/10 transition-all duration-250 ease-out bg-navy-900/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="field-surface w-full px-4 py-3 placeholder:text-text-muted"
                 placeholder="Vaše ime"
               />
             </motion.div>
@@ -203,7 +203,7 @@ export function ConsultationSection() {
                 name="contact"
                 required
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 rounded-xl glass-premium border border-white/6 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/10 transition-all duration-250 ease-out bg-navy-900/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="field-surface w-full px-4 py-3 placeholder:text-text-muted"
                 placeholder="Vaš broj telefona ili email adresa"
               />
             </motion.div>
@@ -224,7 +224,7 @@ export function ConsultationSection() {
                   name="interest"
                   required
                   disabled={isSubmitting}
-                  className="w-full px-4 py-3 pr-10 rounded-xl glass-premium border border-white/6 text-text-primary focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/10 transition-all duration-250 ease-out bg-navy-900/30 disabled:opacity-50 disabled:cursor-not-allowed appearance-none cursor-pointer"
+                  className="field-surface w-full px-4 py-3 pr-10 appearance-none cursor-pointer"
                   style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23C9A24D' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
                     backgroundRepeat: 'no-repeat',
@@ -350,7 +350,7 @@ export function ConsultationSection() {
                 name="message"
                 rows={4}
                 disabled={isSubmitting}
-                className="w-full px-4 py-3 rounded-xl glass-premium border border-white/6 text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/10 transition-all duration-300 bg-navy-900/30 resize-none disabled:opacity-50 disabled:cursor-not-allowed"
+                className="field-surface w-full px-4 py-3 placeholder:text-text-muted resize-none"
                 placeholder="Opišite ukratko šta vas zanima ili koji problem želite da rešite"
               />
             </motion.div>

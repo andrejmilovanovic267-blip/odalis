@@ -76,7 +76,7 @@ export function Hero({
             <Button
               href={ctaHref}
               variant="primary"
-              className="w-full sm:w-auto px-8 py-4 text-base md:text-lg"
+              className="w-full sm:w-auto px-8 py-4 text-base md:text-lg hover:bg-[#C9A24D] hover:text-[#0B1F33]"
             >
               {ctaText}
             </Button>

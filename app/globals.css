@@ -183,8 +183,8 @@ section + section::before {
   -webkit-backdrop-filter: none !important;
 }
 
-.problem-section-unified-bg [class*="bg-"],
-.problem-section-unified-bg [class*="background"] {
+.problem-section-unified-bg [class*="bg-"]:not([class*="bg-white/5"]),
+.problem-section-unified-bg [class*="background"]:not([class*="bg-white/5"]) {
   background: transparent !important;
 }
 
@@ -242,6 +242,24 @@ section + section::before {
 
 .journey-section-unified-bg *::before,
 .journey-section-unified-bg *::after {
+  background: transparent !important;
+}
+
+/* Remove overlay effects for Process Section (Kako izgleda vaš Odalis put...) */
+.proces-section-no-overlay::after {
+  content: none !important;
+}
+
+.proces-section-no-overlay section::before,
+.proces-section-no-overlay section::after {
+  content: none !important;
+}
+
+.proces-section-no-overlay [class*="container"] {
+  background: transparent !important;
+}
+
+.proces-section-no-overlay [class*="bg-"]:not([class*="bg-white/5"]):not([class*="bg-transparent"]) {
   background: transparent !important;
 }
 
@@ -392,6 +410,88 @@ p {
     background: radial-gradient(ellipse at center, transparent 0%, rgba(5, 15, 26, 0.3) 100%);
     pointer-events: none;
     z-index: 1;
+  }
+  
+  .card-surface {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(201, 162, 76, 0.25);
+    border-radius: 1rem; /* rounded-2xl - can be overridden with rounded-3xl */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+  }
+  
+  .field-surface {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(201, 162, 76, 0.25);
+    border-radius: 0.75rem; /* rounded-xl */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    color: var(--text-primary);
+    transition: all 250ms ease-out;
+  }
+  
+  .field-surface::placeholder {
+    color: var(--text-muted);
+  }
+  
+  .field-surface:focus {
+    outline: none;
+    border-color: rgba(201, 162, 76, 0.4);
+    box-shadow: 0 0 0 2px rgba(201, 162, 76, 0.3), 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .field-surface:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  /* Select specific styling - ensure identical appearance to input fields */
+  select.field-surface {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0.75rem; /* Same as input fields (rounded-xl = 12px) */
+    background-color: rgba(255, 255, 255, 0.05); /* Same as input fields */
+    border: 1px solid rgba(201, 162, 76, 0.25); /* Same gold border as input fields */
+    color: var(--text-primary);
+    outline: none;
+    line-height: normal;
+  }
+  
+  /* Placeholder state - when value is empty (invalid) */
+  select.field-surface:invalid {
+    color: var(--text-muted); /* Same color as other placeholders */
+  }
+  
+  /* Normal text when valid option is selected */
+  select.field-surface:not(:invalid) {
+    color: var(--text-primary);
+  }
+  
+  /* Placeholder option */
+  select.field-surface option[value=""] {
+    color: var(--text-muted); /* Same as other placeholders */
+  }
+  
+  /* Normal options - readable text color */
+  select.field-surface option:not([value=""]) {
+    color: var(--text-primary);
+  }
+  
+  /* Dropdown list styling - match input field appearance */
+  .field-surface option {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    padding: 0.5rem;
+  }
+  
+  .field-surface option:hover,
+  .field-surface option:focus,
+  .field-surface option:checked {
+    background-color: rgba(201, 162, 76, 0.15);
+    color: var(--text-primary);
+  }
+  
+  .btn-cta {
+    @apply inline-flex items-center justify-center rounded-lg font-semibold px-6 py-2.5 text-sm text-[#C9A24D] border border-[#C9A24D] bg-transparent hover:bg-[#C9A24D] hover:text-[#0B1F33] transition-all ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 whitespace-nowrap;
+    transition-duration: 250ms;
   }
 }
 

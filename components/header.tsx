@@ -4,18 +4,52 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
+import { useRouter, usePathname } from "next/navigation";
 import { scrollToSection } from "@/lib/scroll-utils";
 
 export function Header() {
+  const router = useRouter();
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleNavClick = (id: string, e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
     
+    // If we're on homepage, just scroll to hero
+    if (pathname === '/') {
+      setTimeout(() => {
+        scrollToSection('#hero', { behavior: 'smooth', block: 'start' });
+      }, 50);
+    } else {
+      // If we're on another page, navigate to homepage first
+      router.push('/');
+      // Wait for navigation to complete, then scroll to hero
+      setTimeout(() => {
+        const target = document.getElementById('hero');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          // Fallback: try scrollToSection if element not found immediately
+          scrollToSection('#hero', { behavior: 'smooth', block: 'start' });
+        }
+      }, 200);
+    }
+  };
+
+  const handleNavClick = (href: string, e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    
+    // If it's a regular page link (starts with /), navigate normally
+    if (href.startsWith('/') && !href.startsWith('/#')) {
+      router.push(href);
+      return;
+    }
+    
     // Special handling for "Tretmani" link (both mobile and desktop)
     // Scrolls so bottom of cards block is 20px above viewport bottom
-    if (id === '#tretmani' || id === '#tretmani-end') {
+    if (href === '#tretmani' || href === '#tretmani-end') {
       setTimeout(() => {
         const targetElement = document.getElementById('tretmani-cards');
         const headerElement = document.querySelector('header');
@@ -44,9 +78,9 @@ export function Header() {
       return;
     }
     
-    // Default behavior for all other links
+    // Default behavior for all other anchor links
     setTimeout(() => {
-      scrollToSection(id, { behavior: 'smooth', block: 'start' });
+      scrollToSection(href, { behavior: 'smooth', block: 'start' });
     }, 50);
   };
 
@@ -61,20 +95,24 @@ export function Header() {
     };
   }, [isMobileMenuOpen]);
 
-  // Mobile navigation links (without FAQ)
+  // Mobile navigation links
   const mobileNavLinks = [
     { href: '#hero', label: 'Početna' },
     { href: '#proces', label: 'Proces' },
     { href: '#tretmani', label: 'Tretmani' },
-    { href: '#rezultati', label: 'Rezultati' },
+    { href: '/blog', label: 'Blog' },
+    { href: '#faq', label: 'Pitanja' },
+    { href: '#konsultacije', label: 'Kontakt' },
   ];
 
-  // Desktop navigation links (without FAQ)
+  // Desktop navigation links
   const desktopNavLinks = [
     { href: '#hero', label: 'Početna' },
     { href: '#proces', label: 'Proces' },
+    { href: '#faq', label: 'Pitanja' },
     { href: '#tretmani-end', label: 'Tretmani' },
-    { href: '#rezultati', label: 'Rezultati' },
+    { href: '/blog', label: 'Blog' },
+    { href: '#konsultacije', label: 'Kontakt' },
   ];
 
   return (
@@ -88,11 +126,12 @@ export function Header() {
       
       <div className="relative z-10 h-full flex items-center justify-between px-4 sm:px-6">
         {/* Mobile Logo - Centered */}
-        <div className="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center justify-center h-full">
+        <div className="nav:hidden absolute left-1/2 -translate-x-1/2 flex items-center justify-center h-full">
           <a
-            href="#hero"
-            onClick={(e) => handleNavClick('#hero', e)}
-            className="relative h-16 w-auto max-w-[90vw]"
+            href="/#hero"
+            onClick={handleLogoClick}
+            className="relative h-16 w-auto max-w-[90vw] cursor-pointer hover:opacity-90 transition-opacity duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 rounded"
+            aria-label="Odalis - Početna"
           >
             <Image
               src="/odalis.png"
@@ -108,10 +147,10 @@ export function Header() {
         </div>
 
         {/* Centered Navigation Group (Left Nav + Logo + Right Nav) */}
-        <div className="hidden md:flex items-center gap-12 absolute left-1/2 -translate-x-1/2 h-full">
-          {/* Desktop Navigation - Left (2 links) */}
+        <div className="hidden nav:flex items-center gap-12 absolute left-1/2 -translate-x-1/2 h-full">
+          {/* Desktop Navigation - Left (3 links) */}
           <nav className="flex items-center gap-12">
-            {desktopNavLinks.slice(0, 2).map((link) => (
+            {desktopNavLinks.slice(0, 3).map((link) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -126,9 +165,10 @@ export function Header() {
           {/* Logo container */}
           <div className="flex items-center justify-center h-full">
             <a
-              href="#hero"
-              onClick={(e) => handleNavClick('#hero', e)}
-              className="relative h-16 md:h-24 w-auto max-w-[90vw]"
+              href="/#hero"
+              onClick={handleLogoClick}
+              className="relative h-16 md:h-24 w-auto max-w-[90vw] cursor-pointer hover:opacity-90 transition-opacity duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 rounded"
+              aria-label="Odalis - Početna"
             >
               <Image
                 src="/odalis.png"
@@ -143,9 +183,9 @@ export function Header() {
             </a>
           </div>
 
-          {/* Desktop Navigation - Right (2 links) */}
+          {/* Desktop Navigation - Right (3 links) */}
           <nav className="flex items-center gap-12">
-            {desktopNavLinks.slice(2).map((link) => (
+            {desktopNavLinks.slice(3).map((link) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -159,11 +199,11 @@ export function Header() {
         </div>
 
         {/* CTA Button - Far Right */}
-        <div className="hidden md:flex items-center ml-auto">
+        <div className="hidden nav:flex items-center ml-auto">
           <a
             href="#kontakt"
             onClick={(e) => handleNavClick('#kontakt', e)}
-            className="inline-flex items-center justify-center rounded-lg font-semibold px-6 py-2.5 text-sm text-[#C9A24D] border border-[#C9A24D] bg-transparent hover:bg-[#C9A24D] hover:text-[#0B1F33] transition-all duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 whitespace-nowrap"
+            className="btn-cta"
           >
             Zakaži konsultacije
           </a>
@@ -172,7 +212,7 @@ export function Header() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden text-text-primary p-2 focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 rounded"
+          className="nav:hidden text-text-primary p-2 focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 rounded"
           aria-label="Toggle menu"
         >
           <svg
@@ -209,7 +249,7 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden fixed top-20 left-0 right-0 bottom-0 z-[1001]"
+            className="nav:hidden fixed top-20 left-0 right-0 bottom-0 z-[1001]"
             style={{
               background: 'rgba(11, 31, 51, 0.85)',
               backdropFilter: 'blur(20px) saturate(180%)',
@@ -231,7 +271,7 @@ export function Header() {
               <a
                 href="#kontakt"
                 onClick={(e) => handleNavClick('#kontakt', e)}
-                className="inline-flex items-center justify-center rounded-lg font-light px-6 py-2.5 text-sm text-[#C9A24D] border border-[#C9A24D] bg-transparent hover:bg-[#C9A24D] hover:text-[#0B1F33] transition-all duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 whitespace-nowrap mt-4"
+                className="btn-cta mt-4"
               >
                 Zakaži konsultacije
               </a>
