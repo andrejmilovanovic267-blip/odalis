@@ -3,6 +3,8 @@ import { Poppins, Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Header } from "@/components/header";
+import { TopBar } from "@/components/top-bar";
+import { TopBarProvider } from "@/components/top-bar-context";
 import { BackToTop } from "@/components/back-to-top";
 import { StructuredData } from "@/components/structured-data";
 
@@ -48,7 +50,10 @@ export default function RootLayout({
       <body className={`${headingFont.variable} ${bodyFont.variable} relative overflow-x-hidden w-full`}>
         <StructuredData />
         <div className="fixed inset-0 bg-[var(--bg-base)] -z-10" />
-        <Header />
+        <TopBarProvider>
+          <TopBar />
+          <Header />
+        </TopBarProvider>
         {children}
         <BackToTop />
         {/* Calendly Script - Load globally once */}

@@ -180,7 +180,7 @@ export default function LandingPage() {
       {/* Hero Section - H1 with primary keyword */}
       <Hero
         eyebrow="Centar za podmlađivanje lica i tela"
-        title="Prirodno podmlađivanje lica i tela u centru Odalis"
+        title="Prirodno podmlađivanje lica i tela u Odalisu"
         ctaText="Zakaži besplatne konsultacije"
         ctaHref="#konsultacije"
         supportingText="Savetovanje bez obaveza. Razgovarajmo o vašim željama i očekivanjima. Dobrodošli u Odalis centar za podmlađivanje lica i tela u Beogradu."

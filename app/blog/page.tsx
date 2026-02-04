@@ -31,7 +31,7 @@ const featuredPosts = [
 ];
 
 const allPosts = [
-  { id: 1, title: "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do", excerpt: "Eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris.", tag: "Edukacija" },
+  { id: 1, title: "HydraFacial tretman u Odalisu", excerpt: "Eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris.", tag: "Edukacija", href: "/blog/hydrafacial" },
   { id: 2, title: "Ut enim ad minim veniam quis nostrud exercitation ullamco", excerpt: "Laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum.", tag: "FAQ" },
   { id: 3, title: "Duis aute irure dolor in reprehenderit in voluptate velit", excerpt: "Esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt in culpa qui officia.", tag: "Mitovi" },
   { id: 4, title: "Excepteur sint occaecat cupidatat non proident sunt in culpa", excerpt: "Qui officia deserunt mollit anim id est laborum sed ut perspiciatis unde omnis iste natus error sit voluptatem.", tag: "Edukacija" },
@@ -58,7 +58,7 @@ export default function BlogIndexPage() {
             </SectionHeading>
             
             <p className="text-text-secondary text-lg md:text-xl leading-relaxed font-light max-w-3xl mx-auto break-words">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Na Odalis blogu delimo kratke i jasne savete o prirodnom podmlađivanju lica i tela, neinvazivnim tretmanima i pravilnoj nezi kože. Cilj nam je da vam pomognemo da razumete šta zaista daje rezultate i kako da donesete pravu odluku bez pritiska i lažnih obećanja.
             </p>
 
             <div className="pt-4">
@@ -152,7 +152,7 @@ export default function BlogIndexPage() {
             {allPosts.map((post) => (
               <Link 
                 key={post.id}
-                href="#"
+                href={post.href || "#"}
                 className="group"
               >
                 <article className="card-surface rounded-3xl overflow-hidden h-full flex flex-col hover:-translate-y-1 hover:shadow-xl transition-all duration-300 ease-out motion-reduce:transition-none motion-reduce:hover:translate-y-0">

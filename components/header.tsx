@@ -6,11 +6,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
 import { useRouter, usePathname } from "next/navigation";
 import { scrollToSection } from "@/lib/scroll-utils";
+import { useTopBar } from "./top-bar-context";
 
 export function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isTopBarVisible, topBarHeight } = useTopBar();
+  
+  // Calculate dynamic top offset
+  const topOffset = isTopBarVisible ? topBarHeight : 0;
 
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -117,7 +122,10 @@ export function Header() {
 
   return (
     <>
-    <header className="fixed top-0 left-0 right-0 w-full z-[1000] h-20 md:h-24 bg-white/5 backdrop-blur-xl border-b border-white/10 shadow-sm">
+    <header 
+      className="fixed left-0 right-0 w-full z-[1000] h-20 md:h-24 bg-white/5 backdrop-blur-xl border-b border-white/10 shadow-sm transition-all duration-300 ease-out"
+      style={{ top: `${topOffset}px` }}
+    >
       {/* Subtle top-to-bottom gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-white/5 to-transparent pointer-events-none" />
       

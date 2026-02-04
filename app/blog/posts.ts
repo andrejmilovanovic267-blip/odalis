@@ -24,107 +24,117 @@ export type BlogPost = {
 export const blogPosts: Record<string, BlogPost> = {
   hydrafacial: {
     slug: "hydrafacial",
-    title: "HydraFacial tretman – dubinsko čišćenje i hidratacija lica bez iritacija",
+    title: "HydraFacial tretman u Odalisu – profesionalna nega lica na Novom Beogradu",
     description:
-      "HydraFacial tretman na Novom Beogradu: dubinsko čišćenje i intenzivna hidratacija lica bez iritacija i bez oporavka. Premium vodič iz Odalis centra.",
+      "HydraFacial tretman na Novom Beogradu: neinvazivni tretman lica sa dubinskim čišćenjem i hidratacijom. Profesionalna nega kože u Odalis centru bez iritacija i oporavka.",
     category: "Tretman lica",
     location: "Novi Beograd",
-    readTime: "6–8 min čitanja",
+    readTime: "7–9 min čitanja",
     intro: [
-      "HydraFacial je savremeni, neinvazivni tretman lica koji kombinuje dubinsko čišćenje, hidrataciju i regeneraciju kože u jednom prijatnom postupku.",
-      "Idealan je za žene koje žele zdraviju, svežiju i blistaviju kožu, bez agresivnih metoda, crvenila i oporavka.",
-      "U Odalis centru, HydraFacial posmatramo kao prvi i najvažniji korak u nezi i podmlađivanju kože.",
+      "HydraFacial tretman je savremeni, neinvazivni tretman lica koji kombinuje dubinsko čišćenje i hidrataciju kože u jednom prijatnom i bezbolnom postupku.",
+      "Idealno rešenje za žene koje traže profesionalnu negu lica bez agresivnih metoda, crvenila i perioda oporavka.",
+      "U Odalis centru na Novom Beogradu, HydraFacial tretman posmatramo kao temelj kvalitetne nege i prirodnog podmlađivanja kože.",
     ],
     sections: [
       {
         id: "sta-je-hydrafacial-tretman",
         title: "Šta je HydraFacial tretman",
         paragraphs: [
-          "HydraFacial je profesionalni tretman koji pomoću specijalnih nastavaka i kontrolisanog vakuuma uklanja nečistoće, mrtve ćelije i višak sebuma, dok se koža istovremeno hrani aktivnim serumima.",
-          "Za razliku od klasičnih tretmana čišćenja lica, HydraFacial:",
+          "HydraFacial tretman je profesionalni neinvazivni tretman lica koji pomoću napredne tehnologije i kontrolisanog vakuuma uklanja nečistoće, mrtve ćelije kože i višak sebuma, dok se koža istovremeno hrani aktivnim serumima za dubinsku hidrataciju.",
+          "Za razliku od tradicionalnih tretmana čišćenja lica, HydraFacial tretman:",
         ],
         bullets: [
-          "ne iritira kožu",
-          "ne izaziva bol",
-          "ne ostavlja tragove",
-          "pogodan je i za osetljivu i zrelu kožu",
+          "ne iritira ni najosetljiviju kožu",
+          "ne izaziva bol niti neprijatne senzacije",
+          "ne zahteva oporavak – možete se odmah vratiti aktivnostima",
+          "pogodan je za sve tipove kože, uključujući osetljivu i zrelu kožu",
         ],
       },
       {
         id: "kako-izgleda-tretman-u-praksi",
-        title: "Kako izgleda tretman u praksi",
+        title: "Kako izgleda HydraFacial tretman u praksi",
         paragraphs: [
-          "Tretman se sastoji iz nekoliko faza koje se prilagođavaju stanju kože svake klijentice:",
+          "HydraFacial tretman u Odalis centru se sastoji iz nekoliko faza koje se prilagođavaju specifičnim potrebama kože svake klijentice:",
         ],
         bullets: [
-          "nežno čišćenje i eksfolijacija",
-          "uklanjanje nečistoća i sebuma",
-          "intenzivna hidratacija i umirivanje kože",
+          "nežno čišćenje i eksfolijacija kože",
+          "uklanjanje nečistoća, sebuma i mrtvih ćelija",
+          "intenzivna hidratacija i umirivanje kože aktivnim serumima",
+          "finalna zaštita i regeneracija",
         ],
         callout: {
-          text: "Sve faze se izvode prijatno i bez neprijatnih senzacija. Većina klijentica opisuje tretman kao opuštajući i umirujući.",
+          text: "Sve faze HydraFacial tretmana se izvode prijatno i bez neprijatnih senzacija. Većina naših klijentica opisuje tretman kao opuštajući i umirujući, gotovo kao spa tretman za lice.",
         },
       },
       {
         id: "kome-je-hydrafacial-namenjen",
         title: "Kome je HydraFacial namenjen",
-        paragraphs: ["HydraFacial je pogodan za:"],
+        paragraphs: [
+          "HydraFacial tretman je pogodan za žene koje se suočavaju sa različitim problemima kože:",
+        ],
         bullets: [
-          "umornu i dehidriranu kožu",
-          "kožu bez sjaja",
-          "fine linije i prve znake starenja",
-          "proširene pore",
-          "kožu kojoj je potrebna regeneracija, ali bez agresivnih procedura",
+          "umorna i dehidrirana koža kojoj nedostaje prirodan sjaj",
+          "koža bez sjaja i energije",
+          "fine linije i prvi znaci starenja kože",
+          "proširene pore i nečistoće",
+          "koža kojoj je potrebna regeneracija, ali bez agresivnih i invazivnih procedura",
         ],
         callout: {
-          text: "Posebno je omiljen kod žena koje žele da počnu sa profesionalnim tretmanima, ali žele nešto sigurno, prirodno i nenametljivo.",
+          text: "HydraFacial tretman je posebno omiljen kod žena koje žele da počnu sa profesionalnom negom lica, ali traže nešto sigurno, prirodno i potpuno nenametljivo. To je idealan prvi korak u profesionalnoj nezi kože.",
         },
       },
       {
         id: "koji-su-benefiti-hydrafacial-tretmana",
         title: "Koji su benefiti HydraFacial tretmana",
-        paragraphs: [],
+        paragraphs: [
+          "Nakon HydraFacial tretmana, vaša koža dobija nekoliko ključnih benefita koji su vidljivi odmah i dugotrajni:",
+        ],
         bullets: [
-          "čista, osvežena i hidrirana koža",
-          "ujednačeniji ten",
-          "zdrav i prirodan sjaj",
-          "mekša i elastičnija koža",
-          "osećaj „resetovane“ kože",
+          "čista, osvežena i duboko hidrirana koža",
+          "ujednačeniji ten i struktura kože",
+          "zdrav i prirodan sjaj kože",
+          "mekša, elastičnija i glatka koža",
+          "osećaj \"resetovane\" i obnovljene kože",
         ],
         callout: {
-          text: "Rezultati su vidljivi odmah nakon tretmana, dok se kvalitet kože dodatno poboljšava redovnim dolascima.",
+          text: "Rezultati HydraFacial tretmana su vidljivi odmah nakon završetka tretmana, dok se kvalitet i zdravlje kože dodatno poboljšavaju redovnim dolascima. To je tretman koji gradi dugotrajne rezultate kroz konzistentnu negu.",
         },
       },
       {
         id: "hydrafacial-kao-prvi-korak-ka-podmladjivanju",
         title: "HydraFacial kao prvi korak ka podmlađivanju",
-        paragraphs: ["U Odalis centru, HydraFacial često koristimo kao uvodni tretman. On omogućava da:"],
+        paragraphs: [
+          "U Odalis centru na Novom Beogradu, HydraFacial tretman često koristimo kao uvodni i temeljni tretman u profesionalnoj nezi lica. On omogućava da:",
+        ],
         bullets: [
-          "upoznamo vašu kožu",
-          "procenimo njene potrebe",
-          "preporučimo dalju negu ili podmlađivanje (Indiba, radiotalasni lifting i druge tretmane)",
+          "upoznamo vašu kožu i njene specifične potrebe",
+          "procenimo trenutno stanje kože i preporučimo najbolji pristup",
+          "prirodno pređemo na tretmane za podmlađivanje lica, kao što su Indiba tretman, radiotalasni lifting i drugi neinvazivni tretmani, kada je to potrebno",
         ],
       },
       {
         id: "koliko-cesto-se-radi-hydrafacial",
         title: "Koliko često se radi HydraFacial",
         paragraphs: [
-          "Učestalost tretmana zavisi od stanja kože i ciljeva, ali najčešće se preporučuje:",
+          "Učestalost HydraFacial tretmana zavisi od trenutnog stanja vaše kože i vaših ciljeva u nezi lica. Najčešće se preporučuje:",
         ],
-        bullets: ["kao povremeni „reset“ kože", "ili kao deo redovne rutine nege"],
-        callout: { text: "Sve preporuke se daju individualno, tokom konsultacija." },
+        bullets: [
+          "kao povremeni \"reset\" kože – jednom mesečno ili svaka dva meseca",
+          "ili kao deo redovne rutine profesionalne nege – svake 3–4 nedelje",
+        ],
+        callout: { text: "Sve preporuke o učestalosti HydraFacial tretmana daju se individualno, tokom besplatnih konsultacija u Odalis centru na Novom Beogradu, na osnovu analize vaše kože i vaših potreba." },
       },
       {
         id: "da-li-je-tretman-bezbedan",
-        title: "Da li je tretman bezbedan",
+        title: "Da li je HydraFacial tretman bezbedan",
         paragraphs: [
-          "HydraFacial je u potpunosti bezbedan, neinvazivan i bezbolan tretman.",
-          "Nakon tretmana možete se odmah vratiti svakodnevnim aktivnostima.",
+          "HydraFacial tretman je u potpunosti bezbedan, neinvazivan i bezbolan tretman lica. Ne koristi agresivne hemikalije, laser ili invazivne metode.",
+          "Nakon HydraFacial tretmana u Odalis centru, možete se odmah vratiti svakodnevnim aktivnostima, bez ikakvog perioda oporavka ili ograničenja. Vaša koža će izgledati osveženo i hidrirano, bez crvenila ili iritacija.",
         ],
       },
     ],
     finalCta:
-      "Ako osećate da je vašoj koži potrebna pažnja, osveženje i profesionalna nega, zakažite besplatne konsultacije u Odalis centru (Novi Beograd) i saznajte da li je HydraFacial pravi prvi korak za vas.",
+      "Ako osećate da je vašoj koži potrebna pažnja, osveženje i profesionalna nega lica, zakažite besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno saznati da li je HydraFacial tretman pravi prvi korak za vašu kožu, bez ikakvog pritiska ili obaveze.",
   },
 };
 

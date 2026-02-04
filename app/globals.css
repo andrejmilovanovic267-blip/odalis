@@ -419,6 +419,15 @@ p {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
   }
   
+  .hero-shape {
+    border-radius: 160px;
+    background-color: rgba(255, 255, 255, 0.12);
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    opacity: 1;
+  }
+  
   .field-surface {
     background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(201, 162, 76, 0.25);
@@ -631,4 +640,14 @@ a.rounded-lg:focus-visible,
 button[class*="rounded"]:focus-visible,
 a[class*="rounded"]:focus-visible {
   border-radius: 0.5rem;
+}
+
+/* Fade in animation for counter plus sign */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
