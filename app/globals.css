@@ -651,3 +651,27 @@ a[class*="rounded"]:focus-visible {
     opacity: 1;
   }
 }
+
+/* Header navigation group - responsive fix for 968px-1150px range */
+/* Default: absolute centered (wide screens >=1150px) - handled by Tailwind classes */
+
+@media (min-width: 968px) and (max-width: 1150px) {
+  .header-nav-group {
+    position: relative !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 1100px !important;
+    margin: 0 auto !important;
+    padding-right: 180px !important; /* Reserve space for CTA button */
+    justify-content: center !important;
+  }
+
+  .header-nav-links {
+    gap: 0.5rem !important; /* 8px - reduced gap */
+  }
+
+  .header-nav-links a {
+    font-size: 0.95rem !important; /* Slightly smaller font */
+  }
+}

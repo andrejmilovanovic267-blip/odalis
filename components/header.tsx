@@ -155,50 +155,50 @@ export function Header() {
         </div>
 
         {/* Centered Navigation Group (Left Nav + Logo + Right Nav) */}
-        <div className="hidden nav:flex items-center gap-12 absolute left-1/2 -translate-x-1/2 h-full">
+        <div className="header-nav-group hidden nav:flex items-center gap-6 lg:gap-10 xl:gap-12 absolute left-1/2 -translate-x-1/2 h-full w-full max-w-[min(1100px,92vw)] justify-center">
           {/* Desktop Navigation - Left (3 links) */}
-          <nav className="flex items-center gap-12">
+          <nav className="header-nav-links flex items-center gap-6 lg:gap-10 xl:gap-12 flex-shrink-0 flex-nowrap">
             {desktopNavLinks.slice(0, 3).map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleNavClick(link.href, e)}
-                className="text-[#C9A24D] text-base font-medium hover:text-[#D6B45F] transition-colors duration-250 ease-out focus:outline-none focus:ring-0"
+                className="text-[#C9A24D] text-base font-medium hover:text-[#D6B45F] transition-colors duration-250 ease-out focus:outline-none focus:ring-0 whitespace-nowrap"
               >
                 {link.label}
               </a>
             ))}
           </nav>
-
-          {/* Logo container */}
-          <div className="flex items-center justify-center h-full">
+      
+      {/* Logo container */}
+          <div className="flex items-center justify-center h-full flex-shrink-0">
             <a
               href="/#hero"
               onClick={handleLogoClick}
-              className="relative h-16 md:h-24 w-auto max-w-[90vw] cursor-pointer hover:opacity-90 transition-opacity duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 rounded"
+              className="relative h-16 md:h-20 lg:h-24 w-auto flex-shrink-0 max-w-[220px] lg:max-w-[260px] cursor-pointer hover:opacity-90 transition-opacity duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 rounded"
               aria-label="Odalis - Početna"
             >
-              <Image
-                src="/odalis.png"
+          <Image
+            src="/odalis.png"
                 alt="Odalis - Centar za podmlađivanje"
-                width={200}
-                height={80}
+            width={200}
+            height={80}
                 sizes="(max-width: 768px) 160px, 300px"
-                className="object-contain h-full w-auto"
-                priority
-                quality={100}
-              />
+            className="object-contain h-full w-auto"
+            priority
+            quality={100}
+          />
             </a>
           </div>
 
           {/* Desktop Navigation - Right (3 links) */}
-          <nav className="flex items-center gap-12">
+          <nav className="header-nav-links flex items-center gap-6 lg:gap-10 xl:gap-12 flex-shrink-0 flex-nowrap">
             {desktopNavLinks.slice(3).map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleNavClick(link.href, e)}
-                className="text-[#C9A24D] text-base font-medium hover:text-[#D6B45F] transition-colors duration-250 ease-out focus:outline-none focus:ring-0"
+                className="text-[#C9A24D] text-base font-medium hover:text-[#D6B45F] transition-colors duration-250 ease-out focus:outline-none focus:ring-0 whitespace-nowrap"
               >
                 {link.label}
               </a>

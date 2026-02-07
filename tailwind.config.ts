@@ -40,7 +40,7 @@ const config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
       screens: {
-        nav: "968px", // Custom breakpoint for navigation (md + 200px)
+        nav: "1152px", // Custom breakpoint for navigation - desktop header at 1152px and above, mobile header at 1151px and below
       },
       container: {
         center: true,

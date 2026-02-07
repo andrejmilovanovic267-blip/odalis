@@ -482,35 +482,15 @@ export default function LandingPage() {
                   </div>
                 </div>
                 
-                {/* DEBUG CONNECTOR LINE */}
-                <div className="relative w-full mt-4">
-                  <div className="mx-auto h-[2px] w-2/3 bg-[#C9A24D]"></div>
-                </div>
-                
-                {/* Connector lines - hidden on mobile, visible on lg+ */}
-                <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 w-full pointer-events-none z-[1] hidden lg:block" aria-hidden="true">
-                  {/* Track lines (always visible) */}
-                  <div className="absolute left-[16.666%] w-[33.333%] h-[2px] bg-[#C9A24D]/25" />
-                  <div className="absolute left-[50%] w-[33.333%] h-[2px] bg-[#C9A24D]/25" />
+                {/* Connector lines - hidden on mobile (<768px), visible on md+ (>=768px) */}
+                <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 w-full pointer-events-none z-[1] hidden md:block" aria-hidden="true">
+                  {/* Line connecting circle 1 to circle 2 */}
+                  {/* Starts from right edge of circle 1 (centered at ~16.67%) to left edge of circle 2 (centered at ~50%) */}
+                  <div className="absolute left-[calc(16.666%+24px)] w-[calc(33.333%-48px)] h-[2px] bg-[#C9A24D]" />
                   
-                  {/* Fill lines (animated) */}
-                  <div
-                    className={`absolute left-[16.666%] w-[33.333%] h-[2px] bg-[#C9A24D] origin-left ${
-                      reduceMotion ? "" : "transition-transform duration-[600ms] ease-out"
-                    }`}
-                    style={{
-                      transform: connectorActive ? "scaleX(1)" : "scaleX(0)",
-                    }}
-                  />
-                  <div
-                    className={`absolute left-[50%] w-[33.333%] h-[2px] bg-[#C9A24D] origin-left ${
-                      reduceMotion ? "" : "transition-transform duration-[600ms] ease-out"
-                    }`}
-                    style={{
-                      transform: connectorActive ? "scaleX(1)" : "scaleX(0)",
-                      transitionDelay: reduceMotion ? "0ms" : "600ms",
-                    }}
-                  />
+                  {/* Line connecting circle 2 to circle 3 */}
+                  {/* Starts from right edge of circle 2 (centered at ~50%) to left edge of circle 3 (centered at ~83.33%) */}
+                  <div className="absolute left-[calc(50%+24px)] w-[calc(33.333%-48px)] h-[2px] bg-[#C9A24D]" />
                 </div>
               </div>
               
@@ -518,70 +498,78 @@ export default function LandingPage() {
                 {/* Step 1 */}
                 <li className="relative">
                   <div className="flex flex-row items-start gap-4 lg:flex-col lg:items-center lg:gap-0">
-                    {/* Step number badge */}
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-[#C9A24D] bg-transparent flex items-center justify-center flex-shrink-0 lg:hidden">
-                      <span className="text-[#C9A24D] font-semibold text-lg md:text-xl">1</span>
-                    </div>
-
                     {/* Testimonials card wrapper classes: card-surface overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform */}
-                    <div className="card-surface overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform flex-1 lg:w-full">
-                    <div className="p-5">
-                      <h3 className="text-text-primary text-lg font-bold mb-2 leading-tight">
-                        Konsultacije i procena
-                      </h3>
-                      <p className="text-text-secondary text-sm leading-relaxed mb-3">
-                        Kratko upoznajemo vašu kožu i ciljeve, pa dobijate jasnu preporuku za prirodan rezultat.
-                      </p>
-                      <ul className="space-y-2 text-text-secondary text-sm leading-relaxed mb-3">
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                          <span>Razgovor o željama i prioritetima</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                          <span>Procena kože lica ili tela</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                          <span>Preporuka bez pritiska</span>
-                        </li>
-                      </ul>
+                    <div className="card-surface overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform flex-1 lg:w-full relative">
+                      {/* Grid wrapper for mobile, block for desktop */}
+                      <div className="grid grid-cols-[44px_1fr] gap-4 md:block p-5">
+                        {/* Step number badge */}
+                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-[#C9A24D] bg-transparent flex items-center justify-center flex-shrink-0 lg:hidden self-center md:absolute md:left-0 md:top-4 md:self-auto">
+                          <span className="text-[#C9A24D] font-semibold text-lg md:text-xl">1</span>
+                        </div>
+
+                        {/* Content */}
+                        <div className="min-w-0">
+                          <h3 className="text-text-primary text-lg font-bold mb-2 leading-tight">
+                            Konsultacije i procena
+                          </h3>
+                          <p className="text-text-secondary text-sm leading-relaxed mb-3">
+                            Kratko upoznajemo vašu kožu i ciljeve, pa dobijate jasnu preporuku za prirodan rezultat.
+                          </p>
+                          <ul className="space-y-2 text-text-secondary text-sm leading-relaxed mb-3">
+                            <li className="flex items-start gap-3">
+                              <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                              <span>Razgovor o željama i prioritetima</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                              <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                              <span>Procena kože lica ili tela</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                              <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                              <span>Preporuka bez pritiska</span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
                     </div>
-                  </div>
                   </div>
                 </li>
 
                 {/* Step 2 */}
                 <li className="relative">
                   <div className="flex flex-row items-start gap-4 lg:flex-col lg:items-center lg:gap-0">
-                    {/* Step number badge */}
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-[#C9A24D] bg-transparent flex items-center justify-center flex-shrink-0 lg:hidden">
-                      <span className="text-[#C9A24D] font-semibold text-lg md:text-xl">2</span>
-                    </div>
-
                     {/* Testimonials card wrapper classes: card-surface overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform */}
-                    <div className="card-surface overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform flex-1 lg:w-full">
-                      <div className="p-5">
-                        <h3 className="text-text-primary text-lg font-bold mb-2 leading-tight">
-                          Individualni plan
-                        </h3>
-                        <p className="text-text-secondary text-sm leading-relaxed mb-3">
-                          Kreiramo plan nege i tretmana koji je realan, postepen i prilagođen vašem ritmu.
-                        </p>
-                        <ul className="space-y-2 text-text-secondary text-sm leading-relaxed mb-3">
-                          <li className="flex items-start gap-3">
-                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                            <span>Jasna očekivanja</span>
-                          </li>
-                          <li className="flex items-start gap-3">
-                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                            <span>Odabir tretmana po meri</span>
-                          </li>
-                          <li className="flex items-start gap-3">
-                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                            <span>Plan bez iznenađenja</span>
-                          </li>
-                        </ul>
+                    <div className="card-surface overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform flex-1 lg:w-full relative">
+                      {/* Grid wrapper for mobile, block for desktop */}
+                      <div className="grid grid-cols-[44px_1fr] gap-4 md:block p-5">
+                        {/* Step number badge */}
+                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-[#C9A24D] bg-transparent flex items-center justify-center flex-shrink-0 lg:hidden self-center md:absolute md:left-0 md:top-4 md:self-auto">
+                          <span className="text-[#C9A24D] font-semibold text-lg md:text-xl">2</span>
+                        </div>
+
+                        {/* Content */}
+                        <div className="min-w-0">
+                          <h3 className="text-text-primary text-lg font-bold mb-2 leading-tight">
+                            Individualni plan
+                          </h3>
+                          <p className="text-text-secondary text-sm leading-relaxed mb-3">
+                            Kreiramo plan nege i tretmana koji je realan, postepen i prilagođen vašem ritmu.
+                          </p>
+                          <ul className="space-y-2 text-text-secondary text-sm leading-relaxed mb-3">
+                            <li className="flex items-start gap-3">
+                              <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                              <span>Jasna očekivanja</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                              <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                              <span>Odabir tretmana po meri</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                              <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                              <span>Plan bez iznenađenja</span>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -590,34 +578,38 @@ export default function LandingPage() {
                 {/* Step 3 */}
                 <li className="relative">
                   <div className="flex flex-row items-start gap-4 lg:flex-col lg:items-center lg:gap-0">
-                    {/* Step number badge */}
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-[#C9A24D] bg-transparent flex items-center justify-center flex-shrink-0 lg:hidden">
-                      <span className="text-[#C9A24D] font-semibold text-lg md:text-xl">3</span>
-                    </div>
-
                     {/* Testimonials card wrapper classes: card-surface overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform */}
-                    <div className="card-surface overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform flex-1 lg:w-full">
-                      <div className="p-5">
-                        <h3 className="text-text-primary text-lg font-bold mb-2 leading-tight">
-                          Neinvazivni tretmani i rezultati
-                        </h3>
-                        <p className="text-text-secondary text-sm leading-relaxed mb-3">
-                          Sprovodimo neinvazivne tretmane koji podižu kvalitet kože bez agresivnih metoda.
-                        </p>
-                        <ul className="space-y-2 text-text-secondary text-sm leading-relaxed mb-3">
-                          <li className="flex items-start gap-3">
-                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                            <span>Bez pauze u rutini</span>
-                          </li>
-                          <li className="flex items-start gap-3">
-                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                            <span>Prirodni rezultati</span>
-                          </li>
-                          <li className="flex items-start gap-3">
-                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
-                            <span>Praćenje napretka</span>
-                          </li>
-                        </ul>
+                    <div className="card-surface overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform flex-1 lg:w-full relative">
+                      {/* Grid wrapper for mobile, block for desktop */}
+                      <div className="grid grid-cols-[44px_1fr] gap-4 md:block p-5">
+                        {/* Step number badge */}
+                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-[#C9A24D] bg-transparent flex items-center justify-center flex-shrink-0 lg:hidden self-center md:absolute md:left-0 md:top-4 md:self-auto">
+                          <span className="text-[#C9A24D] font-semibold text-lg md:text-xl">3</span>
+                        </div>
+
+                        {/* Content */}
+                        <div className="min-w-0">
+                          <h3 className="text-text-primary text-lg font-bold mb-2 leading-tight">
+                            Neinvazivni tretmani i rezultati
+                          </h3>
+                          <p className="text-text-secondary text-sm leading-relaxed mb-3">
+                            Sprovodimo neinvazivne tretmane koji podižu kvalitet kože bez agresivnih metoda.
+                          </p>
+                          <ul className="space-y-2 text-text-secondary text-sm leading-relaxed mb-3">
+                            <li className="flex items-start gap-3">
+                              <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                              <span>Bez pauze u rutini</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                              <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                              <span>Prirodni rezultati</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                              <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                              <span>Praćenje napretka</span>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
