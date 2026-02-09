@@ -17,8 +17,8 @@ export function StructuredData() {
       "name": "Serbia"
     },
     "sameAs": [
-      "https://www.instagram.com/odalis_nbg",
-      "https://www.facebook.com/odalis_nbg"
+      "https://www.instagram.com/odalis_nbg/",
+      "https://www.facebook.com/people/Odalis-NBG/61574995882346/"
     ],
     "image": "https://odalis.rs/odalis.png"
   };

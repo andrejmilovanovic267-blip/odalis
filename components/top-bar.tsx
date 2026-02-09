@@ -133,18 +133,18 @@ export function TopBar() {
           {/* Social icons - Column 3 (mobile) / Right group (desktop) */}
           <div className="justify-self-end min-[500px]:justify-self-auto flex items-center gap-3 md:gap-3.5">
             <a
-              href="#"
+              href="https://www.facebook.com/people/Odalis-NBG/61574995882346/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               aria-label="Facebook"
               className="text-[#0d1f32] hover:brightness-110 transition-all duration-200 hover:scale-110 focus:outline-none focus-visible:outline-2 focus-visible:outline-[#0d1f32]/60 focus-visible:outline-offset-1 rounded"
             >
               <FacebookIcon className="w-4 h-4" />
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/odalis_nbg/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               aria-label="Instagram"
               className="text-[#0d1f32] hover:brightness-110 transition-all duration-200 hover:scale-110 focus:outline-none focus-visible:outline-2 focus-visible:outline-[#0d1f32]/60 focus-visible:outline-offset-1 rounded"
             >

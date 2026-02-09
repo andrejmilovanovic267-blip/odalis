@@ -63,7 +63,7 @@ export function Footer() {
                 {/* Social Icons */}
                 <div className="flex items-center gap-6 pt-2 justify-center md:justify-start">
                   <a
-                    href="https://www.instagram.com/odalis_nbg"
+                    href="https://www.instagram.com/odalis_nbg/"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Instagram"
@@ -75,7 +75,7 @@ export function Footer() {
                     </svg>
                   </a>
                   <a
-                    href="https://www.facebook.com/odalis_nbg"
+                    href="https://www.facebook.com/people/Odalis-NBG/61574995882346/"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Facebook"

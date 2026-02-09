@@ -42,6 +42,10 @@ export function Header() {
     }
   };
 
+  const scrollToConsultation = () => {
+    scrollToSection('#konsultacije', { behavior: 'smooth', block: 'start' });
+  };
+
   const handleNavClick = (href: string, e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
@@ -103,19 +107,19 @@ export function Header() {
   // Mobile navigation links
   const mobileNavLinks = [
     { href: '#hero', label: 'Početna' },
-    { href: '#proces', label: 'Proces' },
     { href: '#tretmani', label: 'Tretmani' },
-    { href: '/blog', label: 'Blog' },
+    { href: '#proces', label: 'Proces' },
     { href: '#faq', label: 'Pitanja' },
+    { href: '/blog', label: 'Blog' },
     { href: '#konsultacije', label: 'Kontakt' },
   ];
 
   // Desktop navigation links
   const desktopNavLinks = [
     { href: '#hero', label: 'Početna' },
+    { href: '#tretmani-end', label: 'Tretmani' },
     { href: '#proces', label: 'Proces' },
     { href: '#faq', label: 'Pitanja' },
-    { href: '#tretmani-end', label: 'Tretmani' },
     { href: '/blog', label: 'Blog' },
     { href: '#konsultacije', label: 'Kontakt' },
   ];
@@ -209,8 +213,11 @@ export function Header() {
         {/* CTA Button - Far Right */}
         <div className="hidden nav:flex items-center ml-auto">
           <a
-            href="#kontakt"
-            onClick={(e) => handleNavClick('#kontakt', e)}
+            href="#konsultacije"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToConsultation();
+            }}
             className="btn-cta"
           >
             Zakaži konsultacije
@@ -277,8 +284,12 @@ export function Header() {
               ))}
               {/* CTA Button */}
               <a
-                href="#kontakt"
-                onClick={(e) => handleNavClick('#kontakt', e)}
+                href="#konsultacije"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToConsultation();
+                  setIsMobileMenuOpen(false);
+                }}
                 className="btn-cta mt-4"
               >
                 Zakaži konsultacije

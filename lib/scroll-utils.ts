@@ -6,8 +6,9 @@
 /**
  * Scrolls to a target element with proper offset for fixed header
  * Uses scrollIntoView which respects CSS scroll-margin-top automatically
+ * Handles navigation from other pages to homepage with hash
  * 
- * @param selector - CSS selector (e.g., '#hero', '#kontakt')
+ * @param selector - CSS selector (e.g., '#hero', '#konsultacije')
  * @param options - Optional scroll behavior options
  */
 export function scrollToSection(
@@ -18,6 +19,16 @@ export function scrollToSection(
     inline?: ScrollLogicalPosition;
   } = {}
 ): void {
+  // Check if we're on homepage
+  const isHomepage = window.location.pathname === '/';
+  
+  // If not on homepage and selector is an anchor, navigate to homepage first
+  if (!isHomepage && selector.startsWith('#')) {
+    // Navigate to homepage with hash
+    window.location.href = `/${selector}`;
+    return;
+  }
+  
   // Find the target element - try immediately first
   let target = document.querySelector(selector);
   

@@ -30,10 +30,12 @@ export function ConsultationSection() {
           </div>
 
           {/* Form */}
-          <ConsultationForm 
-            calendlyContainerId="calendly-container"
-            showAnimations={true}
-          />
+          <div id="konsultacije-forma">
+            <ConsultationForm 
+              calendlyContainerId="calendly-container"
+              showAnimations={true}
+            />
+          </div>
         </motion.div>
       </div>
     </Section>
