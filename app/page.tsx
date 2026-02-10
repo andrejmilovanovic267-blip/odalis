@@ -479,15 +479,15 @@ export default function LandingPage() {
                         </p>
                         <ul className="space-y-2 text-text-secondary text-sm leading-relaxed mb-3">
                           <li className="flex items-start gap-3">
-                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                            <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4" />
                             <span>Razgovor o željama i prioritetima</span>
                           </li>
                           <li className="flex items-start gap-3">
-                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                            <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4" />
                             <span>Procena kože lica ili tela</span>
                           </li>
                           <li className="flex items-start gap-3">
-                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                            <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4" />
                             <span>Preporuka bez pritiska</span>
                           </li>
                         </ul>
@@ -518,15 +518,15 @@ export default function LandingPage() {
                         </p>
                         <ul className="space-y-2 text-text-secondary text-sm leading-relaxed mb-3">
                           <li className="flex items-start gap-3">
-                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                            <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4" />
                             <span>Jasna očekivanja</span>
                           </li>
                           <li className="flex items-start gap-3">
-                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                            <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4" />
                             <span>Odabir tretmana po meri</span>
                           </li>
                           <li className="flex items-start gap-3">
-                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                            <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4" />
                             <span>Plan bez iznenađenja</span>
                           </li>
                         </ul>
@@ -557,15 +557,15 @@ export default function LandingPage() {
                         </p>
                         <ul className="space-y-2 text-text-secondary text-sm leading-relaxed mb-3">
                           <li className="flex items-start gap-3">
-                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                            <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4" />
                             <span>Bez pauze u rutini</span>
                           </li>
                           <li className="flex items-start gap-3">
-                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                            <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4" />
                             <span>Prirodni rezultati</span>
                           </li>
                           <li className="flex items-start gap-3">
-                            <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5" />
+                            <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4" />
                             <span>Praćenje napretka</span>
                           </li>
                         </ul>
@@ -629,37 +629,37 @@ export default function LandingPage() {
                 </h3>
                 <ul className="space-y-4 mb-4">
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
+                            <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4 md:w-5 md:h-5" />
                     <div>
-                      <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Neinvazivne i bezbedne tretmane</span>
+                      <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Neinvazivne i bezbedne tretmane</span>
                       <span className="text-text-secondary text-sm leading-relaxed">Bez igala, bez oporavka i bez agresivnih intervencija — samo metode koje poštuju vašu kožu i telo.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
+                            <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4 md:w-5 md:h-5" />
                     <div>
-                      <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Individualan pristup vašem licu i telu</span>
+                      <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Individualan pristup vašem licu i telu</span>
                       <span className="text-text-secondary text-sm leading-relaxed">Svaki tretman biramo prema vašim ciljevima, stanju kože i tempu koji vama odgovara.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
+                            <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4 md:w-5 md:h-5" />
                     <div>
-                      <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Prirodne i postepene rezultate</span>
+                      <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Prirodne i postepene rezultate</span>
                       <span className="text-text-secondary text-sm leading-relaxed">Naš cilj nije da promenimo vaš izgled, već da istaknemo ono najbolje — diskretno i skladno.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
+                            <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4 md:w-5 md:h-5" />
                     <div>
-                      <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Prijatno i opuštajuće iskustvo</span>
+                      <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Prijatno i opuštajuće iskustvo</span>
                       <span className="text-text-secondary text-sm leading-relaxed">Tretmani su deo nege i brige o sebi, a ne stres ili neprijatnost.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle2 className="text-[#C9A24D] flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
+                            <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4 md:w-5 md:h-5" />
                     <div>
-                      <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Stručno vođene preporuke</span>
+                      <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Stručno vođene preporuke</span>
                       <span className="text-text-secondary text-sm leading-relaxed">Dobijate iskren savet, jasno objašnjenje i realan plan — bez ulepšavanja i bez pritiska.</span>
                     </div>
                   </li>
@@ -686,35 +686,35 @@ export default function LandingPage() {
                   <li className="flex items-start gap-3">
                     <XCircle className="text-white/40 flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
-                      <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Ne jurimo instant efekte</span>
+                      <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Ne jurimo instant efekte</span>
                       <span className="text-text-secondary text-sm leading-relaxed">Verujemo u rezultate koji dolaze prirodno i traju duže, bez šoka za kožu.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <XCircle className="text-white/40 flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
-                      <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Ne menjamo vaš identitet</span>
+                      <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Ne menjamo vaš identitet</span>
                       <span className="text-text-secondary text-sm leading-relaxed">Podmlađivanje kod nas znači osvežen, zdrav i odmoran izgled — ne &ldquo;novo lice&rdquo;.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <XCircle className="text-white/40 flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
-                      <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Bez bola i neprijatnih iskustava</span>
+                      <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Bez bola i neprijatnih iskustava</span>
                       <span className="text-text-secondary text-sm leading-relaxed">Tretmani su blagi, sigurni i prilagođeni vašem komforu.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <XCircle className="text-white/40 flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
-                      <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Bez obaveze i pritiska</span>
+                      <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Bez obaveze i pritiska</span>
                       <span className="text-text-secondary text-sm leading-relaxed">Besplatne konsultacije služe da dobijete odgovor i jasnoću — odluka je uvek vaša.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <XCircle className="text-white/40 flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
-                      <span className="text-text-primary text-base md:text-lg font-bold block mb-1">Ako tretman nije za vas – reći ćemo vam</span>
+                      <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Ako tretman nije za vas – reći ćemo vam</span>
                       <span className="text-text-secondary text-sm leading-relaxed">Iskren odnos je važniji od prodaje. Vaše poverenje nam je prioritet.</span>
                     </div>
                   </li>
