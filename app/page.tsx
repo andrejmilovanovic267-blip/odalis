@@ -617,12 +617,8 @@ export default function LandingPage() {
             {/* Two Column Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mb-12 md:mb-16 items-stretch">
               {/* Leva kolona - ŠTA JESTE */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="card-surface p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform h-full flex flex-col"
+              <div
+                className="card-surface overflow-hidden p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform h-full flex flex-col"
               >
                 <h3 className="text-text-primary text-lg font-bold mb-3 leading-tight">
                   Šta možete da očekujete u Odalis centru
@@ -632,7 +628,7 @@ export default function LandingPage() {
                             <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4 md:w-5 md:h-5" />
                     <div>
                       <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Neinvazivne i bezbedne tretmane</span>
-                      <span className="text-text-secondary text-sm leading-relaxed">Bez igala, bez oporavka i bez agresivnih intervencija — samo metode koje poštuju vašu kožu i telo.</span>
+                      <span className="text-text-secondary text-sm leading-relaxed">Bez igala, bez oporavka i bez agresivnih intervencija, samo metode koje poštuju vašu kožu i telo.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
@@ -646,7 +642,7 @@ export default function LandingPage() {
                             <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4 md:w-5 md:h-5" />
                     <div>
                       <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Prirodne i postepene rezultate</span>
-                      <span className="text-text-secondary text-sm leading-relaxed">Naš cilj nije da promenimo vaš izgled, već da istaknemo ono najbolje — diskretno i skladno.</span>
+                      <span className="text-text-secondary text-sm leading-relaxed">Naš cilj nije da promenimo vaš izgled, već da istaknemo ono najbolje, diskretno i skladno.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
@@ -660,7 +656,7 @@ export default function LandingPage() {
                             <CheckCircle2 className="text-[#C9A24D]/75 flex-shrink-0 mt-0.5 w-4 h-4 md:w-5 md:h-5" />
                     <div>
                       <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Stručno vođene preporuke</span>
-                      <span className="text-text-secondary text-sm leading-relaxed">Dobijate iskren savet, jasno objašnjenje i realan plan — bez ulepšavanja i bez pritiska.</span>
+                      <span className="text-text-secondary text-sm leading-relaxed">Dobijate iskren savet, jasno objašnjenje i realan plan, bez ulepšavanja i bez pritiska.</span>
                     </div>
                   </li>
                 </ul>
@@ -669,18 +665,14 @@ export default function LandingPage() {
                   <div className="h-[44px] flex items-center justify-center p-0 leading-none">
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
               {/* Desna kolona - ŠTA NIJE */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="card-surface p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform h-full flex flex-col"
+              <div
+                className="card-surface overflow-hidden p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-200 will-change-transform h-full flex flex-col"
               >
                 <h3 className="text-text-primary text-lg font-bold mb-3 leading-tight">
-                  Naš pristup u praksi – iskreno i transparentno
+                  Naš pristup u praksi: iskreno i transparentno
                 </h3>
                 <ul className="space-y-4 mb-4">
                   <li className="flex items-start gap-3">
@@ -694,7 +686,7 @@ export default function LandingPage() {
                     <XCircle className="text-white/40 flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
                       <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Ne menjamo vaš identitet</span>
-                      <span className="text-text-secondary text-sm leading-relaxed">Podmlađivanje kod nas znači osvežen, zdrav i odmoran izgled — ne &ldquo;novo lice&rdquo;.</span>
+                      <span className="text-text-secondary text-sm leading-relaxed">Podmlađivanje kod nas znači osvežen, zdrav i odmoran izgled, ne &ldquo;novo lice&rdquo;.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
@@ -708,13 +700,13 @@ export default function LandingPage() {
                     <XCircle className="text-white/40 flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
                       <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Bez obaveze i pritiska</span>
-                      <span className="text-text-secondary text-sm leading-relaxed">Besplatne konsultacije služe da dobijete odgovor i jasnoću — odluka je uvek vaša.</span>
+                      <span className="text-text-secondary text-sm leading-relaxed">Besplatne konsultacije služe da dobijete odgovor i jasnoću, odluka je uvek vaša.</span>
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <XCircle className="text-white/40 flex-shrink-0 mt-0.5 w-5 h-5 md:w-6 md:h-6" />
                     <div>
-                      <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Ako tretman nije za vas – reći ćemo vam</span>
+                      <span className="text-text-primary text-base md:text-lg font-medium block mb-1 text-text-primary/90">Ako tretman nije za vas, reći ćemo vam</span>
                       <span className="text-text-secondary text-sm leading-relaxed">Iskren odnos je važniji od prodaje. Vaše poverenje nam je prioritet.</span>
                     </div>
                   </li>
@@ -724,7 +716,7 @@ export default function LandingPage() {
                   <div className="h-[44px] flex items-center justify-center p-0 leading-none">
                   </div>
             </div>
-              </motion.div>
+              </div>
             </div>
 
             {/* Mini CTA */}
@@ -749,7 +741,7 @@ export default function LandingPage() {
                 >
                   Zakažite besplatne konsultacije
                 </Button>
-              </div>
+            </div>
             </motion.div>
           </motion.div>
         </div>
@@ -1077,7 +1069,7 @@ export default function LandingPage() {
                   className="overflow-hidden mt-4"
                 >
                   <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words pb-2">
-                    Odalis je centar za podmlađivanje lica i tela se nalazi u TC Piramida Plus u Nehruovoj 51 na Novom Beogradu. 
+                    Odalis je centar za podmlađivanje lica i tela i nalazi se u TC Piramida Plus u Nehruovoj 51 na Novom Beogradu. 
                   </p>
                 </motion.div>
               </article>

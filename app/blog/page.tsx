@@ -93,71 +93,44 @@ export default function BlogIndexPage() {
             Izdvojeno
           </h2>
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-            {/* Large Featured Card - First post */}
-            <Link 
-              href={featuredPlaceholders[0]?.href || "#"}
-              className="lg:col-span-2 group"
-            >
-              <article className="card-surface rounded-3xl overflow-hidden h-full flex flex-col hover:-translate-y-1 hover:shadow-xl transition-all duration-300 ease-out motion-reduce:transition-none motion-reduce:hover:translate-y-0">
-                {/* Thumbnail */}
-                <div className="relative w-full aspect-video overflow-hidden bg-gradient-to-br from-navy-800/40 via-navy-700/30 to-navy-900/50">
-                  <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-300 ease-out motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
-                </div>
-                
-                {/* Content */}
-                <div className="p-6 md:p-8 flex-1 flex flex-col">
-                  <div className="mb-4">
-                    <span className="inline-block px-3 py-1 text-xs font-medium text-[#C9A24D] border border-[#C9A24D]/30 bg-[#C9A24D]/10 rounded-full">
-                      {featuredPlaceholders[0]?.tag}
-                    </span>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {featuredPlaceholders.map((post) => (
+              <Link 
+                key={post.id}
+                href={post.href}
+                className="group"
+              >
+                <article className="card-surface rounded-3xl overflow-hidden h-full flex flex-col hover:-translate-y-1 hover:shadow-xl transition-all duration-300 ease-out motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+                  {/* Thumbnail */}
+                  <div className="relative w-full aspect-video overflow-hidden bg-gradient-to-br from-navy-800/40 via-navy-700/30 to-navy-900/50">
+                    <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-300 ease-out motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
                   </div>
                   
-                  <h3 className="text-text-primary text-xl md:text-2xl font-bold mb-3 leading-tight group-hover:opacity-90 transition-opacity duration-250 motion-reduce:transition-none">
-                    {featuredPlaceholders[0]?.title}
-                  </h3>
-                  
-                  <p className="text-text-secondary text-base md:text-lg leading-relaxed font-light flex-1">
-                    {featuredPlaceholders[0]?.excerpt}
-                  </p>
-                </div>
-              </article>
-            </Link>
-
-            {/* Small Featured Cards - Second and third posts */}
-            <div className="flex flex-col gap-6 md:gap-8">
-              {featuredPlaceholders.slice(1, 3).map((post) => (
-                <Link 
-                  key={post.id}
-                  href={post.href}
-                  className="group"
-                >
-                  <article className="card-surface rounded-3xl overflow-hidden h-full flex flex-col hover:-translate-y-1 hover:shadow-xl transition-all duration-300 ease-out motion-reduce:transition-none motion-reduce:hover:translate-y-0">
-                    {/* Thumbnail */}
-                    <div className="relative w-full aspect-video overflow-hidden bg-gradient-to-br from-navy-800/40 via-navy-700/30 to-navy-900/50">
-                      <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-300 ease-out motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
+                  {/* Content */}
+                  <div className="p-6 flex-1 flex flex-col">
+                    <div className="mb-3">
+                      <span className="inline-block px-3 py-1 text-xs font-medium text-[#C9A24D] border border-[#C9A24D]/30 bg-[#C9A24D]/10 rounded-full">
+                        {post.tag}
+                      </span>
                     </div>
                     
-                    {/* Content */}
-                    <div className="p-6 md:p-8 flex-1 flex flex-col">
-                      <div className="mb-4">
-                        <span className="inline-block px-3 py-1 text-xs font-medium text-[#C9A24D] border border-[#C9A24D]/30 bg-[#C9A24D]/10 rounded-full">
-                          {post.tag}
-                        </span>
-                      </div>
-                      
-                      <h3 className="text-text-primary text-lg md:text-xl font-bold mb-3 leading-tight group-hover:opacity-90 transition-opacity duration-250 motion-reduce:transition-none">
-                        {post.title}
-                      </h3>
-                      
-                      <p className="text-text-secondary text-sm md:text-base leading-relaxed font-light flex-1">
-                        {post.excerpt}
-                      </p>
+                    <h3 className="text-text-primary text-lg font-bold mb-3 leading-tight line-clamp-2 group-hover:opacity-90 transition-opacity duration-250 motion-reduce:transition-none">
+                      {post.title}
+                    </h3>
+                    
+                    <p className="text-text-secondary text-sm leading-relaxed font-light line-clamp-2 mb-4 flex-1">
+                      {post.excerpt}
+                    </p>
+                    
+                    <div className="mt-auto pt-4 border-t border-white/10">
+                      <span className="text-[#C9A24D] text-sm font-medium group-hover:underline">
+                        Pročitaj više →
+                      </span>
                     </div>
-                  </article>
-                </Link>
-              ))}
-            </div>
+                  </div>
+                </article>
+              </Link>
+            ))}
           </div>
         </div>
       </Section>
