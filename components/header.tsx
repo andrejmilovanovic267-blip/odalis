@@ -13,9 +13,29 @@ export function Header() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isTopBarVisible, topBarHeight } = useTopBar();
+  const [headerHeight, setHeaderHeight] = useState(80); // Default mobile height
   
   // Calculate dynamic top offset
   const topOffset = isTopBarVisible ? topBarHeight : 0;
+  
+  // Header height constants (matching h-20 / md:h-24)
+  const headerHeightMobile = 80; // h-20 = 80px
+  const headerHeightDesktop = 96; // md:h-24 = 96px
+  
+  // Update header height based on viewport width
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      const isDesktop = window.innerWidth >= 768; // md breakpoint
+      setHeaderHeight(isDesktop ? headerHeightDesktop : headerHeightMobile);
+    };
+    
+    updateHeaderHeight();
+    window.addEventListener('resize', updateHeaderHeight);
+    
+    return () => {
+      window.removeEventListener('resize', updateHeaderHeight);
+    };
+  }, []);
 
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -264,8 +284,10 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="nav:hidden fixed top-20 left-0 right-0 bottom-0 z-[1001]"
+            className="nav:hidden fixed left-0 right-0 z-[1001] overflow-y-auto"
             style={{
+              top: `${topOffset + headerHeight}px`,
+              height: `calc(100dvh - ${topOffset + headerHeight}px)`,
               background: 'rgba(11, 31, 51, 0.85)',
               backdropFilter: 'blur(20px) saturate(180%)',
               WebkitBackdropFilter: 'blur(20px) saturate(180%)',
