@@ -16,11 +16,19 @@ export function generateMetadata({ params }: PageProps): Metadata {
     ? post.description
     : "Blog tekst je u pripremi. Uskoro objavljujemo stručno napisan vodič sa jasnim odgovorima i savetima iz Odalis centra na Novom Beogradu.";
 
+  // Relative URL - metadataBase from app/layout.tsx will make it absolute
+  const canonicalUrl = `/blog/${params.slug}`;
+
   return {
     title,
     description,
     alternates: {
-      canonical: `/blog/${params.slug}`,
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      url: canonicalUrl,
+      title,
+      description,
     },
   };
 }

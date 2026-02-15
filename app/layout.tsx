@@ -22,7 +22,11 @@ const bodyFont = Inter({
   display: "swap",
 });
 
+// Base URL for absolute canonical URLs (always without www)
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://odalis.rs";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     template: "%s | Odalis",
     default: "Odalis - Centar za podmlađivanje lica i tela u Beogradu",
