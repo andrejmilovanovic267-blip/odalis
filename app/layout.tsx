@@ -60,11 +60,6 @@ export default function RootLayout({
         </TopBarProvider>
         {children}
         <BackToTop />
-        {/* Calendly Script - Load globally once */}
-        <Script
-          src="https://assets.calendly.com/assets/external/widget.js"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, FormEvent, useEffect, useRef } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Script from "next/script";
 import { Button } from "@/ui/button";
 
 interface ConsultationFormProps {
@@ -19,9 +20,6 @@ export function ConsultationForm({
     type: "success" | "error" | null;
     message: string;
   }>({ type: null, message: "" });
-  const [calendlyError, setCalendlyError] = useState(false);
-  const calendlyInitialized = useRef(false);
-  const retryCountRef = useRef(0);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -78,75 +76,35 @@ export function ConsultationForm({
     setSelectedIntent(e.target.value);
   };
 
-  // Initialize Calendly with retry logic
+  // Initialize Calendly widget when consultation is selected and script is loaded
   useEffect(() => {
-    // Only initialize when consultation option is selected
     if (selectedIntent !== "consultation") {
-      calendlyInitialized.current = false;
-      retryCountRef.current = 0;
-      setCalendlyError(false);
       return;
     }
 
-    // Reset error state when intent changes
-    setCalendlyError(false);
-
-    const initializeCalendly = (attempt: number = 1): void => {
-      const maxRetries = 5;
-      const retryDelay = 500; // 500ms between retries
-
-      // Check if script is loaded
-      if (typeof window === "undefined" || !(window as any).Calendly) {
-        if (attempt <= maxRetries) {
-          setTimeout(() => initializeCalendly(attempt + 1), retryDelay);
-        } else {
-          setCalendlyError(true);
-        }
+    // Wait for Calendly script to load
+    // Calendly inline widget with data-url will auto-initialize
+    // The script automatically detects elements with class "calendly-inline-widget"
+    // and data-url attribute, so no explicit initialization is needed
+    const checkCalendly = (attempt: number = 1): void => {
+      const maxAttempts = 10;
+      
+      if (typeof window !== "undefined" && (window as any).Calendly) {
+        // Script is loaded, widget will auto-initialize
         return;
       }
-
-      // Check if container exists
-      const container = document.getElementById(calendlyContainerId);
-      if (!container) {
-        if (attempt <= maxRetries) {
-          setTimeout(() => initializeCalendly(attempt + 1), retryDelay);
-        } else {
-          setCalendlyError(true);
-        }
-        return;
-      }
-
-      // Guard against double-init
-      if (calendlyInitialized.current || container.querySelector(".calendly-inline-widget")) {
-        return;
-      }
-
-      try {
-        (window as any).Calendly.initInlineWidget({
-          url: "https://calendly.com/andrejmilovanovic267/free-app-discuss-zoom-call",
-          parentElement: container,
-        });
-        calendlyInitialized.current = true;
-        retryCountRef.current = 0;
-      } catch (error) {
-        console.error("Calendly initialization error:", error);
-        if (attempt <= maxRetries) {
-          setTimeout(() => initializeCalendly(attempt + 1), retryDelay);
-        } else {
-          setCalendlyError(true);
-        }
+      
+      // Retry if script not loaded yet
+      if (attempt < maxAttempts) {
+        setTimeout(() => checkCalendly(attempt + 1), 100);
       }
     };
 
-    // Start initialization with a small delay to ensure DOM is ready
-    const timeoutId = setTimeout(() => {
-      initializeCalendly();
-    }, 100);
+    // Small delay to ensure DOM is ready
+    const timeoutId = setTimeout(() => checkCalendly(), 100);
+    return () => clearTimeout(timeoutId);
+  }, [selectedIntent]);
 
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [selectedIntent, calendlyContainerId]);
 
   const MotionWrapper = showAnimations ? motion.div : "div";
   const motionProps = showAnimations
@@ -287,30 +245,24 @@ export function ConsultationForm({
               {/* Gold accent line */}
               <div className="h-[1px] bg-[#C9A24D] mb-6 w-full"></div>
               
-              {/* Calendly wrapper */}
+              {/* Calendly Script - Load only when consultation is selected */}
+              <Script
+                src="https://assets.calendly.com/assets/external/widget.js"
+                strategy="afterInteractive"
+              />
+              
+              {/* Calendly inline widget */}
               <div 
-                id={calendlyContainerId}
-                className="relative rounded-2xl overflow-hidden bg-navy-900/20 backdrop-blur-sm border border-white/5 p-4 md:p-6 w-full"
-                style={{
-                  height: "900px",
-                  minHeight: "900px",
-                }}
+                className="relative rounded-2xl overflow-visible bg-navy-900/20 backdrop-blur-sm border border-white/5 p-4 md:p-6 w-full"
                 role="region"
                 aria-label="Calendar booking"
-              />
-              {/* Fallback link if Calendly fails to load */}
-              {calendlyError && (
-                <div className="mt-4 text-center">
-                  <a
-                    href="https://calendly.com/andrejmilovanovic267/free-app-discuss-zoom-call"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#C9A24D] hover:text-[#D4AF37] underline transition-colors duration-250"
-                  >
-                    Otvori stranicu za zakazivanje
-                  </a>
-                </div>
-              )}
+              >
+                <div 
+                  className="calendly-inline-widget" 
+                  data-url="https://calendly.com/odalisnbgd/30min?background_color=0d1f32&text_color=c8a148&primary_color=c8a148"
+                  style={{ minWidth: 320, height: 700 }}
+                />
+              </div>
             </div>
           </motion.div>
         )}

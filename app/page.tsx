@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import type { KeyboardEvent } from "react";
 import Image from "next/image";
 import { CheckCircle2, XCircle } from "lucide-react";
@@ -359,15 +360,12 @@ export default function LandingPage() {
                         </p>
                       </div>
                     </div>
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        scrollToSection('#tretmani', { behavior: 'smooth', block: 'start' });
-                      }}
-                      className="btn-cta w-full md:w-auto cursor-pointer"
+                    <Link
+                      href="/tretmani/lice"
+                      className="btn-cta w-full md:w-auto cursor-pointer inline-flex items-center justify-center"
                     >
                       Svi tretmani za lice
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </motion.div>
@@ -407,15 +405,12 @@ export default function LandingPage() {
                         </p>
                       </div>
                     </div>
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        scrollToSection('#tretmani', { behavior: 'smooth', block: 'start' });
-                      }}
-                      className="btn-cta w-full md:w-auto cursor-pointer"
+                    <Link
+                      href="/tretmani/telo"
+                      className="btn-cta w-full md:w-auto cursor-pointer inline-flex items-center justify-center"
                     >
                       Svi tretmani za telo
-                    </button>
+                    </Link>
                   </div>
                 </div>
           </motion.div>

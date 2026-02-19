@@ -60,7 +60,7 @@ export default function BlogIndexPage() {
         {/* Back Navigation - Top left corner */}
         <Link
           href="/"
-          className="absolute left-4 top-8 md:left-8 md:top-14 z-20 inline-flex items-center gap-2 text-white/90 hover:text-[#C9A24D] transition-colors duration-200 hover:-translate-x-1 transition-transform duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/50 focus:ring-offset-2 focus:ring-offset-navy-900 rounded-sm"
+          className="absolute left-4 top-10 md:left-8 md:top-14 z-20 inline-flex items-center gap-2 text-white/90 hover:text-[#C9A24D] transition-colors duration-200 hover:-translate-x-1 transition-transform duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/50 focus:ring-offset-2 focus:ring-offset-navy-900 rounded-sm"
           aria-label="Nazad na početnu"
         >
           <ArrowLeft className="w-4 h-4" aria-hidden="true" />
