@@ -17,6 +17,7 @@ import { Footer } from "@/components/footer";
 import { ConsultationSection } from "@/components/consultation-section";
 import { ReviewsSection } from "@/components/reviews-section";
 import { scrollToSection } from "@/lib/scroll-utils";
+import { track } from "@/lib/fbpixel";
 
 type ViewType = 'home' | 'treatments-face' | 'treatments-body';
 
@@ -112,6 +113,7 @@ export default function LandingPage() {
   };
 
   const handleConsultationClick = () => {
+    track("Schedule");
     setCurrentView('home');
     // Wait for home view to render, then scroll
     setTimeout(() => {

@@ -4,6 +4,7 @@ import { useState, FormEvent, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Script from "next/script";
 import { Button } from "@/ui/button";
+import { track } from "@/lib/fbpixel";
 
 interface ConsultationFormProps {
   calendlyContainerId?: string;
@@ -59,6 +60,8 @@ export function ConsultationForm({
           message: result.message || "Vaš upit je uspešno poslat. Javićemo Vam se uskoro.",
         });
         (e.target as HTMLFormElement).reset();
+        // Track Lead event after successful form submission
+        track("Lead");
       } else {
         setSubmitStatus({
           type: "error",
@@ -129,7 +132,10 @@ export function ConsultationForm({
         <div className="flex gap-2 justify-center">
           <button
             type="button"
-            onClick={() => setContactMode('consultation')}
+            onClick={() => {
+              setContactMode('consultation');
+              track("Schedule");
+            }}
             className={`px-6 py-2.5 text-sm font-semibold rounded-lg border border-[#C9A24D] transition-all duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 ${
               contactMode === 'consultation'
                 ? 'bg-[#C9A24D] text-[#0B1F33]'

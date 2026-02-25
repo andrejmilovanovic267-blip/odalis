@@ -3,6 +3,7 @@
 import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/ui/button";
+import { track } from "@/lib/fbpixel";
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,6 +42,8 @@ export function ContactForm() {
           message: result.message || "Vaš upit je uspešno poslat. Javićemo Vam se uskoro.",
         });
         (e.target as HTMLFormElement).reset();
+        // Track Lead event after successful form submission
+        track("Lead");
       } else {
         setSubmitStatus({
           type: "error",

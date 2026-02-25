@@ -7,6 +7,7 @@ import { createPortal } from "react-dom";
 import { useRouter, usePathname } from "next/navigation";
 import { scrollToSection } from "@/lib/scroll-utils";
 import { useTopBar } from "./top-bar-context";
+import { track } from "@/lib/fbpixel";
 
 export function Header() {
   const router = useRouter();
@@ -236,6 +237,7 @@ export function Header() {
             href="#konsultacije"
             onClick={(e) => {
               e.preventDefault();
+              track("Schedule");
               scrollToConsultation();
             }}
             className="btn-cta"

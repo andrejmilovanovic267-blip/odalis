@@ -5,6 +5,8 @@ import { SectionHeading } from "@/components/section-heading";
 import { Section } from "@/components/section";
 import { Button } from "@/ui/button";
 import { faceTreatments } from "@/lib/treatmentsIndex";
+import { TreatmentPageTracker } from "@/components/analytics/TreatmentPageTracker";
+import { ScheduleButton } from "@/components/analytics/ScheduleButton";
 
 // Featured treatments for face (in exact order)
 const featuredFaceSlugs = [
@@ -68,6 +70,7 @@ export default function FaceTreatmentsPage() {
 
   return (
     <main className="relative z-10 overflow-x-hidden w-full pt-20 md:pt-24">
+      <TreatmentPageTracker />
       {/* Hero Section */}
       <Section className="relative">
         {/* Back Navigation - Top left corner */}
@@ -91,9 +94,9 @@ export default function FaceTreatmentsPage() {
             </p>
 
             <div className="pt-4">
-              <Button href="#konsultacije" variant="primary">
+              <ScheduleButton href="#konsultacije" variant="primary">
                 Zakaži konsultacije
-              </Button>
+              </ScheduleButton>
             </div>
           </div>
         </div>

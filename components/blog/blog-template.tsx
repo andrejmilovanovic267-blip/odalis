@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/ui/button";
 import { SectionHeading } from "@/components/section-heading";
 import { Footer } from "@/components/footer";
+import { track } from "@/lib/fbpixel";
 
 type BlogTemplateProps = {
   title: string;
@@ -86,7 +89,12 @@ export function BlogTemplate({
                 Ako želite stručnu procenu i miran plan nege, konsultacije su pravo mesto da krenemo bez pritiska i bez obaveze.
               </p>
               <div className="pt-2 flex justify-center">
-                <Button href="/#kontakt" variant="primary" className="w-full sm:w-auto px-8 py-3 text-base">
+                <Button 
+                  href="/#kontakt" 
+                  variant="primary" 
+                  className="w-full sm:w-auto px-8 py-3 text-base"
+                  onClick={() => track("Schedule")}
+                >
                   Zakažite besplatne konsultacije
                 </Button>
               </div>
