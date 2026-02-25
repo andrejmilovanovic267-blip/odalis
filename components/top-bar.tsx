@@ -99,7 +99,7 @@ export function TopBar() {
         <div className="h-9 w-full grid grid-cols-3 items-center min-[500px]:flex min-[500px]:items-center min-[500px]:justify-between px-4 sm:px-6 lg:px-10">
           {/* Phone - Column 1 (mobile) */}
           <a
-            href="tel:+381638033576"
+            href="tel:0638033576"
             className="justify-self-start min-[500px]:hidden flex items-center gap-1.5 md:gap-2 text-xs font-medium text-[#0d1f32] leading-none hover:underline transition-all duration-200 focus:outline-none focus-visible:outline-2 focus-visible:outline-[#0d1f32]/60 focus-visible:outline-offset-1 rounded"
           >
             <PhoneIcon className="w-4 h-4 flex-shrink-0" />
@@ -107,16 +107,22 @@ export function TopBar() {
           </a>
 
           {/* Location - Column 2 (mobile) */}
-          <div className="justify-self-center min-[500px]:hidden flex items-center gap-1.5 md:gap-2 text-xs font-medium text-[#0d1f32] leading-none">
+          <a
+            href="https://www.google.com/maps?q=44.80116826402845,20.38180688212591"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="justify-self-center min-[500px]:hidden flex items-center gap-1.5 md:gap-2 text-xs font-medium text-[#0d1f32] leading-none hover:underline transition-all duration-200 focus:outline-none focus-visible:outline-2 focus-visible:outline-[#0d1f32]/60 focus-visible:outline-offset-1 rounded"
+            aria-label="Lokacija: Novi Beograd"
+          >
             <PinIcon className="w-4 h-4 flex-shrink-0" />
             <span className="whitespace-nowrap">Novi Beograd</span>
-          </div>
+          </a>
 
           {/* Left group - Phone and Location (desktop >=500px) */}
           <div className="hidden min-[500px]:flex items-center gap-2 md:gap-4">
             {/* Phone */}
             <a
-              href="tel:+381638033576"
+              href="tel:0638033576"
               className="flex items-center gap-1.5 md:gap-2 text-xs font-medium text-[#0d1f32] leading-none hover:underline transition-all duration-200 focus:outline-none focus-visible:outline-2 focus-visible:outline-[#0d1f32]/60 focus-visible:outline-offset-1 rounded"
             >
               <PhoneIcon className="w-4 h-4 flex-shrink-0" />
@@ -124,10 +130,16 @@ export function TopBar() {
             </a>
 
             {/* Location */}
-            <div className="flex items-center gap-1.5 md:gap-2 text-xs font-medium text-[#0d1f32] leading-none">
+            <a
+              href="https://www.google.com/maps?q=44.80116826402845,20.38180688212591"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 md:gap-2 text-xs font-medium text-[#0d1f32] leading-none hover:underline transition-all duration-200 focus:outline-none focus-visible:outline-2 focus-visible:outline-[#0d1f32]/60 focus-visible:outline-offset-1 rounded"
+              aria-label="Lokacija: Novi Beograd"
+            >
               <PinIcon className="w-4 h-4 flex-shrink-0" />
               <span className="whitespace-nowrap">Novi Beograd</span>
-            </div>
+            </a>
           </div>
 
           {/* Social icons - Column 3 (mobile) / Right group (desktop) */}
@@ -136,7 +148,7 @@ export function TopBar() {
               href="https://www.facebook.com/people/Odalis-NBG/61574995882346/"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Facebook"
+              aria-label="Odalis Facebook"
               className="text-[#0d1f32] hover:brightness-110 transition-all duration-200 hover:scale-110 focus:outline-none focus-visible:outline-2 focus-visible:outline-[#0d1f32]/60 focus-visible:outline-offset-1 rounded"
             >
               <FacebookIcon className="w-4 h-4" />
@@ -145,16 +157,16 @@ export function TopBar() {
               href="https://www.instagram.com/odalis_nbg/"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Instagram"
+              aria-label="Odalis Instagram"
               className="text-[#0d1f32] hover:brightness-110 transition-all duration-200 hover:scale-110 focus:outline-none focus-visible:outline-2 focus-visible:outline-[#0d1f32]/60 focus-visible:outline-offset-1 rounded"
             >
               <InstagramIcon className="w-4 h-4" />
             </a>
             <a
-              href="#"
+              href="https://www.tiktok.com/@odalis_nbg"
               target="_blank"
-              rel="noreferrer"
-              aria-label="TikTok"
+              rel="noopener noreferrer"
+              aria-label="Odalis TikTok"
               className="text-[#0d1f32] hover:brightness-110 transition-all duration-200 hover:scale-110 focus:outline-none focus-visible:outline-2 focus-visible:outline-[#0d1f32]/60 focus-visible:outline-offset-1 rounded"
             >
               <TikTokIcon className="w-4 h-4" />

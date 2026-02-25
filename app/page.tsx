@@ -174,11 +174,11 @@ export default function LandingPage() {
           >
       {/* Hero Section - H1 with primary keyword */}
       <Hero
-        eyebrow="Centar za podmlađivanje lica i tela"
-        title="Prirodno podmlađivanje lica i tela u Odalisu"
+        eyebrow="Centar za negu lica i tela"
+        title="Prirodna nega lica i tela u Odalisu"
         ctaText="Zakaži besplatne konsultacije"
         ctaHref="#konsultacije"
-        supportingText="Savetovanje bez obaveza. Razgovarajmo o vašim željama i očekivanjima. Dobrodošli u Odalis centar za podmlađivanje lica i tela u Beogradu."
+        supportingText="Savetovanje bez obaveza. Razgovarajmo o vašim željama i očekivanjima. Dobrodošli u Odalis centar za negu lica i tela u Beogradu."
         imageSrc="/heroslika1.png"
         imageAlt="Prirodno podmlađivanje lica i tela - Neinvazivni tretmani u Odalis centru za podmlađivanje"
       />
@@ -769,7 +769,7 @@ export default function LandingPage() {
                   aria-label="Koliko traje jedan tretman za podmlađivanje lica?"
                 >
                   <h3 
-                    className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                    className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                   >
                   Koliko traje jedan tretman za podmlađivanje lica?
                 </h3>
@@ -808,7 +808,7 @@ export default function LandingPage() {
                   type="button"
                 >
                   <h3 
-                    className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                    className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                   >
                   Da li tretmani za podmlađivanje kože zahtevaju oporavak?
                 </h3>
@@ -847,7 +847,7 @@ export default function LandingPage() {
                   type="button"
                 >
                   <h3 
-                    className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                    className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                   >
                   Da li su tretmani u Odalis centru neinvazivni i bezbedni?
                 </h3>
@@ -886,7 +886,7 @@ export default function LandingPage() {
                   type="button"
                 >
                   <h3 
-                    className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                    className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                   >
                   Koliko tretmana je potrebno za vidljive rezultate podmlađivanja?
                 </h3>
@@ -925,7 +925,7 @@ export default function LandingPage() {
                   type="button"
                 >
                   <h3 
-                    className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                    className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                   >
                   Da li će tretmani promeniti moj prirodni izgled?
                 </h3>
@@ -964,7 +964,7 @@ export default function LandingPage() {
                   type="button"
                 >
                   <h3 
-                    className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                    className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                   >
                   Kolika je cena tretmana za podmlađivanje?
                 </h3>
@@ -1004,7 +1004,7 @@ export default function LandingPage() {
                   type="button"
                 >
                   <h3 
-                    className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                    className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                   >
                   Mogu li kombinovati različite tretmane za podmlađivanje?
                 </h3>
@@ -1043,7 +1043,7 @@ export default function LandingPage() {
                   type="button"
                 >
                   <h3
-                    className="text-text-primary text-2xl md:text-3xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
+                    className="text-text-primary text-xl md:text-2xl font-bold leading-tight break-words flex-1 transition-all duration-250 ease-out group-hover:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)] group-focus:drop-shadow-[0_0_4px_rgba(201,162,77,0.09)]"
                   >
                     Gde se nalazi Odalis centar?
                   </h3>
@@ -1064,7 +1064,7 @@ export default function LandingPage() {
                   className="overflow-hidden mt-4"
                 >
                   <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words pb-2">
-                    Odalis je centar za podmlađivanje lica i tela i nalazi se u TC Piramida Plus u Nehruovoj 51 na Novom Beogradu. 
+                    Odalis je centar za negu lica i tela i nalazi se u TC Piramida Plus u Nehruovoj 51 na Novom Beogradu. 
                   </p>
                 </motion.div>
               </article>

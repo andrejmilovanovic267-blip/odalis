@@ -19,6 +19,8 @@ export type BlogPost = {
   intro: string[];
   sections: BlogPostSection[];
   finalCta: string;
+  heroImage?: string;
+  cardImage?: string;
 };
 
 export const blogPosts: Record<string, BlogPost> = {
@@ -407,6 +409,8 @@ export const blogPosts: Record<string, BlogPost> = {
     ],
     finalCta:
       "Ako želite da saznate da li je Indiba tretman pravi izbor za vašu kožu, zakažite besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti stanje vaše kože i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
+    heroImage: "/Indiba.lice1.webp",
+    cardImage: "/Indiba.lice1.webp",
   },
   "endosfera-tretman-u-odalisu": {
     slug: "endosfera-tretman-u-odalisu",
@@ -1845,6 +1849,8 @@ export const blogPosts: Record<string, BlogPost> = {
     ],
     finalCta:
       "Ako razmišljate o Indiba tretmanu i želite da znate da li je pravi izbor za vas, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+    heroImage: "/Indiba.blog1.webp",
+    cardImage: "/Indiba.blog1.webp",
   },
   "sta-je-radiotalasni-lifting": {
     slug: "sta-je-radiotalasni-lifting",
@@ -3968,9 +3974,9 @@ export const blogPosts: Record<string, BlogPost> = {
   },
   "najbolji-tretmani-lica-novi-beograd": {
     slug: "najbolji-tretmani-lica-novi-beograd",
-    title: "Najbolji tretmani lica u Novom Beogradu",
+    title: "Najbolji tretmani lica na Novom Beogradu",
     description:
-      "Najbolji tretmani lica u Novom Beogradu: kako izabrati tretman koji odgovara vašim potrebama. Kombinacija stručne procene i kvalitetne tehnologije u Odalis centru.",
+      "Najbolji tretmani lica na Novom Beogradu: kako izabrati tretman koji odgovara vašim potrebama. Kombinacija stručne procene i kvalitetne tehnologije u Odalis centru.",
     category: "Tretmani",
     location: "Novi Beograd",
     readTime: "3–4 min čitanja",
@@ -4023,6 +4029,8 @@ export const blogPosts: Record<string, BlogPost> = {
     ],
     finalCta:
       "Ako želite da saznate koji su najbolji tretmani lica za vašu kožu, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+    heroImage: "/Indiba.lice1.webp",
+    cardImage: "/Indiba.lice1.webp",
   },
   "podmladjivanje-lica-cena": {
     slug: "podmladjivanje-lica-cena",

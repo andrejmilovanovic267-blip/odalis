@@ -4,7 +4,7 @@ export function StructuredData() {
     "@context": "https://schema.org",
     "@type": "BeautySalon",
     "name": "Odalis",
-    "description": "Odalis je centar za podmlađivanje lica i tela u Beogradu, sa fokusom na neinvazivne tretmane i prirodne rezultate.",
+    "description": "Odalis je centar za negu lica i tela u Beogradu, sa fokusom na neinvazivne tretmane i prirodne rezultate.",
     "url": "https://odalis.rs",
     "email": "andrejmilovanovic267@gmail.com",
     "address": {
@@ -88,7 +88,7 @@ export function StructuredData() {
         "name": "Gde se nalazi Odalis centar?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Odalis je centar za podmlađivanje lica i tela u Beogradu. Tačnu adresu i kontakt informacije možete pronaći u kontakt sekciji."
+          "text": "Odalis je centar za negu lica i tela u Beogradu. Tačnu adresu i kontakt informacije možete pronaći u kontakt sekciji."
         }
       }
     ]

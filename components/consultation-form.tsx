@@ -14,6 +14,9 @@ export function ConsultationForm({
   calendlyContainerId = "calendly-container",
   showAnimations = true 
 }: ConsultationFormProps) {
+  // Contact mode state: 'consultation' (Calendly) or 'question' (form)
+  const [contactMode, setContactMode] = useState<'consultation' | 'question'>('consultation');
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedIntent, setSelectedIntent] = useState<string>("");
   const [submitStatus, setSubmitStatus] = useState<{
@@ -76,9 +79,9 @@ export function ConsultationForm({
     setSelectedIntent(e.target.value);
   };
 
-  // Initialize Calendly widget when consultation is selected and script is loaded
+  // Initialize Calendly widget when consultation mode is selected and script is loaded
   useEffect(() => {
-    if (selectedIntent !== "consultation") {
+    if (contactMode !== "consultation") {
       return;
     }
 
@@ -103,8 +106,7 @@ export function ConsultationForm({
     // Small delay to ensure DOM is ready
     const timeoutId = setTimeout(() => checkCalendly(), 100);
     return () => clearTimeout(timeoutId);
-  }, [selectedIntent]);
-
+  }, [contactMode]);
 
   const MotionWrapper = showAnimations ? motion.div : "div";
   const motionProps = showAnimations
@@ -116,215 +118,235 @@ export function ConsultationForm({
     : {};
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6" style={{ height: "auto", overflow: "visible" }}>
-      {/* Name */}
-      <MotionWrapper
-        {...(showAnimations ? { ...motionProps, transition: { duration: 0.6, delay: 0.1 } } : {})}
-      >
-        <label htmlFor={`${calendlyContainerId}-name`} className="block text-text-secondary text-base font-medium mb-2">
-          Ime i prezime <span className="text-text-muted">*</span>
-        </label>
-        <input
-          type="text"
-          id={`${calendlyContainerId}-name`}
-          name="name"
-          required
-          disabled={isSubmitting}
-          className="field-surface w-full px-4 py-3 placeholder:text-text-muted"
-          placeholder="Vaše ime"
-        />
-      </MotionWrapper>
-
-      {/* Phone or Email */}
-      <MotionWrapper
-        {...(showAnimations ? { ...motionProps, transition: { duration: 0.6, delay: 0.2 } } : {})}
-      >
-        <label htmlFor={`${calendlyContainerId}-contact`} className="block text-text-secondary text-base font-medium mb-2">
-          Telefon ili email <span className="text-text-muted">*</span>
-        </label>
-        <input
-          type="text"
-          id={`${calendlyContainerId}-contact`}
-          name="contact"
-          required
-          disabled={isSubmitting}
-          className="field-surface w-full px-4 py-3 placeholder:text-text-muted"
-          placeholder="Vaš broj telefona ili email adresa"
-        />
-      </MotionWrapper>
-
-      {/* Interest */}
-      <MotionWrapper
-        {...(showAnimations ? { ...motionProps, transition: { duration: 0.6, delay: 0.3 } } : {})}
-      >
-        <label htmlFor={`${calendlyContainerId}-interest`} className="block text-text-secondary text-base font-medium mb-2">
-          Interesovanje <span className="text-text-muted">*</span>
-        </label>
-        <div className="relative">
-          <select
-            id={`${calendlyContainerId}-interest`}
-            name="interest"
-            required
-            disabled={isSubmitting}
-            className="field-surface w-full px-4 py-3 pr-10 appearance-none cursor-pointer"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23C9A24D' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'right 1rem center',
-              backgroundSize: '12px',
-            }}
+    <div className="space-y-6" style={{ height: "auto", overflow: "visible" }}>
+      {/* Contact Mode Selector */}
+      <div className="space-y-4">
+        <h3 className="text-text-primary text-xl md:text-2xl font-bold text-center">
+          Kako želite da nas kontaktirate?
+        </h3>
+        
+        {/* Segmented Control */}
+        <div className="flex gap-2 justify-center">
+          <button
+            type="button"
+            onClick={() => setContactMode('consultation')}
+            className={`px-6 py-2.5 text-sm font-semibold rounded-lg border border-[#C9A24D] transition-all duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 ${
+              contactMode === 'consultation'
+                ? 'bg-[#C9A24D] text-[#0B1F33]'
+                : 'bg-transparent text-[#C9A24D] hover:bg-[#C9A24D] hover:text-[#0B1F33]'
+            }`}
           >
-            <option value="">Izaberite oblast koja vas zanima</option>
-            <option value="facial-rejuvenation">Podmlađivanje lica</option>
-            <option value="body-rejuvenation">Podmlađivanje tela</option>
-            <option value="not-sure">Nisam siguran / treba mi savet</option>
-          </select>
+            Želim da zakažem konsultacije
+          </button>
+          <button
+            type="button"
+            onClick={() => setContactMode('question')}
+            className={`px-6 py-2.5 text-sm font-semibold rounded-lg border border-[#C9A24D] transition-all duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 ${
+              contactMode === 'question'
+                ? 'bg-[#C9A24D] text-[#0B1F33]'
+                : 'bg-transparent text-[#C9A24D] hover:bg-[#C9A24D] hover:text-[#0B1F33]'
+            }`}
+          >
+            Imam pitanje
+          </button>
         </div>
-      </MotionWrapper>
 
-      {/* User Intent - Radio Group */}
-      <MotionWrapper
-        {...(showAnimations ? { ...motionProps, transition: { duration: 0.6, delay: 0.4 } } : {})}
-      >
-        <fieldset className="space-y-3">
-          <legend className="block text-text-secondary text-base font-medium mb-3">
-            Šta biste želeli da uradite? <span className="text-text-muted">*</span>
-          </legend>
-          <div className="space-y-3">
-            <label className="flex items-center gap-3 cursor-pointer group">
-              <input
-                type="radio"
-                name="intent"
-                value="question"
-                required
-                disabled={isSubmitting}
-                onChange={handleIntentChange}
-                className="consultation-radio"
-              />
-              <span className="text-text-secondary text-base group-hover:text-text-primary transition-colors duration-250 ease-out">
-                Želim da postavim pitanje
-              </span>
-            </label>
-            <label className="flex items-center gap-3 cursor-pointer group">
-              <input
-                type="radio"
-                name="intent"
-                value="consultation"
-                required
-                disabled={isSubmitting}
-                onChange={handleIntentChange}
-                className="consultation-radio"
-              />
-              <span className="text-text-secondary text-base group-hover:text-text-primary transition-colors duration-250 ease-out">
-                Želim da zakažem besplatne konsultacije
-              </span>
-            </label>
-          </div>
-        </fieldset>
-      </MotionWrapper>
+        {/* Helper Text */}
+        <p className="text-text-secondary text-sm md:text-base text-center">
+          {contactMode === 'consultation'
+            ? 'Izaberite termin za besplatne konsultacije putem online zakazivanja.'
+            : 'Pošaljite nam poruku i odgovorićemo u najkraćem roku.'}
+        </p>
+      </div>
 
-      {/* Calendly Widget - Conditional Render */}
-      <AnimatePresence>
-        {selectedIntent === "consultation" && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ 
-              duration: 0.4, 
-              ease: [0.22, 1, 0.36, 1],
-              ...(typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
-                ? { duration: 0 }
-                : {})
-            }}
-            className="overflow-visible"
-            aria-live="polite"
-            aria-label="Calendly booking widget"
+      {/* Form - Only render when contactMode === 'question' */}
+      {contactMode === 'question' && (
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Name */}
+          <MotionWrapper
+            {...(showAnimations ? { ...motionProps, transition: { duration: 0.6, delay: 0.1 } } : {})}
           >
-            <div className="mt-6 pt-6 border-t border-[#C9A24D]/30">
-              {/* Gold accent line */}
-              <div className="h-[1px] bg-[#C9A24D] mb-6 w-full"></div>
-              
-              {/* Calendly Script - Load only when consultation is selected */}
-              <Script
-                src="https://assets.calendly.com/assets/external/widget.js"
-                strategy="afterInteractive"
-              />
-              
-              {/* Calendly inline widget */}
-              <div 
-                className="relative rounded-2xl overflow-visible bg-navy-900/20 backdrop-blur-sm border border-white/5 p-4 md:p-6 w-full"
-                role="region"
-                aria-label="Calendar booking"
+            <label htmlFor={`${calendlyContainerId}-name`} className="block text-text-secondary text-base font-medium mb-2">
+              Ime i prezime <span className="text-text-muted">*</span>
+            </label>
+            <input
+              type="text"
+              id={`${calendlyContainerId}-name`}
+              name="name"
+              required
+              disabled={isSubmitting}
+              className="field-surface w-full px-4 py-3 placeholder:text-text-muted"
+              placeholder="Vaše ime"
+            />
+          </MotionWrapper>
+
+          {/* Phone or Email */}
+          <MotionWrapper
+            {...(showAnimations ? { ...motionProps, transition: { duration: 0.6, delay: 0.2 } } : {})}
+          >
+            <label htmlFor={`${calendlyContainerId}-contact`} className="block text-text-secondary text-base font-medium mb-2">
+              Telefon ili email <span className="text-text-muted">*</span>
+            </label>
+            <input
+              type="text"
+              id={`${calendlyContainerId}-contact`}
+              name="contact"
+              required
+              disabled={isSubmitting}
+              className="field-surface w-full px-4 py-3 placeholder:text-text-muted"
+              placeholder="Vaš broj telefona ili email adresa"
+            />
+          </MotionWrapper>
+
+          {/* Interest */}
+          <MotionWrapper
+            {...(showAnimations ? { ...motionProps, transition: { duration: 0.6, delay: 0.3 } } : {})}
+          >
+            <label htmlFor={`${calendlyContainerId}-interest`} className="block text-text-secondary text-base font-medium mb-2">
+              Interesovanje <span className="text-text-muted">*</span>
+            </label>
+            <div className="relative">
+              <select
+                id={`${calendlyContainerId}-interest`}
+                name="interest"
+                required
+                disabled={isSubmitting}
+                className="field-surface w-full px-4 py-3 pr-10 appearance-none cursor-pointer"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23C9A24D' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'right 1rem center',
+                  backgroundSize: '12px',
+                }}
               >
-                <div 
-                  className="calendly-inline-widget" 
-                  data-url="https://calendly.com/odalisnbgd/30min?background_color=0d1f32&text_color=c8a148&primary_color=c8a148"
-                  style={{ minWidth: 320, height: 700 }}
-                />
-              </div>
+                <option value="">Izaberite oblast koja vas zanima</option>
+                <option value="facial-rejuvenation">Podmlađivanje lica</option>
+                <option value="body-rejuvenation">Podmlađivanje tela</option>
+                <option value="not-sure">Nisam siguran / treba mi savet</option>
+              </select>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </MotionWrapper>
 
-      {/* Message */}
-      <MotionWrapper
-        {...(showAnimations ? { ...motionProps, transition: { duration: 0.6, delay: 0.5 } } : {})}
-      >
-        <label htmlFor={`${calendlyContainerId}-message`} className="block text-text-secondary text-base font-medium mb-2">
-          Poruka <span className="text-text-muted">(opciono)</span>
-        </label>
-        <textarea
-          id={`${calendlyContainerId}-message`}
-          name="message"
-          rows={4}
-          disabled={isSubmitting}
-          className="field-surface w-full px-4 py-3 placeholder:text-text-muted resize-none"
-          placeholder="Opišite ukratko šta vas zanima ili koji problem želite da rešite"
-        />
-      </MotionWrapper>
+          {/* User Intent - Radio Group */}
+          <MotionWrapper
+            {...(showAnimations ? { ...motionProps, transition: { duration: 0.6, delay: 0.4 } } : {})}
+          >
+            <fieldset className="space-y-3">
+              <legend className="block text-text-secondary text-base font-medium mb-3">
+                Šta biste želeli da uradite? <span className="text-text-muted">*</span>
+              </legend>
+              <div className="space-y-3">
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input
+                    type="radio"
+                    name="intent"
+                    value="question"
+                    required
+                    disabled={isSubmitting}
+                    onChange={handleIntentChange}
+                    className="consultation-radio"
+                  />
+                  <span className="text-text-secondary text-base group-hover:text-text-primary transition-colors duration-250 ease-out">
+                    Želim da postavim pitanje
+                  </span>
+                </label>
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input
+                    type="radio"
+                    name="intent"
+                    value="consultation"
+                    required
+                    disabled={isSubmitting}
+                    onChange={handleIntentChange}
+                    className="consultation-radio"
+                  />
+                  <span className="text-text-secondary text-base group-hover:text-text-primary transition-colors duration-250 ease-out">
+                    Želim da zakažem besplatne konsultacije
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+          </MotionWrapper>
 
-      {/* Submit Status */}
-      {submitStatus.type && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
-          role="alert"
-          aria-live="polite"
-          className={`p-4 rounded-xl ${
-            submitStatus.type === "success"
-              ? "bg-navy-800/30 border border-accent-sage/30 text-text-primary"
-              : "bg-navy-800/30 border border-red-500/30 text-text-primary"
-          }`}
-        >
-          <p className="text-base">{submitStatus.message}</p>
-        </motion.div>
+          {/* Message */}
+          <MotionWrapper
+            {...(showAnimations ? { ...motionProps, transition: { duration: 0.6, delay: 0.5 } } : {})}
+          >
+            <label htmlFor={`${calendlyContainerId}-message`} className="block text-text-secondary text-base font-medium mb-2">
+              Poruka <span className="text-text-muted">(opciono)</span>
+            </label>
+            <textarea
+              id={`${calendlyContainerId}-message`}
+              name="message"
+              rows={4}
+              disabled={isSubmitting}
+              className="field-surface w-full px-4 py-3 placeholder:text-text-muted resize-none"
+              placeholder="Opišite ukratko šta vas zanima ili koji problem želite da rešite"
+            />
+          </MotionWrapper>
+
+          {/* Submit Status */}
+          {submitStatus.type && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              role="alert"
+              aria-live="polite"
+              className={`p-4 rounded-xl ${
+                submitStatus.type === "success"
+                  ? "bg-navy-800/30 border border-accent-sage/30 text-text-primary"
+                  : "bg-navy-800/30 border border-red-500/30 text-text-primary"
+              }`}
+            >
+              <p className="text-base">{submitStatus.message}</p>
+            </motion.div>
+          )}
+
+          {/* Submit Button */}
+          <MotionWrapper
+            {...(showAnimations ? { ...motionProps, transition: { duration: 0.6, delay: 0.6 } } : {})}
+            className="pt-2 flex justify-center"
+          >
+            <Button
+              type="submit"
+              variant="primary"
+              className="w-full md:w-auto px-8 py-3 text-base"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Šalje se..." : "Pošalji upit"}
+            </Button>
+          </MotionWrapper>
+
+          {/* Trust Line */}
+          <MotionWrapper
+            {...(showAnimations ? { ...motionProps, transition: { duration: 0.6, delay: 0.7 } } : {})}
+            className="text-text-muted text-sm text-center"
+          >
+            <p>Diskretno • Bez obaveze • Individualan pristup</p>
+          </MotionWrapper>
+        </form>
       )}
 
-      {/* Submit Button */}
-      <MotionWrapper
-        {...(showAnimations ? { ...motionProps, transition: { duration: 0.6, delay: 0.6 } } : {})}
-        className="pt-2 flex justify-center"
-      >
-        <Button
-          type="submit"
-          variant="primary"
-          className="w-full md:w-auto px-8 py-3 text-base"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Šalje se..." : "Pošalji upit"}
-        </Button>
-      </MotionWrapper>
-
-      {/* Trust Line */}
-      <MotionWrapper
-        {...(showAnimations ? { ...motionProps, transition: { duration: 0.6, delay: 0.7 } } : {})}
-        className="text-text-muted text-sm text-center"
-      >
-        <p>Diskretno • Bez obaveze • Individualan pristup</p>
-      </MotionWrapper>
-    </form>
+      {/* Calendly Widget - Only render when contactMode === 'consultation' */}
+      {contactMode === "consultation" && (
+        <div className="overflow-visible" aria-live="polite" aria-label="Calendly booking widget">
+          <div className="relative rounded-2xl overflow-visible bg-navy-900/20 backdrop-blur-sm border border-white/5 p-4 md:p-6 w-full">
+            {/* Calendly Script - Load only when consultation mode is selected */}
+            <Script
+              src="https://assets.calendly.com/assets/external/widget.js"
+              strategy="afterInteractive"
+            />
+            
+            {/* Calendly inline widget */}
+            <div 
+              className="calendly-inline-widget" 
+              data-url="https://calendly.com/odalisnbgd/30min?background_color=0d1f32&text_color=c8a148&primary_color=c8a148"
+              style={{ minWidth: 320, height: 700 }}
+            />
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

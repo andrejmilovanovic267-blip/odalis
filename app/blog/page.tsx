@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { Section } from "@/components/section";
@@ -14,30 +15,16 @@ export const metadata = {
   },
 };
 
-// Dummy featured posts (lorem ipsum placeholders)
-const featuredPlaceholders = [
-  {
-    id: 1,
-    title: "Lorem ipsum dolor sit amet consectetur adipiscing elit",
-    excerpt: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    tag: "Tretman",
-    href: "#",
-  },
-  {
-    id: 2,
-    title: "Ut enim ad minim veniam quis nostrud exercitation",
-    excerpt: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
-    tag: "Pitanje",
-    href: "#",
-  },
-  {
-    id: 3,
-    title: "Duis aute irure dolor in reprehenderit in voluptate",
-    excerpt: "Velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    tag: "Tretman",
-    href: "#",
-  },
+// Featured blog posts (in exact order)
+const featuredSlugs = [
+  "celulit-zasto-se-vraca-i-plan-koji-traje",
+  "koliko-cesto-raditi-estetske-tretmane",
+  "koza-bez-tonusa-i-elasticnosti-sta-raditi",
 ];
+
+const featuredOrder = new Map(
+  featuredSlugs.map((slug, index) => [slug, index])
+);
 
 // Convert blogPosts object to array and sort by title A-Z
 // Since there's no date field, we sort alphabetically by title
@@ -48,8 +35,30 @@ const allBlogPosts = Object.entries(blogPosts)
     excerpt: post.intro?.[0] || post.description || "",
     tag: post.category,
     href: `/blog/${post.slug}`,
+    cardImage: post.cardImage,
   }))
   .sort((a, b) => a.title.localeCompare(b.title)); // Sort A-Z by title
+
+// Extract featured posts in exact order
+const featuredPosts = featuredSlugs
+  .map((slug) => {
+    const post = blogPosts[slug];
+    if (!post) {
+      if (process.env.NODE_ENV === "development") {
+        console.warn(`[blog/page] Featured post with slug "${slug}" not found in blogPosts`);
+      }
+      return null;
+    }
+    return {
+      slug,
+      title: post.title,
+      excerpt: post.intro?.[0] || post.description || "",
+      tag: post.category,
+      href: `/blog/${post.slug}`,
+      cardImage: post.cardImage,
+    };
+  })
+  .filter((post): post is NonNullable<typeof post> => post !== null);
 
 export default function BlogIndexPage() {
 
@@ -86,7 +95,7 @@ export default function BlogIndexPage() {
         </div>
       </Section>
 
-      {/* Featured Section - Dummy Placeholders */}
+      {/* Featured Section */}
       <Section className="relative">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-text-primary text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center">
@@ -94,16 +103,26 @@ export default function BlogIndexPage() {
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {featuredPlaceholders.map((post) => (
+            {featuredPosts.map((post) => (
               <Link 
-                key={post.id}
+                key={post.slug}
                 href={post.href}
                 className="group"
               >
                 <article className="card-surface rounded-3xl overflow-hidden h-full flex flex-col hover:-translate-y-1 hover:shadow-xl transition-all duration-300 ease-out motion-reduce:transition-none motion-reduce:hover:translate-y-0">
                   {/* Thumbnail */}
                   <div className="relative w-full aspect-video overflow-hidden bg-gradient-to-br from-navy-800/40 via-navy-700/30 to-navy-900/50">
-                    <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-300 ease-out motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
+                    {post.cardImage ? (
+                      <Image
+                        src={post.cardImage}
+                        alt={post.title}
+                        fill
+                        className="object-cover object-center group-hover:scale-105 transition-transform duration-300 ease-out motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-300 ease-out motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
+                    )}
                   </div>
                   
                   {/* Content */}
@@ -152,7 +171,17 @@ export default function BlogIndexPage() {
                 <article className="card-surface rounded-3xl overflow-hidden h-full flex flex-col hover:-translate-y-1 hover:shadow-xl transition-all duration-300 ease-out motion-reduce:transition-none motion-reduce:hover:translate-y-0">
                   {/* Thumbnail */}
                   <div className="relative w-full aspect-video overflow-hidden bg-gradient-to-br from-navy-800/40 via-navy-700/30 to-navy-900/50">
-                    <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-300 ease-out motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
+                    {post.cardImage ? (
+                      <Image
+                        src={post.cardImage}
+                        alt={post.title}
+                        fill
+                        className="object-cover object-center group-hover:scale-105 transition-transform duration-300 ease-out motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-300 ease-out motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
+                    )}
                   </div>
                   
                   {/* Content */}

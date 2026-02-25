@@ -87,8 +87,8 @@ ${message ? `\nPoruka:\n${message}` : ''}
       subject: emailSubject
     });
 
-    // Send email
-    const result = await resend.emails.send({
+    // 1️⃣ Send email to admin
+    const adminResult = await resend.emails.send({
       from: 'Odalis <onboarding@resend.dev>',
       to: emailTo,
       subject: emailSubject,
@@ -96,25 +96,66 @@ ${message ? `\nPoruka:\n${message}` : ''}
       html: emailHtml,
     });
 
-    console.log('[CONTACT API] Resend response:', result);
+    console.log('[CONTACT API] Admin email Resend response:', adminResult);
 
-    if (result.error) {
-      console.error('[CONTACT API] Resend returned error:', result.error);
+    if (adminResult.error) {
+      console.error('[CONTACT API] Admin email Resend returned error:', adminResult.error);
       return NextResponse.json(
         { error: 'Došlo je do greške pri slanju poruke. Molimo pokušajte ponovo.' },
         { status: 500 }
       );
     }
 
-    if (!result.data || !result.data.id) {
-      console.error('[CONTACT API] Resend response missing data or id:', result);
+    if (!adminResult.data || !adminResult.data.id) {
+      console.error('[CONTACT API] Admin email response missing data or id:', adminResult);
       return NextResponse.json(
         { error: 'Došlo je do greške pri slanju poruke. Molimo pokušajte ponovo.' },
         { status: 500 }
       );
     }
 
-    console.log('[CONTACT API] Email sent successfully. ID:', result.data.id);
+    console.log('[CONTACT API] Admin email sent successfully. ID:', adminResult.data.id);
+
+    // 2️⃣ Send auto-reply email to user (if email is provided)
+    if (email) {
+      try {
+        const autoReplyHtml = `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #0B1F33; color: #FDFCFA;">
+            <h2 style="color: #FDFCFA; margin-bottom: 20px;">Hvala na poruci 💙</h2>
+            <p style="color: #FDFCFA; margin-bottom: 15px;">Uspešno smo primili vašu poruku.</p>
+            <p style="color: #FDFCFA; margin-bottom: 15px;">Odgovorićemo vam u najkraćem roku.</p>
+            <p style="color: #B8B5B0; font-size: 12px; margin-top: 20px;">Odalis centar za negu lica i tela</p>
+          </div>
+        `;
+
+        const autoReplyText = `
+Hvala na poruci 💙
+
+Uspešno smo primili vašu poruku.
+Odgovorićemo vam u najkraćem roku.
+
+Odalis centar za negu lica i tela
+        `.trim();
+
+        const autoReplyResult = await resend.emails.send({
+          from: 'Odalis <onboarding@resend.dev>',
+          to: [email],
+          subject: 'Potvrda prijema poruke',
+          text: autoReplyText,
+          html: autoReplyHtml,
+        });
+
+        if (autoReplyResult.error) {
+          console.error('[CONTACT API] Auto-reply email error (non-blocking):', autoReplyResult.error);
+          // Don't fail the request if auto-reply fails
+        } else {
+          console.log('[CONTACT API] Auto-reply email sent successfully. ID:', autoReplyResult.data?.id);
+        }
+      } catch (autoReplyError) {
+        console.error('[CONTACT API] Auto-reply email exception (non-blocking):', autoReplyError);
+        // Don't fail the request if auto-reply fails
+      }
+    }
 
     return NextResponse.json(
       { success: true, message: 'Vaš upit je uspešno poslat. Javićemo Vam se uskoro.' },

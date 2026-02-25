@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Footer } from "@/components/footer";
 import { Droplets, Check } from "lucide-react";
 import { ConsultationForm } from "@/components/consultation-form";
@@ -65,20 +66,36 @@ export function BlogTemplate({ post, title, readingTime }: BlogTemplateProps) {
     <main className="relative z-10 overflow-x-hidden w-full pt-[116px] md:pt-[132px]">
       {/* SECTION: hero - Hero Section with Placeholder (NO IMAGE) */}
       <section className="relative w-full overflow-hidden h-[420px] md:h-[520px] lg:h-[600px]">
-        {/* Hero Placeholder - Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900">
-          {/* Subtle pattern overlay for texture */}
-          <div className="absolute inset-0 opacity-10" 
-            style={{
-              backgroundImage: `radial-gradient(circle at 2px 2px, rgba(201, 162, 76, 0.15) 1px, transparent 0)`,
-              backgroundSize: '40px 40px'
-            }}
-            aria-hidden="true"
-          />
-        </div>
-
-        {/* Dark Overlay for readability */}
-        <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
+        {/* Hero Image or Placeholder - Gradient Background */}
+        {post?.heroImage ? (
+          <>
+            <Image
+              src={post.heroImage}
+              alt={post.title}
+              fill
+              className="object-cover object-center"
+              priority
+              sizes="100vw"
+            />
+            {/* Dark Overlay for readability */}
+            <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
+          </>
+        ) : (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900">
+              {/* Subtle pattern overlay for texture */}
+              <div className="absolute inset-0 opacity-10" 
+                style={{
+                  backgroundImage: `radial-gradient(circle at 2px 2px, rgba(201, 162, 76, 0.15) 1px, transparent 0)`,
+                  backgroundSize: '40px 40px'
+                }}
+                aria-hidden="true"
+              />
+            </div>
+            {/* Dark Overlay for readability */}
+            <div className="absolute inset-0 bg-black/45" aria-hidden="true" />
+          </>
+        )}
 
         {/* Back Navigation - Top left corner, above overlay */}
         <div className="absolute left-4 top-4 md:left-8 md:top-8 z-20">

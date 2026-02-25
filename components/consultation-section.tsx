@@ -25,7 +25,7 @@ export function ConsultationSection() {
             
             {/* Intro text */}
             <p className="text-text-secondary text-lg md:text-xl leading-[1.85] break-words max-w-[600px] mx-auto">
-              Bilo da imate konkretno pitanje ili želite stručno mišljenje, naše besplatne konsultacije pomažu vam da saznate koji tretmani su najbolji za vaše lice ili telo — prirodno, diskretno i bez ikakve obaveze. Konsultacije se obavljaju u Odalis centru u Beogradu.
+              Bilo da imate konkretno pitanje ili želite stručno mišljenje, naše besplatne konsultacije pomažu vam da saznate koji tretmani su najbolji za vaše lice ili telo, prirodno, diskretno i bez ikakve obaveze. Konsultacije se obavljaju u Odalis centru u Beogradu.
             </p>
           </div>
 

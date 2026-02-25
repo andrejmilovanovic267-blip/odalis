@@ -55,7 +55,7 @@ export function Footer() {
                   </div>
                 </a>
                 <p className="text-[#E8E5E0] text-sm md:text-base font-light leading-relaxed max-w-md text-center md:text-left mx-auto md:mx-0">
-                  Odalis je centar za podmlađivanje lica i tela koji se fokusira na
+                  Odalis je centar za negu lica i tela koji se fokusira na
                   neinvazivne, savremene tretmane i individualan pristup svakoj klijentici.
                   Naš cilj je da istaknemo prirodnu lepotu i pomognemo Vam da se osećate
                   sveže, negovano i zadovoljno u svojoj koži.
@@ -66,7 +66,7 @@ export function Footer() {
                     href="https://www.instagram.com/odalis_nbg/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Instagram"
+                    aria-label="Odalis Instagram"
                     className="text-[#E8E5E0] hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 rounded"
                   >
                     <span className="text-base font-light hidden md:inline">Instagram</span>
@@ -78,7 +78,7 @@ export function Footer() {
                     href="https://www.facebook.com/people/Odalis-NBG/61574995882346/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Facebook"
+                    aria-label="Odalis Facebook"
                     className="text-[#E8E5E0] hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 rounded"
                   >
                     <span className="text-base font-light hidden md:inline">Facebook</span>
@@ -90,7 +90,7 @@ export function Footer() {
                     href="https://www.tiktok.com/@odalis_nbg"
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="TikTok"
+                    aria-label="Odalis TikTok"
                     className="text-[#E8E5E0] hover:text-[#C9A24D] transition-colors duration-250 ease-out focus:outline-none focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 rounded"
                   >
                     <span className="text-base font-light hidden md:inline">TikTok</span>
