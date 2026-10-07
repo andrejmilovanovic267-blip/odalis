@@ -51,6 +51,12 @@
   box-sizing: border-box;
 }
 
+a[href]:not([aria-disabled="true"]),
+button:not(:disabled):not([aria-disabled="true"]),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -674,4 +680,22 @@ a[class*="rounded"]:focus-visible {
   .header-nav-links a {
     font-size: 0.95rem !important; /* Slightly smaller font */
   }
+}
+
+main.product-category-page > section:nth-of-type(n)::before,
+main.product-category-page > section:nth-of-type(n)::after {
+  content: none;
+  display: none;
+}
+
+main.product-detail-page > div > section::before,
+main.product-detail-page > div > section::after {
+  content: none;
+  display: none;
+}
+
+.checkout-form-sections > section::before,
+.checkout-form-sections > section::after {
+  content: none;
+  display: none;
 }

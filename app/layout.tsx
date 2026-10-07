@@ -9,6 +9,7 @@ import { TopBarProvider } from "@/components/top-bar-context";
 import { BackToTop } from "@/components/back-to-top";
 import { StructuredData } from "@/components/structured-data";
 import { MetaPixelPageView } from "@/components/analytics/MetaPixelPageView";
+import { CartProvider } from "@/components/cart/cart-provider";
 
 const headingFont = Poppins({
   subsets: ["latin"],
@@ -85,17 +86,18 @@ export default function RootLayout({
         {/* End Meta Pixel Code */}
         <StructuredData />
         <div className="fixed inset-0 bg-[var(--bg-base)] -z-10" />
-        <TopBarProvider>
-          <TopBar />
-          <Header />
-        </TopBarProvider>
-        {children}
-        <BackToTop />
-        <Suspense fallback={null}>
-          <MetaPixelPageView />
-        </Suspense>
+        <CartProvider>
+          <TopBarProvider>
+            <TopBar />
+            <Header />
+          </TopBarProvider>
+          {children}
+          <BackToTop />
+          <Suspense fallback={null}>
+            <MetaPixelPageView />
+          </Suspense>
+        </CartProvider>
       </body>
     </html>
   );
 }
-

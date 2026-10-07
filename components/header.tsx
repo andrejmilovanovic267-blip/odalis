@@ -5,14 +5,20 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
 import { useRouter, usePathname } from "next/navigation";
+import { ShoppingBag } from "lucide-react";
 import { scrollToSection } from "@/lib/scroll-utils";
 import { useTopBar } from "./top-bar-context";
 import { track } from "@/lib/fbpixel";
+import { useCart } from "@/components/cart/cart-context";
 
 export function Header() {
   const router = useRouter();
   const pathname = usePathname();
+  const isCheckoutRoute = pathname === "/checkout";
+  const isProductsRoute =
+    pathname === "/proizvodi" || pathname.startsWith("/proizvodi/");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { totalItems, openCart } = useCart();
   const { isTopBarVisible, topBarHeight } = useTopBar();
   const [headerHeight, setHeaderHeight] = useState(80); // Default mobile height
   
@@ -80,6 +86,11 @@ export function Header() {
     // Special handling for "Tretmani" link (both mobile and desktop)
     // Scrolls so bottom of cards block is 20px above viewport bottom
     if (href === '#tretmani' || href === '#tretmani-end') {
+      if (pathname !== '/') {
+        router.push('/#tretmani');
+        return;
+      }
+
       setTimeout(() => {
         const targetElement = document.getElementById('tretmani-cards');
         const headerElement = document.querySelector('header');
@@ -129,8 +140,8 @@ export function Header() {
   const mobileNavLinks = [
     { href: '#hero', label: 'Početna' },
     { href: '#tretmani', label: 'Tretmani' },
+    { href: '/proizvodi', label: 'Proizvodi' },
     { href: '#proces', label: 'Proces' },
-    { href: '#faq', label: 'Pitanja' },
     { href: '/blog', label: 'Blog' },
     { href: '#konsultacije', label: 'Kontakt' },
   ];
@@ -139,11 +150,48 @@ export function Header() {
   const desktopNavLinks = [
     { href: '#hero', label: 'Početna' },
     { href: '#tretmani-end', label: 'Tretmani' },
+    { href: '/proizvodi', label: 'Proizvodi' },
     { href: '#proces', label: 'Proces' },
-    { href: '#faq', label: 'Pitanja' },
     { href: '/blog', label: 'Blog' },
     { href: '#konsultacije', label: 'Kontakt' },
   ];
+
+  if (isCheckoutRoute) {
+    return (
+      <header className="fixed left-0 right-0 top-0 z-[1000] h-20 border-b border-white/10 bg-[#0D1F32] md:h-24">
+        <div className="container mx-auto flex h-full items-center justify-between px-4 sm:px-6">
+          <a
+            href="/proizvodi"
+            aria-label="Odalis - proizvodi"
+            className="relative block h-14 w-[140px] focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2 md:h-16 md:w-[160px]"
+          >
+            <Image
+              src="/odalis.png"
+              alt="Odalis"
+              fill
+              sizes="(max-width: 768px) 140px, 160px"
+              className="object-contain object-left"
+              priority
+            />
+          </a>
+          <button
+            type="button"
+            onClick={openCart}
+            className="inline-flex min-h-11 items-center gap-2 text-sm text-text-secondary transition-colors hover:text-[#C9A24D] focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-2"
+            aria-label={`Izmeni korpu${totalItems > 0 ? `, ${totalItems} proizvoda` : ""}`}
+          >
+            <ShoppingBag aria-hidden="true" className="h-4 w-4" />
+            Izmeni korpu
+            {totalItems > 0 && (
+              <span className="text-xs tabular-nums text-[#C9A24D]">
+                {totalItems}
+              </span>
+            )}
+          </button>
+        </div>
+      </header>
+    );
+  }
 
   return (
     <>
@@ -233,17 +281,32 @@ export function Header() {
 
         {/* CTA Button - Far Right */}
         <div className="hidden nav:flex items-center ml-auto">
-          <a
-            href="#konsultacije"
-            onClick={(e) => {
-              e.preventDefault();
-              track("Schedule");
-              scrollToConsultation();
-            }}
-            className="btn-cta"
-          >
-            Zakaži konsultacije
-          </a>
+          {isProductsRoute ? (
+            <button
+              type="button"
+              onClick={openCart}
+              className="btn-cta min-w-[180px] gap-2"
+              aria-label={`Korpa${totalItems > 0 ? `, ${totalItems} proizvoda` : ""}`}
+            >
+              <ShoppingBag aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />
+              Korpa
+              {totalItems > 0 && (
+                <span className="text-xs tabular-nums">({totalItems})</span>
+              )}
+            </button>
+          ) : (
+            <a
+              href="#konsultacije"
+              onClick={(e) => {
+                e.preventDefault();
+                track("Schedule");
+                scrollToConsultation();
+              }}
+              className="btn-cta"
+            >
+              Zakaži konsultacije
+            </a>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -307,17 +370,35 @@ export function Header() {
                 </a>
               ))}
               {/* CTA Button */}
-              <a
-                href="#konsultacije"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToConsultation();
-                  setIsMobileMenuOpen(false);
-                }}
-                className="btn-cta mt-4"
-              >
-                Zakaži konsultacije
-              </a>
+              {isProductsRoute ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    openCart();
+                  }}
+                  className="btn-cta mt-4 min-w-[180px] gap-2"
+                  aria-label={`Korpa${totalItems > 0 ? `, ${totalItems} proizvoda` : ""}`}
+                >
+                  <ShoppingBag aria-hidden="true" className="h-4 w-4" strokeWidth={1.75} />
+                  Korpa
+                  {totalItems > 0 && (
+                    <span className="text-xs tabular-nums">({totalItems})</span>
+                  )}
+                </button>
+              ) : (
+                <a
+                  href="#konsultacije"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToConsultation();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="btn-cta mt-4"
+                >
+                  Zakaži konsultacije
+                </a>
+              )}
             </nav>
           </motion.div>
         )}
@@ -327,4 +408,3 @@ export function Header() {
     </>
   );
 }
-

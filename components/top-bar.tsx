@@ -1,6 +1,7 @@
 "use client";
 
 import { useTopBar } from "./top-bar-context";
+import { usePathname } from "next/navigation";
 
 // Inline SVG icons
 const PhoneIcon = ({ className }: { className?: string }) => (
@@ -86,6 +87,9 @@ const TikTokIcon = ({ className }: { className?: string }) => (
 
 export function TopBar() {
   const { isTopBarVisible } = useTopBar();
+  const pathname = usePathname();
+
+  if (pathname === "/checkout") return null;
 
   return (
     <div className="fixed top-0 left-0 right-0 w-full z-[1001] h-9">
