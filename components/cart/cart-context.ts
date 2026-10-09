@@ -1,12 +1,17 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import type { ProductListingItem } from "@/lib/product-catalog";
+import type {
+  ProductListingItem,
+  ProductPackageOption,
+} from "@/lib/product-catalog";
 
 export interface CartItem {
   categorySlug: string;
   productSlug: string;
   quantity: number;
+  packageOptionId?: string;
+  packageOption?: ProductPackageOption;
   product: ProductListingItem;
 }
 
@@ -16,10 +21,26 @@ export interface CartContextValue {
   subtotal: number;
   isHydrated: boolean;
   isCartOpen: boolean;
-  addItem: (product: ProductListingItem, quantity: number) => void;
-  removeItem: (categorySlug: string, productSlug: string) => void;
-  increaseQuantity: (categorySlug: string, productSlug: string) => void;
-  decreaseQuantity: (categorySlug: string, productSlug: string) => void;
+  addItem: (
+    product: ProductListingItem,
+    quantity: number,
+    packageOptionId?: string,
+  ) => void;
+  removeItem: (
+    categorySlug: string,
+    productSlug: string,
+    packageOptionId?: string,
+  ) => void;
+  increaseQuantity: (
+    categorySlug: string,
+    productSlug: string,
+    packageOptionId?: string,
+  ) => void;
+  decreaseQuantity: (
+    categorySlug: string,
+    productSlug: string,
+    packageOptionId?: string,
+  ) => void;
   openCart: () => void;
   closeCart: () => void;
 }

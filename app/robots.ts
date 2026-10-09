@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next'
+import { getCanonicalUrl } from "@/lib/site-url";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -6,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://odalis.rs/sitemap.xml',
+    sitemap: getCanonicalUrl("/sitemap.xml"),
   }
 }

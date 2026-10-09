@@ -44,7 +44,10 @@ export function CheckoutPage() {
   const [submitMessage, setSubmitMessage] = useState("");
   const preparedPayloadRef = useRef<PreparedOrderPayload | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
-  const shipping = calculateShipping(subtotal);
+  const shipping = calculateShipping(
+    subtotal,
+    items.some(({ product }) => product.freeShippingEligible),
+  );
 
   const updateField = (field: CheckoutField, value: string) => {
     setValues((current) => ({ ...current, [field]: value }));
@@ -376,9 +379,19 @@ export function CheckoutPage() {
             </div>
 
             <ul className="divide-y divide-white/10">
-              {items.map(({ product, quantity, categorySlug, productSlug }) => (
+              {items.map((item) => {
+                const {
+                  product,
+                  quantity,
+                  categorySlug,
+                  productSlug,
+                  packageOption,
+                  packageOptionId,
+                } = item;
+                const unitPrice = packageOption?.price ?? product.price;
+                return (
                 <li
-                  key={`${categorySlug}/${productSlug}`}
+                  key={`${categorySlug}/${productSlug}/${packageOptionId ?? ""}`}
                   className="flex items-center gap-3 py-3"
                 >
                   <div
@@ -405,14 +418,22 @@ export function CheckoutPage() {
                       {product.name}
                     </p>
                     <p className="mt-1 text-xs text-text-muted">
-                      {product.quantity} × {quantity}
+                      {packageOption
+                        ? `Pakovanje: ${packageOption.label} · ${quantity} ${quantity === 1 ? "pakovanje" : "pakovanja"}`
+                        : `${product.quantity} × ${quantity}`}
                     </p>
+                    {packageOption && (
+                      <p className="mt-1 text-xs text-text-muted">
+                        {formatPrice(unitPrice)} / pakovanje
+                      </p>
+                    )}
                   </div>
                   <p className="whitespace-nowrap text-sm text-text-secondary">
-                    {formatPrice(product.price * quantity)}
+                    {formatPrice(unitPrice * quantity)}
                   </p>
                 </li>
-              ))}
+                );
+              })}
             </ul>
 
             <div className="space-y-2 border-t border-white/10 pt-4 text-sm">
@@ -433,7 +454,9 @@ export function CheckoutPage() {
             </div>
             {shipping.isFree && (
               <p className="mt-2 text-xs font-medium text-[#C9A24D]">
-                Ostvarili ste besplatnu dostavu.
+                {shipping.isFreeByProduct
+                  ? "Besplatna dostava uključena u set."
+                  : "Ostvarili ste besplatnu dostavu."}
               </p>
             )}
             <p className="mt-3 text-xs leading-relaxed text-text-muted">

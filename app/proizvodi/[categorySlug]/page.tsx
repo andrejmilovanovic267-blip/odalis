@@ -17,6 +17,9 @@ export function generateMetadata({
   return {
     title: category.title,
     description: category.description,
+    ...(category.products.some((product) => product.sitemapIndexable)
+      ? {}
+      : { robots: { index: false, follow: true } }),
     alternates: {
       canonical: `/proizvodi/${category.slug}`,
     },

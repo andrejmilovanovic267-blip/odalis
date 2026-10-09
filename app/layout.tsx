@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { siteUrl } from "@/lib/site-url";
 import { Poppins, Inter } from "next/font/google";
 import Script from "next/script";
 import { Suspense } from "react";
@@ -24,9 +25,6 @@ const bodyFont = Inter({
   variable: "--font-body",
   display: "swap",
 });
-
-// Base URL for absolute canonical URLs (always without www)
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://odalis.rs";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

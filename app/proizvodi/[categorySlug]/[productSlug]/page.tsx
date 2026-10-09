@@ -10,12 +10,10 @@ type ProductRouteProps = {
 
 export function generateStaticParams() {
   return productCategories.flatMap((category) =>
-    category.products
-      .filter((product) => product.slug !== "hydra-krema-za-lice")
-      .map((product) => ({
-        categorySlug: category.slug,
-        productSlug: product.slug,
-      })),
+    category.products.map((product) => ({
+      categorySlug: category.slug,
+      productSlug: product.slug,
+    })),
   );
 }
 
@@ -23,16 +21,27 @@ export function generateMetadata({ params }: ProductRouteProps): Metadata {
   const result = getProductBySlug(params.categorySlug, params.productSlug);
   if (!result) return {};
 
+  const description =
+    result.product.metaDescription ?? result.product.shortDescription;
+  const title = result.product.metaTitle
+    ? { absolute: result.product.metaTitle }
+    : result.product.name;
+
   return {
-    title: result.product.name,
-    description: result.product.shortDescription,
+    title,
+    description,
+    ...(result.product.sitemapIndexable
+      ? {}
+      : { robots: { index: false, follow: true } }),
     alternates: {
       canonical: `/proizvodi/${result.category.slug}/${result.product.slug}`,
     },
     openGraph: {
       url: `/proizvodi/${result.category.slug}/${result.product.slug}`,
-      title: `${result.product.name} | Odalis`,
-      description: result.product.shortDescription,
+      title:
+        result.product.metaTitle ??
+        `${result.product.name} | Odalis`,
+      description,
     },
   };
 }

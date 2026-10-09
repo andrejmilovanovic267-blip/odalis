@@ -8,6 +8,8 @@ import { Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
 import { useCart } from "@/components/cart/cart-context";
 import { formatPrice } from "@/lib/format-price";
 import { calculateShipping } from "@/lib/shipping";
+import { getCartUpsell } from "@/lib/product-catalog";
+import { CartUpsell } from "@/components/cart/cart-upsell";
 
 export function CartDrawer() {
   const {
@@ -78,7 +80,11 @@ export function CartDrawer() {
     closeCart();
     router.push("/checkout");
   };
-  const shipping = calculateShipping(subtotal);
+  const shipping = calculateShipping(
+    subtotal,
+    items.some(({ product }) => product.freeShippingEligible),
+  );
+  const recommendation = getCartUpsell(items);
 
   return (
     <AnimatePresence>
@@ -145,9 +151,19 @@ export function CartDrawer() {
               <>
                 <div className="flex-1 overflow-y-auto px-5 py-2 sm:px-7">
                   <ul className="divide-y divide-white/10">
-                    {items.map(({ product, quantity, categorySlug, productSlug }) => (
+                    {items.map((item) => {
+                      const {
+                        product,
+                        quantity,
+                        categorySlug,
+                        productSlug,
+                        packageOption,
+                        packageOptionId,
+                      } = item;
+                      const unitPrice = packageOption?.price ?? product.price;
+                      return (
                       <li
-                        key={`${categorySlug}/${productSlug}`}
+                        key={`${categorySlug}/${productSlug}/${packageOptionId ?? ""}`}
                         className="flex gap-4 py-5"
                       >
                         <div
@@ -177,18 +193,34 @@ export function CartDrawer() {
                                 {product.name}
                               </p>
                               <p className="mt-1 text-xs text-text-muted">
-                                {product.quantity}
+                                {packageOption
+                                  ? `Pakovanje: ${packageOption.label}`
+                                  : product.quantity}
                               </p>
+                              {packageOption && (
+                                <p className="mt-1 text-xs text-text-muted">
+                                  Broj pakovanja: {quantity}
+                                </p>
+                              )}
                             </div>
-                            <p className="whitespace-nowrap text-sm font-medium text-[#C9A24D]">
-                              {formatPrice(product.price)}
-                            </p>
+                            <div className="whitespace-nowrap text-right">
+                              <p className="text-sm font-medium text-[#C9A24D]">
+                                {packageOption
+                                  ? `${formatPrice(unitPrice)} / pakovanje`
+                                  : formatPrice(unitPrice)}
+                              </p>
+                              {packageOption && (
+                                <p className="mt-1 text-xs text-text-muted">
+                                  Ukupno: {formatPrice(unitPrice * quantity)}
+                                </p>
+                              )}
+                            </div>
                           </div>
 
                           <div className="mt-3 flex items-center justify-between">
                             <div
                               role="group"
-                              aria-label={`Količina za ${product.name}`}
+                              aria-label={`Količina pakovanja za ${product.name}${packageOption ? `, ${packageOption.label}` : ""}`}
                               className="inline-flex h-9 items-center border border-white/15"
                             >
                               <button
@@ -196,7 +228,11 @@ export function CartDrawer() {
                                 aria-label={`Smanji količinu za ${product.name}`}
                                 disabled={quantity <= 1}
                                 onClick={() =>
-                                  decreaseQuantity(categorySlug, productSlug)
+                                  decreaseQuantity(
+                                    categorySlug,
+                                    productSlug,
+                                    packageOptionId,
+                                  )
                                 }
                                 className="h-9 w-9 text-text-secondary transition-colors hover:text-[#C9A24D] disabled:opacity-40"
                               >
@@ -212,7 +248,11 @@ export function CartDrawer() {
                                 type="button"
                                 aria-label={`Povećaj količinu za ${product.name}`}
                                 onClick={() =>
-                                  increaseQuantity(categorySlug, productSlug)
+                                  increaseQuantity(
+                                    categorySlug,
+                                    productSlug,
+                                    packageOptionId,
+                                  )
                                 }
                                 className="h-9 w-9 text-text-secondary transition-colors hover:text-[#C9A24D]"
                               >
@@ -222,7 +262,13 @@ export function CartDrawer() {
                             <button
                               type="button"
                               aria-label={`Ukloni ${product.name} iz korpe`}
-                              onClick={() => removeItem(categorySlug, productSlug)}
+                              onClick={() =>
+                                removeItem(
+                                  categorySlug,
+                                  productSlug,
+                                  packageOptionId,
+                                )
+                              }
                               className="inline-flex min-h-9 items-center gap-1.5 text-xs text-text-muted transition-colors hover:text-[#C9A24D] focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60"
                             >
                               <Trash2 aria-hidden="true" className="h-3.5 w-3.5" />
@@ -231,7 +277,7 @@ export function CartDrawer() {
                           </div>
                         </div>
                       </li>
-                    ))}
+                    )})}
                   </ul>
                 </div>
 
@@ -249,10 +295,13 @@ export function CartDrawer() {
                     </span>
                   </div>
                   <p className="mt-2 text-xs leading-relaxed text-text-muted">
-                    {shipping.isFree
+                    {shipping.isFreeByProduct
+                      ? "Besplatna dostava uključena u set."
+                      : shipping.isFree
                       ? "Ostvarili ste besplatnu dostavu."
                       : `Još ${formatPrice(shipping.remainingForFree)} do besplatne dostave.`}
                   </p>
+                  {recommendation && <CartUpsell product={recommendation} />}
                   <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3">
                     <span className="text-sm font-medium text-text-primary">Ukupno</span>
                     <span className="text-lg font-semibold text-[#C9A24D]">
