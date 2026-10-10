@@ -28,3 +28,24 @@ export function getAppOrigin() {
 
   return parsed.origin;
 }
+
+export function isAllowedAppOrigin(requestOrigin: string, appOrigin: string) {
+  let requestUrl: URL;
+  let configuredUrl: URL;
+  try {
+    requestUrl = new URL(requestOrigin);
+    configuredUrl = new URL(appOrigin);
+  } catch {
+    return false;
+  }
+
+  if (requestUrl.origin !== requestOrigin) return false;
+  if (requestUrl.origin === configuredUrl.origin) return true;
+
+  const odalisOrigins = ["https://odalis.rs", "https://www.odalis.rs"];
+  return (
+    configuredUrl.protocol === "https:" &&
+    odalisOrigins.includes(configuredUrl.origin) &&
+    odalisOrigins.includes(requestUrl.origin)
+  );
+}

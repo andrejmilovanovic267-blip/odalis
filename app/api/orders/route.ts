@@ -11,7 +11,7 @@ import {
   getOrderOwnerEmail,
 } from "@/lib/order-persistence";
 import { sendOrderEmailNotifications } from "@/lib/order-email";
-import { getAppOrigin } from "@/lib/stripe-server";
+import { getAppOrigin, isAllowedAppOrigin } from "@/lib/stripe-server";
 
 export const runtime = "nodejs";
 
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
   }
 
   const requestOrigin = request.headers.get("origin");
-  if (requestOrigin && requestOrigin !== appOrigin) {
+  if (requestOrigin && !isAllowedAppOrigin(requestOrigin, appOrigin)) {
     return NextResponse.json({ error: "Neispravan zahtev." }, { status: 403 });
   }
 
