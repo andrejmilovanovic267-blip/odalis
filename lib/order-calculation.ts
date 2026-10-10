@@ -96,7 +96,6 @@ export function parseCheckoutCustomer(value: unknown): CheckoutCustomer | null {
     ["street", 200],
     ["city", 100],
     ["postalCode", 40],
-    ["courierNote", 500],
   ] as const;
 
   for (const [field, maxLength] of fields) {
@@ -104,6 +103,14 @@ export function parseCheckoutCustomer(value: unknown): CheckoutCustomer | null {
     if (typeof fieldValue !== "string" || fieldValue.length > maxLength) {
       return null;
     }
+  }
+
+  const courierNote = value.courierNote;
+  if (
+    courierNote !== undefined &&
+    (typeof courierNote !== "string" || courierNote.length > 500)
+  ) {
+    return null;
   }
 
   if (
@@ -125,7 +132,7 @@ export function parseCheckoutCustomer(value: unknown): CheckoutCustomer | null {
     street: value.street.trim(),
     city: value.city.trim(),
     postalCode: value.postalCode.trim(),
-    courierNote: value.courierNote.trim(),
+    courierNote: typeof courierNote === "string" ? courierNote.trim() : "",
   };
 }
 
