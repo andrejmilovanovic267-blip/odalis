@@ -1,0 +1,86 @@
+name: Email outbox retry
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: email-outbox-retry
+  cancel-in-progress: false
+
+jobs:
+  process-outbox:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Validate endpoint configuration
+        env:
+          ODALIS_OUTBOX_URL: ${{ secrets.ODALIS_OUTBOX_URL }}
+          ODALIS_EMAIL_RETRY_SECRET: ${{ secrets.ODALIS_EMAIL_RETRY_SECRET }}
+        run: |
+          set -euo pipefail
+
+          if [[ -z "$ODALIS_EMAIL_RETRY_SECRET" ]]; then
+            echo "::error::Configure the ODALIS_EMAIL_RETRY_SECRET repository secret."
+            exit 1
+          fi
+
+          python3 - <<'PY'
+          import os
+          from urllib.parse import urlsplit
+
+          value = os.environ.get("ODALIS_OUTBOX_URL", "")
+          url = urlsplit(value)
+          if (
+              url.scheme != "https"
+              or not url.hostname
+              or url.hostname == "vercel.app"
+              or not url.hostname.endswith(".vercel.app")
+              or url.username is not None
+              or url.password is not None
+              or url.port is not None
+              or url.path != "/api/orders/email-outbox"
+              or url.query
+              or url.fragment
+          ):
+              raise SystemExit(
+                  "::error::ODALIS_OUTBOX_URL must be the HTTPS production "
+                  "*.vercel.app URL ending in /api/orders/email-outbox."
+              )
+          PY
+
+      - name: Process eligible email notifications
+        env:
+          ODALIS_OUTBOX_URL: ${{ secrets.ODALIS_OUTBOX_URL }}
+          ODALIS_EMAIL_RETRY_SECRET: ${{ secrets.ODALIS_EMAIL_RETRY_SECRET }}
+        run: |
+          set -euo pipefail
+
+          response_file="$(mktemp)"
+          trap 'rm -f "$response_file"' EXIT
+          http_status="$(curl \
+            --proto '=https' \
+            --connect-timeout 15 \
+            --max-time 240 \
+            --max-redirs 0 \
+            --silent \
+            --show-error \
+            --request POST \
+            --header "Authorization: Bearer ${ODALIS_EMAIL_RETRY_SECRET}" \
+            --header "Content-Type: application/json" \
+            --data '{}' \
+            --output "$response_file" \
+            --write-out '%{http_code}' \
+            "$ODALIS_OUTBOX_URL")"
+
+          if [[ ! "$http_status" =~ ^2[0-9]{2}$ ]]; then
+            echo "::error::Email outbox processor returned HTTP ${http_status}."
+            exit 1
+          fi
+
+          cat "$response_file"
+          echo
+          echo "HTTP ${http_status}"
