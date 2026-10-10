@@ -14,21 +14,18 @@ import { CartProvider } from "@/components/cart/cart-provider";
 
 const headingFont = localFont({
   src: [
-    { path: "./fonts/poppins-400-latin.woff2", weight: "400", style: "normal" },
-    { path: "./fonts/poppins-500-latin.woff2", weight: "500", style: "normal" },
-    { path: "./fonts/poppins-600-latin.woff2", weight: "600", style: "normal" },
-    { path: "./fonts/poppins-700-latin.woff2", weight: "700", style: "normal" },
+    { path: "./fonts/poppins-400.ttf", weight: "400", style: "normal" },
+    { path: "./fonts/poppins-500.ttf", weight: "500", style: "normal" },
+    { path: "./fonts/poppins-600.ttf", weight: "600", style: "normal" },
+    { path: "./fonts/poppins-700.ttf", weight: "700", style: "normal" },
   ],
   variable: "--font-heading",
   display: "swap",
 });
 
 const bodyFont = localFont({
-  src: [
-    { path: "./fonts/inter-latin.woff2", weight: "400", style: "normal" },
-    { path: "./fonts/inter-latin.woff2", weight: "500", style: "normal" },
-    { path: "./fonts/inter-latin.woff2", weight: "600", style: "normal" },
-  ],
+  src: "./fonts/inter-variable.ttf",
+  weight: "100 900",
   variable: "--font-body",
   display: "swap",
 });
