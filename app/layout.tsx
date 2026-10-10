@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { siteUrl } from "@/lib/site-url";
-import { Poppins, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import { Suspense } from "react";
 import "./globals.css";
@@ -12,16 +12,23 @@ import { StructuredData } from "@/components/structured-data";
 import { MetaPixelPageView } from "@/components/analytics/MetaPixelPageView";
 import { CartProvider } from "@/components/cart/cart-provider";
 
-const headingFont = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const headingFont = localFont({
+  src: [
+    { path: "./fonts/poppins-400-latin.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/poppins-500-latin.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/poppins-600-latin.woff2", weight: "600", style: "normal" },
+    { path: "./fonts/poppins-700-latin.woff2", weight: "700", style: "normal" },
+  ],
   variable: "--font-heading",
   display: "swap",
 });
 
-const bodyFont = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+const bodyFont = localFont({
+  src: [
+    { path: "./fonts/inter-latin.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/inter-latin.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/inter-latin.woff2", weight: "600", style: "normal" },
+  ],
   variable: "--font-body",
   display: "swap",
 });
