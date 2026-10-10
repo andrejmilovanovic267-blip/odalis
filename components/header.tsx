@@ -8,7 +8,6 @@ import { useRouter, usePathname } from "next/navigation";
 import { ShoppingBag } from "lucide-react";
 import { scrollToSection } from "@/lib/scroll-utils";
 import { useTopBar } from "./top-bar-context";
-import { track } from "@/lib/fbpixel";
 import { useCart } from "@/components/cart/cart-context";
 
 export function Header() {
@@ -67,10 +66,6 @@ export function Header() {
         }
       }, 200);
     }
-  };
-
-  const scrollToConsultation = () => {
-    scrollToSection('#konsultacije', { behavior: 'smooth', block: 'start' });
   };
 
   const handleNavClick = (href: string, e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -143,7 +138,7 @@ export function Header() {
     { href: '/proizvodi', label: 'Proizvodi' },
     { href: '#proces', label: 'Proces' },
     { href: '/blog', label: 'Blog' },
-    { href: '#konsultacije', label: 'Kontakt' },
+    { href: '/kontakt', label: 'Kontakt' },
   ];
 
   // Desktop navigation links
@@ -153,7 +148,7 @@ export function Header() {
     { href: '/proizvodi', label: 'Proizvodi' },
     { href: '#proces', label: 'Proces' },
     { href: '/blog', label: 'Blog' },
-    { href: '#konsultacije', label: 'Kontakt' },
+    { href: '/kontakt', label: 'Kontakt' },
   ];
 
   if (isCheckoutRoute) {
@@ -296,15 +291,10 @@ export function Header() {
             </button>
           ) : (
             <a
-              href="#konsultacije"
-              onClick={(e) => {
-                e.preventDefault();
-                track("Schedule");
-                scrollToConsultation();
-              }}
+              href="/kontakt"
               className="btn-cta"
             >
-              Zakaži konsultacije
+              Kontaktirajte nas
             </a>
           )}
         </div>
@@ -388,15 +378,11 @@ export function Header() {
                 </button>
               ) : (
                 <a
-                  href="#konsultacije"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToConsultation();
-                    setIsMobileMenuOpen(false);
-                  }}
+                  href="/kontakt"
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className="btn-cta mt-4"
                 >
-                  Zakaži konsultacije
+                  Kontaktirajte nas
                 </a>
               )}
             </nav>

@@ -8,7 +8,7 @@
  * Uses scrollIntoView which respects CSS scroll-margin-top automatically
  * Handles navigation from other pages to homepage with hash
  * 
- * @param selector - CSS selector (e.g., '#hero', '#konsultacije')
+ * @param selector - CSS selector (e.g., '#hero', '#faq')
  * @param options - Optional scroll behavior options
  */
 export function scrollToSection(

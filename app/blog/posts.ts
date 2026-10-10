@@ -153,7 +153,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako osećate da je vašoj koži potrebna pažnja, osveženje i profesionalna nega lica, zakažite besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno saznati da li je HydraFacial tretman pravi prvi korak za vašu kožu, bez ikakvog pritiska ili obaveze.",
+      "Ako osećate da je vašoj koži potrebna pažnja, osveženje i profesionalna nega lica, javite nam se za besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno saznati da li je HydraFacial tretman pravi prvi korak za vašu kožu, bez ikakvog pritiska ili obaveze.",
   },
   "dermapen-tretman-u-odalisu": {
     slug: "dermapen-tretman-u-odalisu",
@@ -282,7 +282,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate da li je Dermapen tretman pravi izbor za vašu kožu, zakažite besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti stanje vaše kože i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
+      "Ako želite da saznate da li je Dermapen tretman pravi izbor za vašu kožu, javite nam se za besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti stanje vaše kože i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
   },
   "indiba-tretman-lica-u-odalisu": {
     slug: "indiba-tretman-lica-u-odalisu",
@@ -408,7 +408,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate da li je Indiba tretman pravi izbor za vašu kožu, zakažite besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti stanje vaše kože i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
+      "Ako želite da saznate da li je Indiba tretman pravi izbor za vašu kožu, javite nam se za besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti stanje vaše kože i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
     heroImage: "/Indiba.lice1.webp",
     cardImage: "/Indiba.lice1.webp",
   },
@@ -536,7 +536,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate da li je Endosfera tretman pravi izbor za vas, zakažite besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti vaše potrebe i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
+      "Ako želite da saznate da li je Endosfera tretman pravi izbor za vas, javite nam se za besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti vaše potrebe i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
   },
   "radiotalasni-lifting-lica-u-odalisu": {
     slug: "radiotalasni-lifting-lica-u-odalisu",
@@ -662,7 +662,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate da li je radiotalasni lifting pravi izbor za vašu kožu, zakažite besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti stanje vaše kože i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
+      "Ako želite da saznate da li je radiotalasni lifting pravi izbor za vašu kožu, javite nam se za besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti stanje vaše kože i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
   },
   "kavitacija-tretman-u-odalisu": {
     slug: "kavitacija-tretman-u-odalisu",
@@ -786,7 +786,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako razmišljate o kavitaciji ili želite da saznate kako može da vam pomogne u oblikovanju tela, zakažite besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti vaše potrebe i preporučiti najbolji pristup, uz realna očekivanja i bez ikakvog pritiska ili obaveze.",
+      "Ako razmišljate o kavitaciji ili želite da saznate kako može da vam pomogne u oblikovanju tela, javite nam se za besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti vaše potrebe i preporučiti najbolji pristup, uz realna očekivanja i bez ikakvog pritiska ili obaveze.",
   },
   "ultrazvucni-tretman-lica-u-odalisu": {
     slug: "ultrazvucni-tretman-lica-u-odalisu",
@@ -912,7 +912,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate da li je ultrazvučni tretman pravi izbor za vašu kožu, posebno ako imate osetljivu kožu ili radite na delikatnim zonama oko očiju, zakažite besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti vaše potrebe i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
+      "Ako želite da saznate da li je ultrazvučni tretman pravi izbor za vašu kožu, posebno ako imate osetljivu kožu ili radite na delikatnim zonama oko očiju, javite nam se za besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti vaše potrebe i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
   },
   "led-maska-za-lice-u-odalisu": {
     slug: "led-maska-za-lice-u-odalisu",
@@ -1038,7 +1038,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate kako LED maska može da podrži vašu kožu i uklopi se u vašu rutinu nege, zakažite besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti vaše potrebe i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
+      "Ako želite da saznate kako LED maska može da podrži vašu kožu i uklopi se u vašu rutinu nege, javite nam se za besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti vaše potrebe i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
   },
   "indiba-tretman-tela-u-odalisu": {
     slug: "indiba-tretman-tela-u-odalisu",
@@ -1126,7 +1126,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate da li je Indiba tretman tela pravi izbor za vas, zakažite besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti vaše potrebe i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
+      "Ako želite da saznate da li je Indiba tretman tela pravi izbor za vas, javite nam se za besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti vaše potrebe i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
   },
   "radiotalasni-lifting-tela-u-odalisu": {
     slug: "radiotalasni-lifting-tela-u-odalisu",
@@ -1213,7 +1213,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate da li je radiotalasni lifting tela pravi izbor za vas, zakažite besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti vaše potrebe i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
+      "Ako želite da saznate da li je radiotalasni lifting tela pravi izbor za vas, javite nam se za besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti vaše potrebe i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
   },
   "elektrostimulacija-ems-u-odalisu": {
     slug: "elektrostimulacija-ems-u-odalisu",
@@ -1300,7 +1300,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate da li je EMS tretman pravi izbor za vas, zakažite besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti vaše potrebe i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
+      "Ako želite da saznate da li je EMS tretman pravi izbor za vas, javite nam se za besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti vaše potrebe i preporučiti najbolji pristup, bez ikakvog pritiska ili obaveze.",
   },
   "rucna-relaks-masaza-u-odalisu": {
     slug: "rucna-relaks-masaza-u-odalisu",
@@ -1386,7 +1386,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želiš da saznaš da li je ručna relaks masaža pravi izbor za tebe, zakaži besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želiš da saznaš da li je ručna relaks masaža pravi izbor za tebe, javi nam se za besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "sta-je-relaks-masaza": {
     slug: "sta-je-relaks-masaza",
@@ -1464,7 +1464,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želiš da saznaš da li je relaks masaža pravi izbor za tebe, zakaži besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želiš da saznaš da li je relaks masaža pravi izbor za tebe, javi nam se za besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "celulit-zasto-se-vraca-i-plan-koji-traje": {
     slug: "celulit-zasto-se-vraca-i-plan-koji-traje",
@@ -1619,7 +1619,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želiš da saznaš koji tretmani protiv celulita su najbolji za tvoje telo i kako napraviti realan plan koji daje rezultate, zakaži besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želiš da saznaš koji tretmani protiv celulita su najbolji za tvoje telo i kako napraviti realan plan koji daje rezultate, javi nam se za besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "kako-smanjiti-podocnjake": {
     slug: "kako-smanjiti-podocnjake",
@@ -1698,7 +1698,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želiš da saznaš koji tretmani za podočnjake su najbolji za tvoje lice i kako napraviti plan koji daje prirodne rezultate, zakaži besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti uzrok tvojih podočnjaka i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želiš da saznaš koji tretmani za podočnjake su najbolji za tvoje lice i kako napraviti plan koji daje prirodne rezultate, javi nam se za besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti uzrok tvojih podočnjaka i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "fine-linije-i-prve-bore": {
     slug: "fine-linije-i-prve-bore",
@@ -1776,7 +1776,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želiš da saznaš koji tretman za fine linije je najbolji prvi korak za tvoje lice i kako napraviti plan koji očuva svežinu i tonus kože, zakaži besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti trenutno stanje tvoje kože i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želiš da saznaš koji tretman za fine linije je najbolji prvi korak za tvoje lice i kako napraviti plan koji očuva svežinu i tonus kože, javi nam se za besplatne konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti trenutno stanje tvoje kože i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "sta-je-indiba-tretman": {
     slug: "sta-je-indiba-tretman",
@@ -1848,7 +1848,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako razmišljate o Indiba tretmanu i želite da znate da li je pravi izbor za vas, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako razmišljate o Indiba tretmanu i želite da znate da li je pravi izbor za vas, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
     heroImage: "/Indiba.blog1.webp",
     cardImage: "/Indiba.blog1.webp",
   },
@@ -2001,7 +2001,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da proverite da li je Endosfera pravi izbor za vas, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da proverite da li je Endosfera pravi izbor za vas, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "sta-je-hydrafacial-tretman": {
     slug: "sta-je-hydrafacial-tretman",
@@ -2078,7 +2078,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate da li HydraFacial odgovara vašoj koži, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate da li HydraFacial odgovara vašoj koži, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "sta-je-dermapen-tretman": {
     slug: "sta-je-dermapen-tretman",
@@ -2231,7 +2231,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da proverite da li je kavitacija dobar izbor za vas, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da proverite da li je kavitacija dobar izbor za vas, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "sta-je-ultrazvucni-tretman-lica": {
     slug: "sta-je-ultrazvucni-tretman-lica",
@@ -2513,7 +2513,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate kako da rezultat podmlađivanja lica izgleda prirodno, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate kako da rezultat podmlađivanja lica izgleda prirodno, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "podmladjivanje-tela-sta-realno-daje-efekat": {
     slug: "podmladjivanje-tela-sta-realno-daje-efekat",
@@ -2570,7 +2570,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate šta realno daje efekat u podmlađivanju tela, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate šta realno daje efekat u podmlađivanju tela, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "neinvazivni-tretmani-sta-znaci-bez-operacije": {
     slug: "neinvazivni-tretmani-sta-znaci-bez-operacije",
@@ -2625,7 +2625,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate šta zaista znači neinvazivni tretmani, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate šta zaista znači neinvazivni tretmani, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "tretmani-bez-oporavka-odmah-nazad-u-rutinu": {
     slug: "tretmani-bez-oporavka-odmah-nazad-u-rutinu",
@@ -2681,7 +2681,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate koje tretmane možete uraditi i odmah nastaviti dan, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate koje tretmane možete uraditi i odmah nastaviti dan, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "prosirene-pore-i-koza-bez-sjaja": {
     slug: "prosirene-pore-i-koza-bez-sjaja",
@@ -2737,7 +2737,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate šta raditi za proširene pore i kožu bez sjaja, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate šta raditi za proširene pore i kožu bez sjaja, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "umorna-koza-i-siv-ten-reset-plan": {
     slug: "umorna-koza-i-siv-ten-reset-plan",
@@ -2794,7 +2794,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate kako napraviti reset plan za umornu kožu i sivi ten, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate kako napraviti reset plan za umornu kožu i sivi ten, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "podocnjaci-najcesce-greske-u-nezi": {
     slug: "podocnjaci-najcesce-greske-u-nezi",
@@ -2853,7 +2853,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate kako izbegnuti najčešće greške u nezi podočnjaka, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate kako izbegnuti najčešće greške u nezi podočnjaka, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "koza-bez-tonusa-i-elasticnosti-sta-raditi": {
     slug: "koza-bez-tonusa-i-elasticnosti-sta-raditi",
@@ -2909,7 +2909,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate šta realno pomaže za kožu bez tonusa i elastičnosti, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate šta realno pomaže za kožu bez tonusa i elastičnosti, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "podocnjaci-uzroci-i-savremena-resenja": {
     slug: "podocnjaci-uzroci-i-savremena-resenja",
@@ -2967,7 +2967,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate uzroke podočnjaka i savremena rešenja, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate uzroke podočnjaka i savremena rešenja, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "natecenost-ispod-ociju-sta-raditi": {
     slug: "natecenost-ispod-ociju-sta-raditi",
@@ -3025,7 +3025,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate šta realno pomaže za natečenost ispod očiju, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate šta realno pomaže za natečenost ispod očiju, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "fine-linije-oko-ociju-prevencija-i-nega": {
     slug: "fine-linije-oko-ociju-prevencija-i-nega",
@@ -3082,7 +3082,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate kako sprovesti prevenciju i negu za fine linije oko očiju, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate kako sprovesti prevenciju i negu za fine linije oko očiju, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "zatezanje-stomaka-bez-operacije": {
     slug: "zatezanje-stomaka-bez-operacije",
@@ -3138,7 +3138,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate više o neinvazivnom zatezanju stomaka, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate više o neinvazivnom zatezanju stomaka, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "zatezanje-koze-nakon-mrsavljenja": {
     slug: "zatezanje-koze-nakon-mrsavljenja",
@@ -3195,7 +3195,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate više o zatezanju kože nakon mršavljenja, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate više o zatezanju kože nakon mršavljenja, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "opustena-koza-sta-realno-pomaze": {
     slug: "opustena-koza-sta-realno-pomaze",
@@ -3252,7 +3252,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate šta realno pomaže za opuštenu kožu, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate šta realno pomaže za opuštenu kožu, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "kako-ucvrstiti-telo-bez-agresivnih-metoda": {
     slug: "kako-ucvrstiti-telo-bez-agresivnih-metoda",
@@ -3309,7 +3309,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate kako učvrstiti telo bez agresivnih metoda, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate kako učvrstiti telo bez agresivnih metoda, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "masaza-centar-novi-beograd-kako-izabrati-masazu": {
     slug: "masaza-centar-novi-beograd-kako-izabrati-masazu",
@@ -3366,7 +3366,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate kako izabrati masažu koja odgovara vašim potrebama, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate kako izabrati masažu koja odgovara vašim potrebama, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "relaksacija-tela-i-lica-kroz-masazu": {
     slug: "relaksacija-tela-i-lica-kroz-masazu",
@@ -3423,7 +3423,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate kako masaža može doprineti relaksaciji tela i lica, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate kako masaža može doprineti relaksaciji tela i lica, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "stres-i-napetost-kako-uticu-na-izgled": {
     slug: "stres-i-napetost-kako-uticu-na-izgled",
@@ -3480,7 +3480,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate kako stres i napetost utiču na izgled i kako ih smanjiti, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate kako stres i napetost utiču na izgled i kako ih smanjiti, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "kako-kombinovati-tretmane-bez-preterivanja": {
     slug: "kako-kombinovati-tretmane-bez-preterivanja",
@@ -3537,7 +3537,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate kako kombinovati tretmane bez preterivanja, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate kako kombinovati tretmane bez preterivanja, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "koliko-cesto-raditi-estetske-tretmane": {
     slug: "koliko-cesto-raditi-estetske-tretmane",
@@ -3594,7 +3594,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate koliko često raditi estetske tretmane, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate koliko često raditi estetske tretmane, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "mitovi-o-aparaturnim-tretmanima": {
     slug: "mitovi-o-aparaturnim-tretmanima",
@@ -3652,7 +3652,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate više o aparaturnim tretmanima i razbijete mitove, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate više o aparaturnim tretmanima i razbijete mitove, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "prirodni-rezultati-vs-uradjen-izgled": {
     slug: "prirodni-rezultati-vs-uradjen-izgled",
@@ -3709,7 +3709,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate više o prirodnim rezultatima i kako ih postići, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate više o prirodnim rezultatima i kako ih postići, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "hydrafacial-cena-beograd": {
     slug: "hydrafacial-cena-beograd",
@@ -3776,7 +3776,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate više o HydraFacial ceni i da li je tretman vredan investicije, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate više o HydraFacial ceni i da li je tretman vredan investicije, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "dermapen-cena-beograd": {
     slug: "dermapen-cena-beograd",
@@ -3843,7 +3843,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate više o Dermapen ceni i da li je tretman vredan investicije, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate više o Dermapen ceni i da li je tretman vredan investicije, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "da-li-hydrafacial-vredi": {
     slug: "da-li-hydrafacial-vredi",
@@ -3901,7 +3901,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate da li HydraFacial vredi i da li je pravi izbor za vašu kožu, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate da li HydraFacial vredi i da li je pravi izbor za vašu kožu, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "da-li-dermapen-bezbedan": {
     slug: "da-li-dermapen-bezbedan",
@@ -3970,7 +3970,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate više o bezbednosti Dermapen tretmana, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate više o bezbednosti Dermapen tretmana, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "najbolji-tretmani-lica-novi-beograd": {
     slug: "najbolji-tretmani-lica-novi-beograd",
@@ -4028,7 +4028,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate koji su najbolji tretmani lica za vašu kožu, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate koji su najbolji tretmani lica za vašu kožu, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
     heroImage: "/Indiba.lice1.webp",
     cardImage: "/Indiba.lice1.webp",
   },
@@ -4089,7 +4089,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate više o ceni podmlađivanja lica i šta ulazi u cenu, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate više o ceni podmlađivanja lica i šta ulazi u cenu, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "koliko-tretmana-za-rezultate": {
     slug: "koliko-tretmana-za-rezultate",
@@ -4147,7 +4147,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate koliko tretmana je potrebno za vidljive rezultate, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate koliko tretmana je potrebno za vidljive rezultate, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
   "tretmani-lica-bez-oporavka": {
     slug: "tretmani-lica-bez-oporavka",
@@ -4204,7 +4204,7 @@ export const blogPosts: Record<string, BlogPost> = {
       },
     ],
     finalCta:
-      "Ako želite da saznate koje tretmane lica možete uraditi bez oporavka, zakažite konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
+      "Ako želite da saznate koje tretmane lica možete uraditi bez oporavka, javite nam se za konsultacije u Odalis centru na Novom Beogradu. Tokom konsultacija ćemo zajedno proceniti tvoje potrebe i preporučiti najbolji pristup, bez pritiska ili obaveze.",
   },
 };
 

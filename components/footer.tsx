@@ -11,7 +11,7 @@ const navigationLinks = [
   { href: "/proizvodi", label: "Proizvodi" },
   { href: "/#proces", label: "Proces" },
   { href: "/blog", label: "Blog" },
-  { href: "/#konsultacije", label: "Kontakt" },
+  { href: "/kontakt", label: "Kontakt" },
 ];
 
 const locationHref =

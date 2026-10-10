@@ -41,6 +41,13 @@ export interface CartContextValue {
     productSlug: string,
     packageOptionId?: string,
   ) => void;
+  clearPurchasedItems: (
+    items: Array<{
+      productId: string;
+      variantId: string | null;
+      quantity: number;
+    }>,
+  ) => void;
   openCart: () => void;
   closeCart: () => void;
 }

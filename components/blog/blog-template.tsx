@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/ui/button";
 import { SectionHeading } from "@/components/section-heading";
 import { Footer } from "@/components/footer";
-import { track } from "@/lib/fbpixel";
 
 type BlogTemplateProps = {
   title: string;
@@ -83,19 +82,18 @@ export function BlogTemplate({
           <div className="max-w-4xl mx-auto pt-12 md:pt-16 pb-16 md:pb-20">
             <div className="border-t border-white/10 pt-10 md:pt-12 text-center space-y-4">
               <h2 className="text-text-primary text-xl md:text-2xl font-bold">
-                Zakažite besplatne konsultacije
+                Kontaktirajte nas
               </h2>
               <p className="text-text-secondary text-base md:text-lg font-light max-w-2xl mx-auto">
                 Ako želite stručnu procenu i miran plan nege, konsultacije su pravo mesto da krenemo bez pritiska i bez obaveze.
               </p>
               <div className="pt-2 flex justify-center">
                 <Button 
-                  href="/#kontakt" 
+                  href="/kontakt" 
                   variant="primary" 
                   className="w-full sm:w-auto px-8 py-3 text-base"
-                  onClick={() => track("Schedule")}
                 >
-                  Zakažite besplatne konsultacije
+                  Pošaljite upit
                 </Button>
               </div>
             </div>
@@ -107,4 +105,3 @@ export function BlogTemplate({
     </main>
   );
 }
-

@@ -8,14 +8,11 @@ import { Banknote, ChevronLeft, CreditCard, Truck } from "lucide-react";
 import { useCart } from "@/components/cart/cart-context";
 import { formatPrice } from "@/lib/format-price";
 import { calculateShipping } from "@/lib/shipping";
-import {
-  createOrderPayload,
-  type CheckoutFormValues,
-  type PreparedOrderPayload,
-} from "@/lib/order-payload";
+import type { CheckoutFormValues } from "@/lib/order-payload";
 
 type CheckoutField = keyof CheckoutFormValues;
 type CheckoutErrors = Partial<Record<CheckoutField, string>>;
+type PaymentMethod = "cod" | "card";
 
 const fieldMessages: Record<CheckoutField, string> = {
   fullName: "Unesite ime i prezime.",
@@ -38,11 +35,18 @@ const initialValues: CheckoutFormValues = {
 };
 
 export function CheckoutPage() {
-  const { items, subtotal, isHydrated, openCart } = useCart();
+  const { items, subtotal, isHydrated, openCart, clearPurchasedItems } = useCart();
   const [values, setValues] = useState(initialValues);
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("cod");
   const [errors, setErrors] = useState<CheckoutErrors>({});
   const [submitMessage, setSubmitMessage] = useState("");
-  const preparedPayloadRef = useRef<PreparedOrderPayload | null>(null);
+  const [isCreatingCheckout, setIsCreatingCheckout] = useState(false);
+  const [orderConfirmation, setOrderConfirmation] = useState("");
+  const checkoutRequestRef = useRef<{ fingerprint: string; attemptId: string } | null>(null);
+  const codRequestRef = useRef<{ fingerprint: string; idempotencyKey: string } | null>(
+    null,
+  );
+  const checkoutSubmitLockRef = useRef(false);
   const formRef = useRef<HTMLFormElement>(null);
   const shipping = calculateShipping(
     subtotal,
@@ -53,7 +57,9 @@ export function CheckoutPage() {
     setValues((current) => ({ ...current, [field]: value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
     setSubmitMessage("");
-    preparedPayloadRef.current = null;
+    setOrderConfirmation("");
+    checkoutRequestRef.current = null;
+    codRequestRef.current = null;
   };
 
   const validate = () => {
@@ -71,8 +77,9 @@ export function CheckoutPage() {
     return nextErrors;
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (checkoutSubmitLockRef.current) return;
     setSubmitMessage("");
 
     if (items.length === 0) {
@@ -92,11 +99,124 @@ export function CheckoutPage() {
       return;
     }
 
-    const payload = createOrderPayload(values, items, subtotal, shipping.cost);
-    preparedPayloadRef.current = payload;
-    setSubmitMessage(
-      "Podaci su provereni, ali slanje porudžbine još nije dostupno. Vaša porudžbina nije poslata.",
+    if (paymentMethod === "card") {
+      checkoutSubmitLockRef.current = true;
+      setIsCreatingCheckout(true);
+      const requestItems = items.map(
+        ({ categorySlug, productSlug, quantity, packageOptionId }) => ({
+          categorySlug,
+          productSlug,
+          quantity,
+          ...(packageOptionId ? { packageOptionId } : {}),
+        }),
+      );
+      const fingerprint = JSON.stringify({ items: requestItems, customer: values });
+      const attemptId =
+        checkoutRequestRef.current?.fingerprint === fingerprint
+          ? checkoutRequestRef.current.attemptId
+          : window.crypto.randomUUID();
+      checkoutRequestRef.current = { fingerprint, attemptId };
+      try {
+        const response = await fetch("/api/stripe/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            attemptId,
+            items: requestItems,
+            customer: values,
+          }),
+        });
+        const result: unknown = await response.json();
+        const checkoutUrl =
+          typeof result === "object" &&
+          result !== null &&
+          "url" in result &&
+          typeof result.url === "string"
+            ? result.url
+            : null;
+        const errorMessage =
+          typeof result === "object" &&
+          result !== null &&
+          "error" in result &&
+          typeof result.error === "string"
+            ? result.error
+            : "Nije moguće pokrenuti kartično plaćanje. Pokušajte ponovo.";
+
+        if (!response.ok || !checkoutUrl) {
+          setSubmitMessage(errorMessage);
+          setIsCreatingCheckout(false);
+          checkoutSubmitLockRef.current = false;
+          return;
+        }
+
+        window.location.assign(checkoutUrl);
+      } catch {
+        setSubmitMessage("Došlo je do greške pri povezivanju sa plaćanjem. Pokušajte ponovo.");
+        setIsCreatingCheckout(false);
+        checkoutSubmitLockRef.current = false;
+      }
+      return;
+    }
+
+    const requestItems = items.map(
+      ({ categorySlug, productSlug, quantity, packageOptionId }) => ({
+        categorySlug,
+        productSlug,
+        quantity,
+        ...(packageOptionId ? { packageOptionId } : {}),
+      }),
     );
+    const fingerprint = JSON.stringify({ items: requestItems, customer: values });
+    const idempotencyKey =
+      codRequestRef.current?.fingerprint === fingerprint
+        ? codRequestRef.current.idempotencyKey
+        : window.crypto.randomUUID();
+    codRequestRef.current = { fingerprint, idempotencyKey };
+    checkoutSubmitLockRef.current = true;
+    setIsCreatingCheckout(true);
+
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idempotencyKey, items: requestItems, customer: values }),
+      });
+      const result: unknown = await response.json();
+      const orderNumber =
+        typeof result === "object" &&
+        result !== null &&
+        "orderNumber" in result &&
+        typeof result.orderNumber === "string"
+          ? result.orderNumber
+          : null;
+      const errorMessage =
+        typeof result === "object" &&
+        result !== null &&
+        "error" in result &&
+        typeof result.error === "string"
+          ? result.error
+          : "Porudžbina nije sačuvana. Pokušajte ponovo.";
+
+      if (!response.ok || !orderNumber) {
+        setSubmitMessage(errorMessage);
+        return;
+      }
+
+      clearPurchasedItems(
+        items.map(({ product, packageOption, quantity }) => ({
+          productId: product.id,
+          variantId: packageOption?.id ?? null,
+          quantity,
+        })),
+      );
+      setOrderConfirmation(orderNumber);
+      setSubmitMessage("");
+    } catch {
+      setSubmitMessage("Došlo je do greške pri slanju porudžbine. Pokušajte ponovo.");
+    } finally {
+      setIsCreatingCheckout(false);
+      checkoutSubmitLockRef.current = false;
+    }
   };
 
   if (!isHydrated) {
@@ -105,6 +225,32 @@ export function CheckoutPage() {
         <div className="container mx-auto max-w-4xl text-center text-sm text-text-muted">
           Učitavanje korpe...
         </div>
+      </main>
+    );
+  }
+
+  if (orderConfirmation) {
+    return (
+      <main className="relative z-10 flex min-h-[calc(100vh-5rem)] items-center px-4 pb-16 pt-28 md:min-h-[calc(100vh-6rem)] md:pt-36">
+        <section className="mx-auto w-full max-w-xl rounded-xl border border-[#C9A24D]/25 bg-[#10263A] p-6 text-center sm:p-10">
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.14em] text-[#C9A24D]">
+            PORUDŽBINA SAČUVANA
+          </p>
+          <h1 className="font-heading text-2xl font-semibold text-text-primary sm:text-3xl">
+            Hvala na porudžbini
+          </h1>
+          <p className="mt-4 text-sm leading-relaxed text-text-secondary sm:text-base">
+            Vaša porudžbina broj{" "}
+            <span className="font-medium text-[#C9A24D]">{orderConfirmation}</span>{" "}
+            je uspešno zabeležena. Plaćanje pouzećem obavićete prilikom preuzimanja.
+          </p>
+          <Link
+            href="/proizvodi"
+            className="mt-7 inline-flex min-h-12 items-center justify-center bg-[#C9A24D] px-6 text-sm font-semibold text-[#0B1F33] transition-colors hover:bg-[#D6B45F] focus-visible:outline-2 focus-visible:outline-[#C9A24D] focus-visible:outline-offset-4"
+          >
+            Nazad na prodavnicu
+          </Link>
+        </section>
       </main>
     );
   }
@@ -308,7 +454,13 @@ export function CheckoutPage() {
                 Plaćanje
               </h2>
               <div className="space-y-3">
-                <label className="flex min-h-[92px] cursor-pointer items-start gap-3 rounded-[8px] border border-[#C9A24D]/30 bg-[#10263A] p-4">
+                <label
+                  className={`flex min-h-[92px] cursor-pointer items-start gap-3 rounded-[8px] border bg-[#10263A] p-4 transition-colors ${
+                    paymentMethod === "cod"
+                      ? "border-[#C9A24D]/60"
+                      : "border-white/15 hover:border-[#C9A24D]/35"
+                  }`}
+                >
                   <Banknote
                     aria-hidden="true"
                     className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#C9A24D]"
@@ -319,41 +471,69 @@ export function CheckoutPage() {
                       Plaćanje pouzećem
                     </span>
                     <span className="mt-1 block text-xs leading-relaxed text-text-muted">
-                      Plaćate kuriru prilikom preuzimanja porudžbine.
+                      Platite gotovinom prilikom preuzimanja pošiljke.
                     </span>
                   </span>
                   <input
                     type="radio"
                     name="paymentMethod"
-                    value="cash_on_delivery"
-                    checked
-                    readOnly
+                    value="cod"
+                    checked={paymentMethod === "cod"}
+                    disabled={isCreatingCheckout}
+                    onChange={() => {
+                      setPaymentMethod("cod");
+                      setSubmitMessage("");
+                      checkoutRequestRef.current = null;
+                      codRequestRef.current = null;
+                    }}
                     aria-label="Plaćanje pouzećem"
                     className="ml-auto mt-1 h-4 w-4 flex-shrink-0 accent-[#C9A24D]"
                   />
                 </label>
 
-                <div
-                  aria-disabled="true"
-                  className="flex min-h-[92px] cursor-not-allowed items-start gap-3 rounded-[8px] border border-white/15 bg-[#10263A] p-4"
+                <label
+                  className={`flex min-h-[92px] cursor-pointer items-start gap-3 rounded-[8px] border bg-[#10263A] p-4 transition-colors ${
+                    paymentMethod === "card"
+                      ? "border-[#C9A24D]/60"
+                      : "border-white/15 hover:border-[#C9A24D]/35"
+                  }`}
                 >
                   <CreditCard
                     aria-hidden="true"
-                    className="mt-0.5 h-5 w-5 flex-shrink-0 text-text-muted"
+                    className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#C9A24D]"
                     strokeWidth={1.6}
                   />
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium text-text-secondary">
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-sm font-medium text-text-primary">
                       Plaćanje karticom
-                    </p>
-                    <p className="mt-1 text-xs leading-relaxed text-text-muted">
-                      Platite bezbedno platnom karticom.
-                    </p>
-                  </div>
-                  <span className="ml-auto whitespace-nowrap pt-0.5 text-[10px] font-medium tracking-[0.08em] text-text-muted">
-                    USKORO
+                    </span>
+                    <span className="mt-1 block text-xs leading-relaxed text-text-muted">
+                      Sigurno online plaćanje putem Stripe-a.
+                    </span>
+                    {paymentMethod === "card" && (
+                      <span className="mt-3 block rounded-md border border-[#C9A24D]/20 bg-[#0B1F33]/70 px-3 py-2 text-xs leading-relaxed text-text-secondary">
+                        Bićete preusmereni na sigurnu Stripe stranicu za plaćanje.
+                      </span>
+                    )}
                   </span>
-                </div>
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="card"
+                    checked={paymentMethod === "card"}
+                    disabled={isCreatingCheckout}
+                    onChange={() => {
+                      setPaymentMethod("card");
+                      setSubmitMessage("");
+                      setOrderConfirmation("");
+                      checkoutRequestRef.current = null;
+                      codRequestRef.current = null;
+                      checkoutRequestRef.current = null;
+                    }}
+                    aria-label="Plaćanje karticom"
+                    className="ml-auto mt-1 h-4 w-4 flex-shrink-0 accent-[#C9A24D]"
+                  />
+                </label>
               </div>
             </section>
           </div>
@@ -475,12 +655,19 @@ export function CheckoutPage() {
 
             <button
               type="submit"
+              disabled={isCreatingCheckout}
               className="mt-5 inline-flex min-h-14 w-full items-center justify-center bg-[#C9A24D] px-5 text-sm font-semibold tracking-[0.05em] text-[#0B1F33] transition-colors hover:bg-[#D6B45F] focus-visible:outline-2 focus-visible:outline-[#C9A24D] focus-visible:outline-offset-4"
             >
-              POTVRDI PORUDŽBINU
+              {isCreatingCheckout
+                ? paymentMethod === "card"
+                  ? "POVEZIVANJE SA STRIPE-OM..."
+                  : "SLANJE PORUDŽBINE..."
+                : paymentMethod === "card"
+                  ? "NASTAVITE NA PLAĆANJE"
+                  : "POTVRDI PORUDŽBINU"}
             </button>
             <p className="mt-3 text-center text-xs text-text-muted">
-              Plaćanje pouzećem · Dostava širom Srbije
+              {paymentMethod === "cod" ? "Plaćanje pouzećem" : "Plaćanje karticom"} · Dostava širom Srbije
             </p>
           </section>
         </form>

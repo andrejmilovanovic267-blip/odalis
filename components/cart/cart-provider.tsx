@@ -235,6 +235,49 @@ export function CartProvider({ children }: { children: ReactNode }) {
       changeQuantity(categorySlug, productSlug, -1, packageOptionId),
     [changeQuantity],
   );
+  const clearPurchasedItems = useCallback(
+    (
+      purchasedItems: Array<{
+        productId: string;
+        variantId: string | null;
+        quantity: number;
+      }>,
+    ) => {
+      setStoredItems((current) => {
+        const remaining = [...current];
+        for (const purchasedItem of purchasedItems) {
+          let quantityToRemove = purchasedItem.quantity;
+          for (let index = 0; index < remaining.length && quantityToRemove > 0;) {
+            const item = remaining[index];
+            const product = getProductBySlug(
+              item.categorySlug,
+              item.productSlug,
+            )?.product;
+            if (
+              product?.id !== purchasedItem.productId ||
+              (item.packageOptionId ?? null) !== purchasedItem.variantId
+            ) {
+              index += 1;
+              continue;
+            }
+
+            if (item.quantity <= quantityToRemove) {
+              quantityToRemove -= item.quantity;
+              remaining.splice(index, 1);
+            } else {
+              remaining[index] = {
+                ...item,
+                quantity: item.quantity - quantityToRemove,
+              };
+              quantityToRemove = 0;
+            }
+          }
+        }
+        return remaining;
+      });
+    },
+    [],
+  );
   const openCart = useCallback(() => setIsCartOpen(true), []);
   const closeCart = useCallback(() => setIsCartOpen(false), []);
 
@@ -254,12 +297,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
       removeItem,
       increaseQuantity,
       decreaseQuantity,
+      clearPurchasedItems,
       openCart,
       closeCart,
     }),
     [
       addItem,
       closeCart,
+      clearPurchasedItems,
       decreaseQuantity,
       increaseQuantity,
       isHydrated,

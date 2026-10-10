@@ -14,7 +14,7 @@ export default function SitePage() {
       <Hero
         title="Dobrodošli u Odalis"
         ctaText="Kontaktirajte nas"
-        ctaHref="#contact"
+        ctaHref="/kontakt"
         imageSrc=""
         imageAlt="Odalis center"
       />
@@ -97,4 +97,3 @@ export default function SitePage() {
     </main>
   );
 }
-

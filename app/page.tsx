@@ -16,8 +16,6 @@ import { FeatureList } from "@/components/feature-list";
 import { Footer } from "@/components/footer";
 import { ConsultationSection } from "@/components/consultation-section";
 import { ReviewsSection } from "@/components/reviews-section";
-import { scrollToSection } from "@/lib/scroll-utils";
-import { track } from "@/lib/fbpixel";
 
 type ViewType = 'home' | 'treatments-face' | 'treatments-body';
 
@@ -112,15 +110,6 @@ export default function LandingPage() {
     });
   };
 
-  const handleConsultationClick = () => {
-    track("Schedule");
-    setCurrentView('home');
-    // Wait for home view to render, then scroll
-    setTimeout(() => {
-      scrollToSection('#konsultacije', { behavior: 'smooth', block: 'start' });
-    }, 150);
-  };
-
   const faceTreatments = [
     {
       title: "HydraFacial",
@@ -178,8 +167,8 @@ export default function LandingPage() {
       <Hero
         eyebrow="Centar za negu lica i tela"
         title="Prirodna nega lica i tela u Odalisu"
-        ctaText="Zakaži besplatne konsultacije"
-        ctaHref="#konsultacije"
+        ctaText="Kontaktirajte nas"
+        ctaHref="/kontakt"
         supportingText="Savetovanje bez obaveza. Razgovarajmo o vašim željama i očekivanjima. Dobrodošli u Odalis centar za negu lica i tela u Beogradu."
         imageSrc="/heroslika1.png"
         imageAlt="Prirodno podmlađivanje lica i tela - Neinvazivni tretmani u Odalis centru za podmlađivanje"
@@ -580,8 +569,8 @@ export default function LandingPage() {
                 transition={{ duration: 0.5, delay: 0.4, ease: "easeOut" }}
                 className="mt-10 flex flex-col items-center"
               >
-              <Button href="#konsultacije" variant="primary" className="w-full md:w-auto px-6 py-2.5 text-sm">
-                Zakaži besplatne konsultacije
+              <Button href="/kontakt" variant="primary" className="w-full md:w-auto px-6 py-2.5 text-sm">
+                Kontaktirajte nas
               </Button>
             </motion.div>
             </div>
@@ -732,11 +721,11 @@ export default function LandingPage() {
               </p>
               <div className="pt-2">
                 <Button
-                  href="#konsultacije"
+                  href="/kontakt"
                   variant="primary"
                   className="w-full md:w-auto px-8 py-3 text-base"
                 >
-                  Zakažite besplatne konsultacije
+                  Pošaljite upit
                 </Button>
             </div>
             </motion.div>
@@ -989,7 +978,7 @@ export default function LandingPage() {
                       <p className="text-text-secondary text-lg md:text-xl leading-[1.85] font-light break-words pb-2">
                   Cena tretmana zavisi od individualnog plana koji kreiramo za vas. Pošto svaki 
                   pristup podmlađivanju je personalizovan, cene se razlikuju. Najbolji način da 
-                  saznate tačnu cenu je da zakažete besplatnu konsultaciju. Tokom konsultacije, 
+                  saznate tačnu cenu je da nas kontaktirate. Tokom razgovora, 
                   detaljno ćemo razgovarati o vašim ciljevima i definisati plan koji odgovara vašim 
                   potrebama i budžetu.
                 </p>
@@ -1192,10 +1181,10 @@ export default function LandingPage() {
                     className="flex flex-col items-center space-y-3 pt-8"
                   >
                     <button
-                      onClick={handleConsultationClick}
-                      className="btn-cta w-full md:w-auto disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none"
+                      onClick={() => router.push("/kontakt")}
+                      className="btn-cta w-full md:w-auto"
                     >
-                      Zakažite besplatne konsultacije
+                      Kontaktirajte nas
                     </button>
                     <p className="text-text-muted text-sm md:text-base font-light">
                       Individualan pristup • Neinvazivni tretmani • Prirodni rezultati

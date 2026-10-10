@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Footer } from "@/components/footer";
 import { Droplets, Check } from "lucide-react";
-import { ConsultationForm } from "@/components/consultation-form";
 import { BlogContainer } from "@/components/blog/blog-container";
 import { getListType, BlogList, BlogListItem } from "@/components/blog/blog-list";
 import { validateTemplateSections, logValidationWarnings } from "@/lib/validateTemplate";
@@ -278,19 +277,16 @@ export function BlogTemplate({ post, title, readingTime }: BlogTemplateProps) {
               </section>
             ))}
 
-            {/* SECTION: ctaConsultations - Consultation Form Section - Full width wrapper */}
+            {/* Contact CTA */}
             <section className="w-full relative border-t border-white/10">
-              <div className="max-w-[720px] w-full mx-auto px-4 sm:px-6 py-12 mt-12">
+              <div className="max-w-[720px] w-full mx-auto px-4 sm:px-6 py-12 mt-12 text-center">
                 <h2 className="text-text-primary text-2xl sm:text-3xl font-bold tracking-[0.01em] mb-6 text-center">
-                  Besplatne konsultacije
+                  Imate pitanje o tretmanu?
                 </h2>
                 <p className="text-text-secondary text-base md:text-lg leading-relaxed font-light mb-8 text-center">
-                  Ako želite da saznate da li je ovaj tretman za vas, možete zakazati besplatne konsultacije.
+                  Kontaktirajte nas i rado ćemo odgovoriti na vaša pitanja.
                 </p>
-                <ConsultationForm 
-                  calendlyContainerId="blog-calendly-container"
-                  showAnimations={false}
-                />
+                <Button href="/kontakt" variant="primary">Pošaljite upit</Button>
               </div>
             </section>
           </>
@@ -306,19 +302,16 @@ export function BlogTemplate({ post, title, readingTime }: BlogTemplateProps) {
                 </div>
               </BlogContainer>
             </section>
-            {/* SECTION: ctaConsultations - Consultation Form Section - Full width wrapper */}
+            {/* Contact CTA */}
             <section className="w-full relative border-t border-white/10">
-              <div className="max-w-[720px] w-full mx-auto px-4 sm:px-6 py-12 mt-12">
+              <div className="max-w-[720px] w-full mx-auto px-4 sm:px-6 py-12 mt-12 text-center">
                 <h2 className="text-text-primary text-2xl sm:text-3xl font-bold tracking-[0.01em] mb-6 text-center">
-                  Besplatne konsultacije
+                  Imate pitanje o nezi kože?
                 </h2>
                 <p className="text-text-secondary text-base md:text-lg leading-relaxed font-light mb-8 text-center">
-                  Ako želite da saznate više, možete zakazati besplatne konsultacije.
+                  Kontaktirajte nas i rado ćemo vam pružiti više informacija.
                 </p>
-                <ConsultationForm 
-                  calendlyContainerId="blog-calendly-container"
-                  showAnimations={false}
-                />
+                <Button href="/kontakt" variant="primary">Pošaljite upit</Button>
               </div>
             </section>
           </>

@@ -87,8 +87,8 @@ export default function BlogIndexPage() {
             </p>
 
             <div className="pt-4">
-              <Button href="#konsultacije" variant="primary">
-                Zakaži konsultacije
+              <Button href="/kontakt" variant="primary">
+                Kontaktirajte nas
               </Button>
             </div>
           </div>

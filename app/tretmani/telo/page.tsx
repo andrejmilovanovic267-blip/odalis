@@ -6,7 +6,6 @@ import { Section } from "@/components/section";
 import { Button } from "@/ui/button";
 import { bodyTreatments } from "@/lib/treatmentsIndex";
 import { TreatmentPageTracker } from "@/components/analytics/TreatmentPageTracker";
-import { ScheduleButton } from "@/components/analytics/ScheduleButton";
 
 // Featured treatments for body (in exact order)
 const featuredBodySlugs = [
@@ -94,9 +93,9 @@ export default function BodyTreatmentsPage() {
             </p>
 
             <div className="pt-4">
-              <ScheduleButton href="#konsultacije" variant="primary">
-                Zakaži konsultacije
-              </ScheduleButton>
+              <Button href="/kontakt" variant="primary">
+                Kontaktirajte nas
+              </Button>
             </div>
           </div>
         </div>

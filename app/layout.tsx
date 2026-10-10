@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     template: "%s | Odalis",
     default: "Odalis - Centar za negu lica i tela u Beogradu",
   },
-  description: "Odalis je centar za negu lica i tela u Beogradu sa fokusom na neinvazivne, savremene tretmane i individualan pristup svakoj klijentici. Zakažite besplatne konsultacije.",
+  description: "Odalis je centar za negu lica i tela u Beogradu sa fokusom na neinvazivne, savremene tretmane i individualan pristup svakoj klijentici. Kontaktirajte nas za više informacija.",
   icons: {
     icon: "/favicon.png",
     apple: "/apple-touch-icon.png",

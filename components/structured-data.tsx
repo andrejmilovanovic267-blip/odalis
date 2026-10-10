@@ -72,7 +72,7 @@ export function StructuredData() {
         "name": "Kolika je cena tretmana za podmlađivanje?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Cena tretmana zavisi od individualnog plana koji kreiramo za vas. Pošto svaki pristup podmlađivanju je personalizovan, cene se razlikuju. Najbolji način da saznate tačnu cenu je da zakažete besplatnu konsultaciju. Tokom konsultacije, detaljno ćemo razgovarati o vašim ciljevima i definisati plan koji odgovara vašim potrebama i budžetu."
+          "text": "Cena tretmana zavisi od individualnog plana koji kreiramo za vas. Pošto svaki pristup podmlađivanju je personalizovan, cene se razlikuju. Kontaktirajte nas da saznate tačnu cenu. Tokom razgovora, detaljno ćemo razgovarati o vašim ciljevima i definisati plan koji odgovara vašim potrebama i budžetu."
         }
       },
       {
