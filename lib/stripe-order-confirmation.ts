@@ -6,6 +6,7 @@ import {
   getOrderOwnerEmail,
   getStoredStripeOrder,
 } from "@/lib/order-persistence";
+import type { StripeMode } from "@/lib/stripe-server";
 
 type ConfirmationResult =
   | {
@@ -35,10 +36,11 @@ function isOrderId(value: string | null | undefined): value is string {
 
 export async function confirmPaidStripeSession(
   session: Stripe.Checkout.Session,
+  mode: StripeMode,
 ): Promise<ConfirmationResult> {
   const orderId = session.metadata?.order_id;
   if (
-    session.livemode ||
+    session.livemode !== (mode === "live") ||
     session.mode !== "payment" ||
     session.status !== "complete" ||
     session.payment_status !== "paid" ||

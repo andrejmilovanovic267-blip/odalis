@@ -3,7 +3,7 @@ import {
   getStoredStripeOrder,
   getStripeOrderItems,
 } from "@/lib/order-persistence";
-import { getStripeClient } from "@/lib/stripe-server";
+import { getStripeClient, getStripeMode } from "@/lib/stripe-server";
 
 type PaymentSuccessPageProps = {
   searchParams: { session_id?: string | string[] };
@@ -18,16 +18,19 @@ export default async function PaymentSuccessPage({
   let orderNumber: string | null = null;
   let items: Awaited<ReturnType<typeof getStripeOrderItems>> = [];
 
-  if (
-    typeof sessionId === "string" &&
-    /^cs_test_[A-Za-z0-9]+$/.test(sessionId)
-  ) {
+  if (typeof sessionId === "string" && /^cs_(?:test|live)_[A-Za-z0-9]+$/.test(sessionId)) {
     try {
       const stripe = getStripeClient();
+      const mode = getStripeMode();
+      const isLiveMode = mode === "live";
+      const expectedSessionPrefix = isLiveMode ? "cs_live_" : "cs_test_";
+      if (!sessionId.startsWith(expectedSessionPrefix)) {
+        throw new Error("Checkout Session does not match the active Stripe mode.");
+      }
       const session = await stripe.checkout.sessions.retrieve(sessionId);
       const candidateOrderId = session.metadata?.order_id;
       if (
-        !session.livemode &&
+        session.livemode === isLiveMode &&
         session.mode === "payment" &&
         session.payment_status === "paid" &&
         session.currency === "rsd" &&

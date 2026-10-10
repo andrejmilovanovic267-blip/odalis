@@ -4,12 +4,27 @@ import Stripe from "stripe";
 
 let stripeClient: Stripe | undefined;
 
-export function getStripeClient() {
+export type StripeMode = "test" | "live";
+
+export function getStripeMode(): StripeMode {
   const secretKey = process.env.STRIPE_SECRET_KEY;
-  if (!secretKey?.startsWith("sk_test_")) {
-    throw new Error("A Stripe test secret key is required.");
+  if (!secretKey) {
+    throw new Error("STRIPE_SECRET_KEY is not configured.");
   }
 
+  const keyMode = /^(?:sk|rk)_(test|live)_/.exec(secretKey)?.[1];
+  if (keyMode !== "test" && keyMode !== "live") {
+    throw new Error("STRIPE_SECRET_KEY must be a supported Stripe API key.");
+  }
+  return keyMode;
+}
+
+export function getStripeClient() {
+  const mode = getStripeMode();
+  const secretKey = process.env.STRIPE_SECRET_KEY;
+  if (!secretKey) {
+    throw new Error(`STRIPE_SECRET_KEY is not configured for ${mode} mode.`);
+  }
   stripeClient ??= new Stripe(secretKey);
   return stripeClient;
 }

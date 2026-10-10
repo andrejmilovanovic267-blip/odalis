@@ -6,7 +6,7 @@ import {
   getStoredStripeOrder,
   type StoredStripeOrder,
 } from "@/lib/order-persistence";
-import { getStripeClient } from "@/lib/stripe-server";
+import { getStripeClient, getStripeMode } from "@/lib/stripe-server";
 import { confirmPaidStripeSession } from "@/lib/stripe-order-confirmation";
 import { sendOrderEmailNotifications } from "@/lib/order-email";
 
@@ -45,6 +45,7 @@ async function processOrderSession(
   eventType: string,
   session: Stripe.Checkout.Session,
   paymentStatus: "paid" | "failed" | null,
+  mode: "test" | "live",
 ) {
   const orderId = session.metadata?.order_id;
   if (!orderId) {
@@ -52,7 +53,7 @@ async function processOrderSession(
     return { status: 400, error: "Checkout sesiji nedostaje referenca porudžbine." };
   }
   if (
-    session.livemode ||
+    session.livemode !== (mode === "live") ||
     session.mode !== "payment" ||
     session.status !== "complete" ||
     !isOrderId(orderId) ||
@@ -110,7 +111,7 @@ async function processOrderSession(
 
   if (paymentStatus === "paid") {
     try {
-      const confirmation = await confirmPaidStripeSession(session);
+      const confirmation = await confirmPaidStripeSession(session, mode);
       logStripeEvent(
         eventId,
         eventType,
@@ -205,10 +206,12 @@ async function processOrderSession(
 
 export async function POST(request: NextRequest) {
   let stripe: Stripe;
+  let mode: "test" | "live";
   try {
     stripe = getStripeClient();
+    mode = getStripeMode();
   } catch {
-    console.error("[STRIPE WEBHOOK] Stripe test configuration is invalid.");
+    console.error("[STRIPE WEBHOOK] Stripe configuration is invalid.");
     return NextResponse.json(
       { error: "Webhook plaćanja nije konfigurisan." },
       { status: 500 },
@@ -243,15 +246,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Nevažeći potpis webhook-a." }, { status: 400 });
   }
 
-  if (event.livemode) {
+  if (event.livemode !== (mode === "live")) {
     console.error(
       JSON.stringify({
         event: "stripe.checkout.webhook_rejected",
         stripeEventId: event.id,
-        reason: "live_mode_event",
+        reason: "event_mode_mismatch",
       }),
     );
-    return NextResponse.json({ error: "Live Stripe događaji nisu dozvoljeni." }, { status: 400 });
+    return NextResponse.json({ error: "Stripe događaj nije iz aktivnog režima." }, { status: 400 });
   }
 
   if (
@@ -260,6 +263,12 @@ export async function POST(request: NextRequest) {
     event.type === "checkout.session.async_payment_failed"
   ) {
     const eventSession = event.data.object as Stripe.Checkout.Session;
+    if (eventSession.livemode !== (mode === "live")) {
+      return NextResponse.json(
+        { error: "Stripe sesija nije iz aktivnog režima." },
+        { status: 400 },
+      );
+    }
     let session: Stripe.Checkout.Session;
     try {
       session = await stripe.checkout.sessions.retrieve(eventSession.id);
@@ -291,6 +300,7 @@ export async function POST(request: NextRequest) {
       event.type,
       session,
       paymentStatus,
+      mode,
     );
     if (result.status !== 200) {
       return NextResponse.json(

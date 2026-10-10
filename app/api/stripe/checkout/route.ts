@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
   } catch {
     console.error("[STRIPE CHECKOUT] Server configuration is invalid.");
     return NextResponse.json(
-      { error: "Kartično plaćanje u test režimu nije trenutno konfigurisano." },
+      { error: "Kartično plaćanje trenutno nije konfigurisano." },
       { status: 500 },
     );
   }

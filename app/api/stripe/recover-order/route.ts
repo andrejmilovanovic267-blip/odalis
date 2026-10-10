@@ -1,6 +1,6 @@
 import { timingSafeEqual } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
-import { getStripeClient } from "@/lib/stripe-server";
+import { getStripeClient, getStripeMode } from "@/lib/stripe-server";
 import { confirmPaidStripeSession } from "@/lib/stripe-order-confirmation";
 
 export const runtime = "nodejs";
@@ -45,14 +45,23 @@ export async function POST(request: NextRequest) {
     body === null ||
     !("sessionId" in body) ||
     typeof body.sessionId !== "string" ||
-    !/^cs_test_[A-Za-z0-9]+$/.test(body.sessionId)
+    !/^cs_(?:test|live)_[A-Za-z0-9]+$/.test(body.sessionId)
   ) {
     return NextResponse.json({ error: "Invalid Checkout Session ID." }, { status: 400 });
   }
 
+  let mode: "test" | "live";
   let session;
   try {
     const stripe = getStripeClient();
+    mode = getStripeMode();
+    const expectedSessionPrefix = mode === "live" ? "cs_live_" : "cs_test_";
+    if (!body.sessionId.startsWith(expectedSessionPrefix)) {
+      return NextResponse.json(
+        { error: "Checkout Session does not match the active Stripe mode." },
+        { status: 400 },
+      );
+    }
     session = await stripe.checkout.sessions.retrieve(body.sessionId);
   } catch (error) {
     console.error(
@@ -70,14 +79,14 @@ export async function POST(request: NextRequest) {
   const orderId = session.metadata?.order_id;
   if (!isOrderId(orderId)) {
     return NextResponse.json(
-      { error: "Stripe session is not an Odalis test order." },
+      { error: "Stripe session is not an Odalis order in the active mode." },
       { status: 409 },
     );
   }
 
   let confirmation;
   try {
-    confirmation = await confirmPaidStripeSession(session);
+    confirmation = await confirmPaidStripeSession(session, mode);
   } catch (error) {
     console.error(
       JSON.stringify({
