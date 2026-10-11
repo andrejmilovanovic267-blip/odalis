@@ -1,6 +1,10 @@
 import "server-only";
 
 import { Resend } from "resend";
+import {
+  ensureEbookDownloadTokenHash,
+  getEbookDownloadUrl,
+} from "@/lib/ebook-download";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 type RecipientType = "customer" | "owner";
@@ -198,7 +202,12 @@ function formatCreatedAt(value: string) {
   }).format(date);
 }
 
-function createEmailHtml(order: EmailOrder, items: EmailOrderItem[], owner: boolean) {
+function createEmailHtml(
+  order: EmailOrder,
+  items: EmailOrderItem[],
+  owner: boolean,
+  ebookUrl?: string,
+) {
   const createdAt = formatCreatedAt(order.created_at);
   const title = owner ? "Nova porudžbina" : "Vaša porudžbina je potvrđena";
   const intro = owner
@@ -245,6 +254,23 @@ function createEmailHtml(order: EmailOrder, items: EmailOrderItem[], owner: bool
                 </table>
               </td>
             </tr>
+            ${
+              !owner && ebookUrl
+                ? `<tr>
+                    <td style="padding:0 28px 24px">
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;border:1px solid #e7dfce;border-left:4px solid #c9a14a;border-radius:8px;background-color:#fbfaf7;border-collapse:separate;border-spacing:0">
+                        <tr>
+                          <td style="padding:20px 20px 18px">
+                            <div style="color:#0b1f3a;font-family:Georgia,'Times New Roman',serif;font-size:19px;line-height:1.4">Vaš besplatan Odalis eBook</div>
+                            <p style="margin:7px 0 16px;color:#53616e;font-family:Arial,sans-serif;font-size:13px;line-height:1.6">Poklon uz vašu porudžbinu: „Bore pod kontrolom“.</p>
+                            <a href="${escapeHtml(ebookUrl)}" style="display:inline-block;padding:12px 19px;border:1px solid #c9a14a;border-radius:5px;background-color:#0b1f3a;color:#f4d78e;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;line-height:1.4;text-decoration:none">Preuzmi besplatan eBook</a>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>`
+                : ""
+            }
             ${
               owner
                 ? `<tr><td style="padding:0 28px 22px">
@@ -410,6 +436,11 @@ export async function sendOrderEmailNotifications(orderId?: string) {
       if (items.length === 0) throw new Error("order_items_unavailable");
 
       const owner = notification.recipient_type === "owner";
+      let ebookUrl: string | undefined;
+      if (!owner) {
+        const token = await ensureEbookDownloadTokenHash(orderData.id);
+        ebookUrl = getEbookDownloadUrl(token);
+      }
       const subject = owner
         ? `Nova ODALIS porudžbina #${orderData.order_number}`
         : `ODALIS | Potvrda porudžbine #${orderData.order_number}`;
@@ -418,7 +449,7 @@ export async function sendOrderEmailNotifications(orderId?: string) {
           from: settings.from,
           to: notification.recipient_email,
           subject,
-          html: createEmailHtml(orderData, items, owner),
+          html: createEmailHtml(orderData, items, owner, ebookUrl),
         },
         { idempotencyKey: notification.notification_id },
       );

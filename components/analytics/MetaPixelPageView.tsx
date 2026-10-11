@@ -19,6 +19,8 @@ export function MetaPixelPageView() {
   const lastUrlRef = useRef<string>("");
 
   useEffect(() => {
+    if (pathname === "/ebook") return;
+
     // Build current URL from pathname and searchParams
     const currentUrl = pathname + (searchParams.toString() ? `?${searchParams.toString()}` : "");
 
