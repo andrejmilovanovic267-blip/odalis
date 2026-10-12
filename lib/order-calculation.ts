@@ -1,5 +1,6 @@
 import "server-only";
 
+import { isEbookEligibleSubtotal } from "@/lib/ebook-eligibility";
 import {
   getPackageOption,
   getProductBySlug,
@@ -37,6 +38,7 @@ export type TrustedOrderLine = {
 export type TrustedOrder = {
   items: TrustedOrderLine[];
   subtotal: number;
+  freeEbookEligible: boolean;
   shipping: number;
   total: number;
 };
@@ -198,6 +200,7 @@ export function calculateTrustedOrder(
   return {
     items: trustedItems,
     subtotal,
+    freeEbookEligible: isEbookEligibleSubtotal(subtotal),
     shipping: shipping.cost,
     total,
   };

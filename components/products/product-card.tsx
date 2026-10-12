@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Tag } from "lucide-react";
 import type { ProductListingItem } from "@/lib/product-catalog";
 import { formatPrice } from "@/lib/format-price";
+import { BadgeOverlay } from "@/components/products/badge-overlay";
 
 export function ProductCard({
   product,
@@ -18,7 +19,7 @@ export function ProductCard({
         product.availableForPurchase === false
           ? "Trenutno nije dostupan"
           : formatPrice(product.price)
-      }`}
+      }${product.freeEbook ? ", + Besplatan eBook" : ""}`}
       className="group block min-w-0 rounded-sm focus-visible:outline-2 focus-visible:outline-[#C9A24D]/60 focus-visible:outline-offset-4"
     >
       <article id={product.id} className="flex h-full flex-col">
@@ -40,6 +41,7 @@ export function ProductCard({
               <span className="text-sm text-[#B8B5B0]">Slika proizvoda uskoro</span>
             )}
           </div>
+          <BadgeOverlay product={product} />
         </div>
 
         <div className="flex flex-1 flex-col pt-4 sm:pt-5">
@@ -53,11 +55,6 @@ export function ProductCard({
             <p className="h-[2.8rem] overflow-hidden text-sm leading-relaxed text-text-muted [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
               {product.shortDescription}
             </p>
-            {product.freeShippingEligible && (
-              <p className="mt-2 text-xs font-medium text-[#C9A24D]">
-                Besplatna dostava
-              </p>
-            )}
             <div className="mt-[14px] text-sm leading-relaxed text-text-secondary">
               <p className="flex items-center gap-2">
                 <Tag

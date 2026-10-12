@@ -6,6 +6,10 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
 import { useCart } from "@/components/cart/cart-context";
+import {
+  getEbookPromotionMessage,
+  isEbookEligibleSubtotal,
+} from "@/lib/ebook-eligibility";
 import { formatPrice } from "@/lib/format-price";
 import { calculateShipping } from "@/lib/shipping";
 import { getCartUpsell } from "@/lib/product-catalog";
@@ -277,8 +281,44 @@ export function CartDrawer() {
                           </div>
                         </div>
                       </li>
-                    )})}
-                  </ul>
+                                      )})}
+
+                  {isEbookEligibleSubtotal(subtotal) && (
+                    <li className="flex gap-4 border-t border-white/10 py-5">
+                      <div className="flex h-20 w-20 flex-shrink-0 flex-col items-center justify-center overflow-hidden rounded-[8px] border border-[#C9A24D]/50 bg-[#07192B] px-1 text-center shadow-md">
+                        <span className="mb-1 text-[8px] tracking-[0.2em] text-[#C9A24D]">
+                          ODALIS
+                        </span>
+                        <span className="text-[10px] font-semibold leading-tight text-[#FDFCFA]">
+                          BORE POD
+                          <br />
+                          KONTROLOM
+                        </span>
+                        <span className="mt-1 text-[7px] text-[#C9A24D]">
+                          eBook 01
+                        </span>
+                      </div>
+
+                      <div className="flex min-w-0 flex-1 flex-col justify-center">
+                        <p className="font-heading text-sm font-medium leading-snug text-text-primary">
+                          ODALIS eBook – Bore pod kontrolom
+                        </p>
+
+                        <p className="mt-1 text-xs text-text-muted">
+                          Digitalni vodič za negu kože
+                        </p>
+
+                        <p className="mt-2 text-xl font-bold tracking-wide text-[#4ADE80]">
+                          BESPLATNO
+                        </p>
+
+                        <p className="mt-1 text-[11px] text-text-muted">
+                          Stiže na email nakon porudžbine
+                        </p>
+                      </div>
+                    </li>
+                  )}
+                </ul>
                 </div>
 
                 <div className="border-t border-white/10 bg-[#0D1F32] px-5 pb-5 pt-4 sm:px-7 sm:pb-7">
@@ -301,6 +341,14 @@ export function CartDrawer() {
                       ? "Ostvarili ste besplatnu dostavu."
                       : `Još ${formatPrice(shipping.remainingForFree)} do besplatne dostave.`}
                   </p>
+                  {!isEbookEligibleSubtotal(subtotal) && (
+  <p
+    aria-live="polite"
+    className="mt-2 text-xs font-medium leading-relaxed text-[#9FB8A8]"
+  >
+    {getEbookPromotionMessage(subtotal)}
+  </p>
+)}
                   {recommendation && <CartUpsell product={recommendation} />}
                   <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3">
                     <span className="text-sm font-medium text-text-primary">Ukupno</span>

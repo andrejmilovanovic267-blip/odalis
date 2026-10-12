@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Banknote, Truck } from "lucide-react";
 import { AdaptiveProductDescription } from "@/components/products/adaptive-product-description";
+import { BadgeOverlay } from "@/components/products/badge-overlay";
 import { ProductPurchaseControls } from "@/components/products/product-purchase-controls";
 import {
   getPackageOption,
@@ -69,6 +70,7 @@ function ProductGallery({ product }: { product: ProductListingItem }) {
           Slika proizvoda uskoro
         </div>
       )}
+      <BadgeOverlay product={product} />
     </div>
   );
 }

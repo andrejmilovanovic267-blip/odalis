@@ -141,6 +141,35 @@ export async function createOrderAtomically({
   if (!persistedOrder) {
     throw new Error("Atomic order write returned an invalid result.");
   }
+
+  const { data: eligibility, error: eligibilityError } = await supabase
+    .from("orders")
+    .update({ ebook_eligible: order.freeEbookEligible })
+    .eq("id", persistedOrder.id)
+    .is("ebook_eligible", null)
+    .select("id")
+    .maybeSingle();
+
+  if (eligibilityError) {
+    const dbError = new Error("Unable to persist eBook order eligibility.");
+    Object.assign(dbError, { code: eligibilityError.code });
+    throw dbError;
+  }
+
+  if (!eligibility) {
+    const { data: existingOrder, error: lookupError } = await supabase
+      .from("orders")
+      .select("id")
+      .eq("id", persistedOrder.id)
+      .maybeSingle();
+
+    if (lookupError || !existingOrder) {
+      const dbError = new Error("Unable to verify eBook order eligibility.");
+      Object.assign(dbError, { code: lookupError?.code });
+      throw dbError;
+    }
+  }
+
   return persistedOrder;
 }
 

@@ -31,6 +31,7 @@ type EmailOrder = {
   customer_note: string | null;
   payment_method: "cod" | "card";
   payment_status: "pending" | "paid" | "failed";
+  ebook_eligible: boolean | null;
   subtotal_rsd: number;
   shipping_rsd: number;
   total_rsd: number;
@@ -78,6 +79,7 @@ function isEmailOrder(value: unknown): value is EmailOrder {
     (value.payment_status === "pending" ||
       value.payment_status === "paid" ||
       value.payment_status === "failed") &&
+    (typeof value.ebook_eligible === "boolean" || value.ebook_eligible === null) &&
     typeof value.subtotal_rsd === "number" &&
     typeof value.shipping_rsd === "number" &&
     typeof value.total_rsd === "number" &&
@@ -417,7 +419,7 @@ export async function sendOrderEmailNotifications(orderId?: string) {
           supabase
             .from("orders")
             .select(
-              "id,order_number,customer_name,customer_email,customer_phone,shipping_address,shipping_city,shipping_postal_code,shipping_country,customer_note,payment_method,payment_status,subtotal_rsd,shipping_rsd,total_rsd,created_at",
+            "id,order_number,customer_name,customer_email,customer_phone,shipping_address,shipping_city,shipping_postal_code,shipping_country,customer_note,payment_method,payment_status,ebook_eligible,subtotal_rsd,shipping_rsd,total_rsd,created_at",
             )
             .eq("id", notification.order_id)
             .maybeSingle(),
@@ -436,8 +438,11 @@ export async function sendOrderEmailNotifications(orderId?: string) {
       if (items.length === 0) throw new Error("order_items_unavailable");
 
       const owner = notification.recipient_type === "owner";
+      if (!owner && orderData.ebook_eligible === null) {
+        throw new Error("order_ebook_eligibility_unavailable");
+      }
       let ebookUrl: string | undefined;
-      if (!owner) {
+      if (!owner && orderData.ebook_eligible) {
         const token = await ensureEbookDownloadTokenHash(orderData.id);
         ebookUrl = getEbookDownloadUrl(token);
       }

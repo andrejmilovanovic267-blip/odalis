@@ -6,6 +6,11 @@ import { useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { Banknote, ChevronLeft, CreditCard, Truck } from "lucide-react";
 import { useCart } from "@/components/cart/cart-context";
+import {
+  EBOOK_MINIMUM_SUBTOTAL_RSD,
+  getEbookPromotionMessage,
+  isEbookEligibleSubtotal,
+} from "@/lib/ebook-eligibility";
 import { formatPrice } from "@/lib/format-price";
 import { calculateShipping } from "@/lib/shipping";
 import type { CheckoutFormValues } from "@/lib/order-payload";
@@ -340,7 +345,7 @@ export function CheckoutPage() {
                   autoComplete="email"
                   autoCapitalize="none"
                   autoCorrect="off"
-                  helper="Na ovu adresu dobićete potvrdu porudžbine i besplatan Odalis eBook."
+                  helper={`eBook poklon uz porudžbine sa međuzbirom od najmanje ${formatPrice(EBOOK_MINIMUM_SUBTOTAL_RSD)}.`}
                   value={values.email}
                   error={errors.email}
                   onChange={(value) => updateField("email", value)}
@@ -613,7 +618,38 @@ export function CheckoutPage() {
                   </p>
                 </li>
                 );
-              })}
+                            })}
+
+              {isEbookEligibleSubtotal(subtotal) && (
+                <li className="flex items-center gap-3 py-4">
+                  <div className="flex h-14 w-14 flex-shrink-0 flex-col items-center justify-center rounded-[6px] border border-[#C9A24D]/50 bg-[#07192B] px-1 text-center">
+                    <span className="text-[7px] tracking-[0.15em] text-[#C9A24D]">
+                      ODALIS
+                    </span>
+                    <span className="mt-1 text-[8px] font-semibold leading-tight text-white">
+                      BORE POD
+                      <br />
+                      KONTROLOM
+                    </span>
+                    <span className="mt-1 text-[6px] text-[#C9A24D]">
+                      eBook 01
+                    </span>
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-medium leading-snug text-text-primary">
+                      ODALIS eBook – Bore pod kontrolom
+                    </p>
+                    <p className="mt-1 text-xs text-text-muted">
+                      Digitalni vodič za negu kože
+                    </p>
+                  </div>
+
+                  <p className="whitespace-nowrap text-base font-bold text-[#4ADE80]">
+                    BESPLATNO
+                  </p>
+                </li>
+              )}
             </ul>
 
             <div className="space-y-2 border-t border-white/10 pt-4 text-sm">
@@ -639,9 +675,14 @@ export function CheckoutPage() {
                   : "Ostvarili ste besplatnu dostavu."}
               </p>
             )}
-            <p className="mt-3 text-xs leading-relaxed text-text-muted">
-              Na email adresu dobićete potvrdu porudžbine i besplatan Odalis eBook.
-            </p>
+            {!isEbookEligibleSubtotal(subtotal) && (
+  <p
+    aria-live="polite"
+    className="mt-3 text-xs font-medium leading-relaxed text-[#9FB8A8]"
+  >
+    {getEbookPromotionMessage(subtotal)}
+  </p>
+)}
 
             {submitMessage && (
               <p

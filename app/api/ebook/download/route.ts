@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
   const { data: order, error: orderError } = await supabase
     .from("orders")
     .select(
-      "payment_method,payment_status,order_status,ebook_download_token_hash",
+      "payment_method,payment_status,order_status,ebook_eligible,ebook_download_token_hash",
     )
     .eq("id", orderId)
     .maybeSingle();
@@ -74,6 +74,7 @@ export async function POST(request: NextRequest) {
       (order.payment_method === "card" && order.payment_status === "paid"));
   if (
     !eligible ||
+    order.ebook_eligible !== true ||
     typeof order.ebook_download_token_hash !== "string" ||
     !isMatchingEbookTokenHash(token, order.ebook_download_token_hash)
   ) {

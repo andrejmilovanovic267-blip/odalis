@@ -1,3 +1,5 @@
+import { EBOOK_MINIMUM_SUBTOTAL_RSD } from "@/lib/ebook-eligibility";
+
 export interface ProductListingItem {
   id: string;
   slug: string;
@@ -5,6 +7,7 @@ export interface ProductListingItem {
   detailPage: true;
   sitemapIndexable: boolean;
   availableForPurchase?: boolean;
+  freeEbook?: boolean;
   freeShippingEligible?: boolean;
   purpose: string;
   name: string;
@@ -53,9 +56,21 @@ export interface ProductPackageOption {
   note?: string;
 }
 
+function withEbookEligibility(category: ProductCategory): ProductCategory {
+  return {
+    ...category,
+    products: category.products.map((product) => ({
+      ...product,
+      freeEbook:
+        product.freeEbook !== false &&
+        product.price >= EBOOK_MINIMUM_SUBTOTAL_RSD,
+    })),
+  };
+}
+
 const demoBrand = "Odalis";
 
-export const faceCreamCategory: ProductCategory = {
+export const faceCreamCategory: ProductCategory = withEbookEligibility({
   slug: "kreme-za-lice",
   title: "Kreme za lice",
   description: "Pažljivo odabrana nega za svakodnevnu rutinu tvoje kože.",
@@ -162,7 +177,7 @@ export const faceCreamCategory: ProductCategory = {
       inci: "WATER, GLYCERIN, MINERAL OIL, CETEARYL ALCOHOL, PETROLATUM, CETEARETH-25, DIMETHICONE, LAURIC/MYRISTIC/PALMITIC/STEARIC GLYCERIDES, GLYCERYL STEARATE, PHENOXYETHANOL, HYDROXYACETOPHENONE, POLYACRYLAMIDE, ALLANTOIN, FRAGRANCE, C13-14 ISOPARAFFIN, SODIUM POLYACRYLATE, LAURETH-7, RETINOL, HYALURONIC ACID",
       brand: "BIOAQUA",
       quantity: "60 g",
-      price: 1490,
+      price: 1499,
     },
     {
       id: "kormesic-botoks-collagen-krema-za-lice",
@@ -1318,9 +1333,9 @@ export const faceCreamCategory: ProductCategory = {
   educationTitle: "Kako odabrati kremu za lice?",
   educationIntro:
     "Pri izboru kreme razmisli o tome kako se tvoja koža oseća tokom dana i kakvu teksturu najradije uključuješ u svoju rutinu.",
-};
+});
 
-export const faceMaskCategory: ProductCategory = {
+export const faceMaskCategory: ProductCategory = withEbookEligibility({
   slug: "maske-za-lice",
   title: "Maske za lice",
   description: "Dodatna nega kada koži treba više.",
@@ -3062,9 +3077,9 @@ export const faceMaskCategory: ProductCategory = {
   educationTitle: "Kako uključiti masku u negu lica?",
   educationIntro:
     "Izaberi trenutak koji ti odgovara i napravi prostor za dodatni korak u svojoj rutini nege.",
-};
+});
 
-export const faceSetCategory: ProductCategory = {
+export const faceSetCategory: ProductCategory = withEbookEligibility({
   slug: "setovi-za-negu-lica",
   title: "Setovi za negu lica",
   description: "Pažljivo kombinovani proizvodi za jednostavniju rutinu.",
@@ -3495,7 +3510,7 @@ export const faceSetCategory: ProductCategory = {
   educationTitle: "Kako odabrati set za negu lica?",
   educationIntro:
     "Razmisli o koracima koje želiš da uključiš u svoju rutinu i izaberi set koji ti najviše odgovara.",
-};
+});
 
 export const productCategories = [
   faceCreamCategory,
